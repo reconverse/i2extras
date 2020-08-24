@@ -26,8 +26,8 @@ Suggests:
     testthat,
     outbreaks,
     knitr,
-    rmarkdown
+    rmarkdown,
+    covr
 Remotes:
     reconhub/incidence2
 VignetteBuilder: knitr
-
