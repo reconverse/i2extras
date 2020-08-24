@@ -27,4 +27,7 @@ Suggests:
     outbreaks,
     knitr,
     rmarkdown
+Remotes:
+    reconhub/incidence2
 VignetteBuilder: knitr
+
