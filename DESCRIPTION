@@ -21,7 +21,8 @@ Imports:
     slider,
     magrittr,
     ggplot2,
-    ellipsis
+    ellipsis,
+    MASS
 Suggests: 
     testthat,
     outbreaks,
