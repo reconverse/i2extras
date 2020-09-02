@@ -22,7 +22,8 @@ Imports:
     magrittr,
     ggplot2,
     ellipsis,
-    MASS
+    MASS,
+    tidyr
 Suggests: 
     testthat,
     outbreaks,

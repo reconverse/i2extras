@@ -34,12 +34,20 @@ fit.incidence2 <- function(dat, model = c("negbin", "poisson"), alpha = 0.05, ..
   ellipsis::check_dots_empty()
   model <- match.arg(model)
   groups <- incidence2::get_group_names(dat)
-  out <- incidence2::as_tibble(dat)
   dates <- incidence2::get_dates_name(dat)
   count <- incidence2::get_counts_name(dat)
   fmla <- stats::as.formula(paste(count, "~", dates))
 
-  if (!is.null(groups)) {
+  out <- incidence2::as_tibble(dat)
+  if (is.null(groups)) {
+    model <- switch(
+      model,
+      negbin = MASS::glm.nb(fmla, data = out),
+      poisson = stats::glm(fmla, data = out, family = stats::poisson),
+      stop('Invalid model. Please use one of "negbin" or "poisson".'))
+    out <- fitted_values(out, model, alpha)
+    attr(out, "group_fit") <- FALSE
+  } else {
     out <- dplyr::nest_by(grouped_df(out, groups))
     out <- dplyr::mutate(
       out,
@@ -53,20 +61,20 @@ fit.incidence2 <- function(dat, model = c("negbin", "poisson"), alpha = 0.05, ..
       fitted = list(
         fitted_values(.data$data, model, alpha)
       ))
+    attr(out, "group_fit") <- TRUE
+    out$data <- NULL
   }
-  out$dat <- NULL
 
-  class(out) <- c("incidence_fit", class(out))
 
-  # copy over attributes
-  attr(out, "groups") <- groups
-  attr(out, "date") <- dates
-  attr(out, "count") <- count
+  # copy over original attributes
+  attr(out, "groups2") <- incidence2::get_group_names(dat)
+  attr(out, "date") <- incidence2::get_dates_name(dat)
+  attr(out, "count") <- incidence2::get_counts_name(dat)
   attr(out, "interval") <- incidence2::get_interval(dat)
   attr(out, "cumulative") <- attr(dat, "cumulative")
-  attr(out, "date_group") <- attr(dat, "date_group")
+  attr(out, "date_group") <- incidence2::get_date_group_names(dat)
 
-
+  class(out) <- c("incidence2_fit", class(out))
   out
 }
 
