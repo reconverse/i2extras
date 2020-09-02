@@ -11,48 +11,42 @@
 #' @export
 plot.incidence2_fit <- function(x, ...) {
 
-  grouped_fit <- attr(x, "group_fit")
-  x$model <- NULL
-  dat <- tidyr::unnest(x, tidyr::everything())
-  dat <- dplyr::ungroup(dat)
+  group_vars <- attr(x, "groups")
+  date_var <- attr(x, "date")
+  count_var <- attr(x, "count")
+  interval <- attr(x, "interval")
+  cumulative <- attr(x, "cumulative")
+  date_group <- attr(x, "date_group")
 
-  if (grouped_fit) {
-    dat <- copy_over_attributes(from = x, to = dat)
-    class(dat) <- c("incidence2", class(dat))
-    graph <- incidence2::facet_plot(dat, ...)
-  } else {
-    dat <- x
-    dat <- copy_over_attributes(from = x, to = dat)
-    class(dat) <- c("incidence2", class(dat))
+  x$model <- NULL
+
+  dat <- tidyr::unnest(x, tidyr::everything())
+  dat <- minimal_incidence(
+    dat,
+    groups = group_vars,
+    date = date_var,
+    count = count_var,
+    interval = interval,
+    cumulative = cumulative,
+    date_group = date_group
+  )
+
+  if (is.null(group_vars)) {
     graph <- plot(dat, ...)
+  } else {
+    graph <- incidence2::facet_plot(dat, ...)
   }
 
-  date_var <- incidence2::get_dates_name(dat)
-  shift <- mean(incidence2::get_interval(dat, integer = TRUE))/2
 
+  shift <- mean(incidence2::get_interval(dat, integer = TRUE))/2
   col_model <- "#BBB67E"
 
   graph +
     ggplot2::geom_point(
-      data = dat,
-      mapping = ggplot2::aes(x = !!sym(date_var) + shift,
-                             y = .data$fit)) +
-    ggplot2::geom_ribbon(
-      data = dat,
-      ggplot2::aes(x = !!sym(date_var) + shift,
-                   ymin = .data$lower,
-                   ymax = .data$upper),
-      alpha = 0.4,
-      fill = col_model)
-}
-
-
-copy_over_attributes <- function(from, to) {
-  attr(to, "groups") <- attr(from, "groups2")
-  attr(to, "date") <- attr(from, "date")
-  attr(to, "count") <- attr(from, "count")
-  attr(to, "interval") <- attr(from, "interval")
-  attr(to, "cumulative") <- attr(from, "cumulative")
-  attr(to, "date_group") <- attr(from, "date_group")
-  to
+      mapping = ggplot2::aes(x = !!sym(date_var) + shift, y = .data$fit)) +
+    ggplot2::geom_ribbon(ggplot2::aes(x = !!sym(date_var) + shift,
+                                      ymin = .data$lower,
+                                      ymax = .data$upper),
+                         alpha = 0.4,
+                         fill = col_model)
 }

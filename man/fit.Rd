@@ -23,10 +23,7 @@ fit(dat, model, ...)
 to 0.05 which corresponds to a 95\% confidence interval.}
 }
 \value{
-\itemize{
-\item \code{rolling_average} An \link[incidence2:incidence]{incidence2::incidence} like object with additional
-fitted values and associated confidence intervals.
-}
+An object of class \code{incidence2_fit}.
 }
 \description{
 Fit a regression model

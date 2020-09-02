@@ -4,11 +4,10 @@
 #' @param model The regression model to fit (can be "negbin" or "poisson").
 #' @param alpha Value of alpha used to calculate confidence intervals; defaults
 #'   to 0.05 which corresponds to a 95% confidence interval.
-#' @param ... Not currently used.
+#' @param ... Additional arguments to pass to [stats::glm()] for
+#'   `model = "poisson"` or [MASS::glm.nb()] for `model = "negbin"`.
 #'
-#' @return
-#'   - `rolling_average` An [incidence2::incidence] like object with additional
-#'     fitted values and associated confidence intervals.
+#' @return An object of class `incidence2_fit`.
 #'
 #'
 #' @rdname fit
@@ -38,17 +37,8 @@ fit.incidence2 <- function(dat, model = c("negbin", "poisson"), alpha = 0.05, ..
   count <- incidence2::get_counts_name(dat)
   fmla <- stats::as.formula(paste(count, "~", dates))
 
-  out <- incidence2::as_tibble(dat)
-  if (is.null(groups)) {
-    model <- switch(
-      model,
-      negbin = MASS::glm.nb(fmla, data = out),
-      poisson = stats::glm(fmla, data = out, family = stats::poisson),
-      stop('Invalid model. Please use one of "negbin" or "poisson".'))
-    out <- fitted_values(out, model, alpha)
-    attr(out, "group_fit") <- FALSE
-  } else {
-    out <- dplyr::nest_by(grouped_df(out, groups))
+  if (!is.null(groups)) {
+    out <- dplyr::nest_by(grouped_df(dat, groups))
     out <- dplyr::mutate(
       out,
       model = list(
@@ -61,21 +51,32 @@ fit.incidence2 <- function(dat, model = c("negbin", "poisson"), alpha = 0.05, ..
       fitted = list(
         fitted_values(.data$data, model, alpha)
       ))
-    attr(out, "group_fit") <- TRUE
     out$data <- NULL
+  } else {
+    out <- dat
+    out$model <- list(switch(
+      model,
+      negbin = MASS::glm.nb(fmla, data = dat),
+      poisson = stats::glm(fmla, data = dat, family = stats::poisson),
+      stop('Invalid model. Please use one of "negbin" or "poisson".')))
+    out <- fitted_values(out, out$model[[1]], alpha)
   }
 
+  # create subclass of tibble
+  out <- tibble::new_tibble(out,
+                            groups = groups,
+                            date = dates,
+                            count = count,
+                            interval = incidence2::get_interval(dat),
+                            cumulative = attr(dat, "cumulative"),
+                            fit = "fit",
+                            lower = "lower",
+                            upper = "upper",
+                            nrow = nrow(out),
+                            class = "incidence2_fit")
 
-  # copy over original attributes
-  attr(out, "groups2") <- incidence2::get_group_names(dat)
-  attr(out, "date") <- incidence2::get_dates_name(dat)
-  attr(out, "count") <- incidence2::get_counts_name(dat)
-  attr(out, "interval") <- incidence2::get_interval(dat)
-  attr(out, "cumulative") <- attr(dat, "cumulative")
-  attr(out, "date_group") <- incidence2::get_date_group_names(dat)
-
-  class(out) <- c("incidence2_fit", class(out))
-  out
+  attr(out, "date_group") <- attr(dat, "date_group")
+  tibble::validate_tibble(out)
 }
 
 fitted_values <- function(x, fit, alpha) {

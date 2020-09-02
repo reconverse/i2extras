@@ -9,26 +9,42 @@
 #'
 #' @importFrom rlang sym
 #' @export
-plot.incidence2_ra <- function(x, ...) {
+plot.incidence2_rolling <- function(x, ...) {
 
   ra <- attr(x, "rolling_average")
-  groups <- incidence2::get_group_names(x)
-  date_var <- incidence2::get_dates_name(x)
-  shift <- mean(incidence2::get_interval(x, integer = TRUE))/2
+  group_vars <- attr(x, "groups")
+  date_var <- attr(x, "date")
+  count_var <- attr(x, "count")
+  interval <- attr(x, "interval")
+  cumulative <- attr(x, "cumulative")
+  date_group <- attr(x, "date_group")
 
-  if (is.null(groups)) {
-    graph <- plot(x, ...)
+  dat <- tidyr::unnest(x, cols = !!sym(ra))
+
+  dat <- minimal_incidence(
+    dat,
+    groups = group_vars,
+    date = date_var,
+    count = count_var,
+    interval = interval,
+    cumulative = cumulative,
+    date_group = date_group
+  )
+
+
+  if (is.null(group_vars)) {
+    graph <- plot(dat, ...)
   } else {
-    graph <- incidence2::facet_plot(x, ...)
+    graph <- incidence2::facet_plot(dat, ...)
   }
+
+  shift <- mean(incidence2::get_interval(dat, integer = TRUE))/2
 
   graph +
     ggplot2::geom_point(mapping = ggplot2::aes(x = !!sym(date_var) + shift,
                                                y = !!sym(ra)),
-                        data = x,
                         position = ggplot2::position_stack()) +
     ggplot2::geom_line(mapping = ggplot2::aes(x = !!sym(date_var) + shift,
                                               y = !!sym(ra)),
-                       data = x,
                        position = ggplot2::position_stack())
 }
