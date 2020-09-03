@@ -18,12 +18,12 @@ Imports:
     stats,
     rlang,
     generics,
-    slider,
-    magrittr,
     ggplot2,
     ellipsis,
     MASS,
-    tidyr
+    tidyr,
+    vctrs,
+    trending
 Suggests: 
     testthat,
     outbreaks,

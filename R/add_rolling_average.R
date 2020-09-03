@@ -1,11 +1,12 @@
 #' Add a rolling average
 #'
-#' [rolling_average()] adds a rolling average to an [incidence2::incidence()]
+#' [add_rolling_average()] adds a rolling average to an [incidence2::incidence()]
 #'   object.  If `x` is a grouped this will be a [dplyr::rowwise()] type object.
 #'   If x is not grouped this will be a subclass of tibble.
 #'
 #' @param x An [incidence2::incidence] object.
-#' @param before how many prior dates to group with.
+#' @param width how many dates (prior and current) to group with. Default 3 (
+#'   2 days prior and the observation)
 #' @param ... Not currently used.
 #'
 #' @note If groups are present the average will be calculated across each
@@ -25,36 +26,36 @@
 #'                     last_date = "2014-10-05",
 #'                     groups = gender)
 #'
-#'   ra <- rolling_average(inci, before = 2)
+#'   ra <- add_rolling_average(inci, width = 3)
 #'   plot(ra, color = "white")
 #'
 #'
 #'
 #'   inci2 <- incidence2::regroup(inci)
-#'   ra2 <- rolling_average(inci2, before = 2)
+#'   ra2 <- add_rolling_average(inci2, width = 2)
 #'   plot(ra, color = "white")
 #'
 #' }
 #'
-#' @rdname rolling_average
+#' @rdname add_rolling_average
 #' @export
-rolling_average <- function(x, ...) {
-  UseMethod("rolling_average")
+add_rolling_average <- function(x, ...) {
+  UseMethod("add_rolling_average")
 }
 
-#' @rdname rolling_average
-#' @aliases rolling_average.default
+#' @rdname add_rolling_average
+#' @aliases add_rolling_average.default
 #' @export
-rolling_average.default <- function(x, ...) {
+add_rolling_average.default <- function(x, ...) {
   stop(sprintf("Not implemented for class %s",
                paste(class(x), collapse = ", ")))
 }
 
 
-#' @rdname rolling_average
-#' @aliases rolling_average.incidence2
+#' @rdname add_rolling_average
+#' @aliases add_rolling_average.incidence2
 #' @export
-rolling_average.incidence2 <- function(x, before = 2, ...) {
+add_rolling_average.incidence2 <- function(x, width = 3, ...) {
   ellipsis::check_dots_empty()
   group_vars <- incidence2::get_group_names(x)
   count_var <- incidence2::get_counts_name(x)
@@ -64,12 +65,12 @@ rolling_average.incidence2 <- function(x, before = 2, ...) {
     out <- dplyr::grouped_df(x, group_vars)
     out <- dplyr::summarise(
       out,
-      rolling_average = list(ra(dplyr::cur_data(), date_var, count_var, before)),
+      rolling_average = list(ra(dplyr::cur_data(), date_var, count_var, width)),
       .groups = "drop"
     )
 
   } else {
-    out <- ra(dat = x, date = date_var, count = count_var, before = before)
+    out <- ra(dat = x, date = date_var, count = count_var, width = width)
   }
 
   # create subclass of tibble
@@ -88,16 +89,17 @@ rolling_average.incidence2 <- function(x, before = 2, ...) {
 }
 
 
-ra <- function(dat, date, count, before = 2) {
+ra <- function(dat, date, count, width = 3) {
   dat <- dplyr::arrange(dat, .data[[date]])
   dat <- dplyr::mutate(
     dat,
-    rolling_average = slider::slide_dbl(
-      .data[[count]],
-      mean,
-      .before = before,
-      .complete = TRUE))
+    rolling_average = as.vector(
+      stats::filter(
+        .data[[count]],
+        rep(1 / width, width),
+        sides = 1
+      )
+    )
+  )
   dat
 }
-
-

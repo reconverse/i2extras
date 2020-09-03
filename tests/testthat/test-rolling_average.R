@@ -7,8 +7,8 @@ groups <- sample(letters[1:3], length(dates), replace = TRUE)
 dat <- data.frame(dates, groups)
 x <- incidence(dat, date_index = "dates", groups = groups)
 
-test_that("rolling_average adds class", {
-  expected <- c("incidence2_ra", class(x))
+test_that("add_rolling_average adds class", {
+  expected <- c("incidence2_rolling", class(x)[-1])
   expect_identical(class(add_rolling_average(x)), expected)
 })
 
@@ -19,14 +19,9 @@ dat <- data.frame(dates, groups)
 x <- incidence(dat, date_index = "dates", groups = groups)
 ra <- add_rolling_average(x)
 
-test_that("rolling_average works as expected", {
-  expected <- expected <- rep(c(NA, NA, 1, 4/3), each = 3)
-  expect_equal(ra$rolling_average, expected)
+test_that("add_rolling_average works as expected", {
+  expected <- list(c(NA, NA, 1, 4/3))[rep(1, 3)]
+  expect_equal(lapply(ra$rolling_average, `[[`, 3), expected)
 })
-
-test_that("remove_rolling works", {
-  expect_equal(remove_rolling_average(ra), x)
-})
-
 
 
