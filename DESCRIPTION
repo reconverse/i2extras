@@ -31,5 +31,6 @@ Suggests:
     rmarkdown,
     covr
 Remotes:
-    reconhub/incidence2
+    reconhub/incidence2,
+    reconhub/trending
 VignetteBuilder: knitr

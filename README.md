@@ -28,8 +28,12 @@ before using.
 
 The main features of the package include:
 
-  - **`rolling_average`** and **`remove_rolling`**: add or remove a
-    rolling average to/from an `incidence()` object.
+  - **`fit_curve`** and **`add_growth_rate`**: fit a trend (poisson /
+    negative binomial) to an `incidence()` object and calculate the
+    associated growth rate.
+
+  - **`add_rolling_average`**: add a rolling average to an `incidence()`
+    object.
 
   - **`bootstrap()`**: generates a bootstrapped `incidence()` object by
     re-sampling, with replacement, the original dates of events.
