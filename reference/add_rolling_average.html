@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bootstrap incidence time series — bootstrap • incidence2plus</title>
+<title>Add a rolling average — add_rolling_average • incidence2plus</title>
 
 
 <!-- jquery -->
@@ -39,11 +39,10 @@
 
 
 
-<meta property="og:title" content="Bootstrap incidence time series — bootstrap" />
-<meta property="og:description" content="This function can be used to bootstrap incidence2::incidence objects.
-Bootstrapping is done by sampling with replacement the original input dates.
-See details for
-more information on how this is implemented." />
+<meta property="og:title" content="Add a rolling average — add_rolling_average" />
+<meta property="og:description" content="add_rolling_average() adds a rolling average to an incidence2::incidence()
+object.  If x is a grouped this will be a dplyr::rowwise() type object.
+If x is not grouped this will be a subclass of tibble." />
 
 
 
@@ -118,19 +117,24 @@ more information on how this is implemented." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Bootstrap incidence time series</h1>
+    <h1>Add a rolling average</h1>
     
-    <div class="hidden name"><code>bootstrap.Rd</code></div>
+    <div class="hidden name"><code>add_rolling_average.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function can be used to bootstrap <a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> objects.
-Bootstrapping is done by sampling with replacement the original input dates.
-See <code>details</code> for
-more information on how this is implemented.</p>
+    <p><code>add_rolling_average()</code> adds a rolling average to an <code><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence()</a></code>
+object.  If <code>x</code> is a grouped this will be a <code><a href='https://dplyr.tidyverse.org/reference/rowwise.html'>dplyr::rowwise()</a></code> type object.
+If x is not grouped this will be a subclass of tibble.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bootstrap</span><span class='op'>(</span><span class='va'>x</span>, randomise_groups <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>add_rolling_average</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>add_rolling_average</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for incidence2</span>
+<span class='fu'>add_rolling_average</span><span class='op'>(</span><span class='va'>x</span>, width <span class='op'>=</span> <span class='fl'>3</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -140,83 +144,48 @@ more information on how this is implemented.</p>
       <td><p>An <a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> object.</p></td>
     </tr>
     <tr>
-      <th>randomise_groups</th>
-      <td><p>A <code>logical</code> indicating whether groups should be
-randomised as well in the resampling procedure; respective group sizes will
-be preserved, but this can be used to remove any group-specific temporal
-dynamics. If <code>FALSE</code> (default), data are resampled within groups.</p></td>
+      <th>...</th>
+      <td><p>Not currently used.</p></td>
+    </tr>
+    <tr>
+      <th>width</th>
+      <td><p>how many dates (prior and current) to group with. Default 3 (
+2 days prior and the observation)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <code>incidence</code> object.</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <p>An object of class <code>incidence2_rolling</code>.</p>
+    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
-    <p>As original data are not stored in <a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> objects,
-the bootstrapping is achieved by multinomial sampling of date bins weighted
-by their relative incidence.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='find_peak.html'>find_peak()</a></code> to use estimate peak date using bootstrap</p></div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Thibaut Jombart, Tim Taylor</p>
+    <p>If groups are present the average will be calculated across each
+grouping, therefore care is required when plotting.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
     <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"incidence2"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span><span class='op'>(</span> <span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
-    <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'>incidence2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, date_index <span class='op'>=</span> <span class='va'>date_of_onset</span><span class='op'>)</span>
-    <span class='va'>i</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>ebola_sim_clean</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
+  <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>ebola_sim_clean</span><span class='op'>$</span><span class='va'>linelist</span>
 
-    <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>bootstrap</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
-    <span class='va'>x</span>
-   <span class='op'>}</span><span class='op'>)</span>
+  <span class='va'>inci</span> <span class='op'>&lt;-</span> <span class='fu'>incidence2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>dat</span>,
+                    date_index <span class='op'>=</span> <span class='va'>date_of_onset</span>,
+                    interval <span class='op'>=</span> <span class='st'>"week"</span>,
+                    last_date <span class='op'>=</span> <span class='st'>"2014-10-05"</span>,
+                    groups <span class='op'>=</span> <span class='va'>gender</span><span class='op'>)</span>
+
+  <span class='va'>ra</span> <span class='op'>&lt;-</span> <span class='fu'>add_rolling_average</span><span class='op'>(</span><span class='va'>inci</span>, width <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>ra</span>, color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
+
+
+
+  <span class='va'>inci2</span> <span class='op'>&lt;-</span> <span class='fu'>incidence2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/regroup.html'>regroup</a></span><span class='op'>(</span><span class='va'>inci</span><span class='op'>)</span>
+  <span class='va'>ra2</span> <span class='op'>&lt;-</span> <span class='fu'>add_rolling_average</span><span class='op'>(</span><span class='va'>inci2</span>, width <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>ra</span>, color <span class='op'>=</span> <span class='st'>"white"</span><span class='op'>)</span>
+
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; &gt; data(fluH7N9_china_2013, package = "outbreaks")
-#&gt; &gt; i &lt;- incidence2::incidence(fluH7N9_china_2013, date_index = date_of_onset)</div><div class='output co'>#&gt; <span class='message'>10 missing observations were removed.</span></div><div class='output co'>#&gt; &gt; i
-#&gt; <span style='color: #555555;'>An incidence2 object: 159 x 2
-#&gt; </span><span>[126 cases from days 2013-02-19 to 2013-07-27]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    date       count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-02-19     1
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-02-20     0
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-02-21     0
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-02-22     0
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-02-23     0
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-02-24     0
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-02-25     0
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-02-26     0
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-02-27     1
-#&gt; </span><span style='color: #555555;'>10</span><span> 2013-02-28     0
-#&gt; </span><span style='color: #555555;'># … with 149 more rows</span><span>
-#&gt; 
-#&gt; &gt; x &lt;- bootstrap(i)
-#&gt; &gt; x
-#&gt; </span><span style='color: #555555;'>An incidence2 object: 36 x 2
-#&gt; </span><span>[126 cases from days 2013-02-19 to 2013-07-27]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    date       count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-02-19     2
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-02-27     1
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-03-08     1
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-03-09     1
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-03-19     1
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-03-20     4
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-03-21     3
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-03-22     1
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-03-25     2
-#&gt; </span><span style='color: #555555;'>10</span><span> 2013-03-28     7
-#&gt; </span><span style='color: #555555;'># … with 26 more rows</span><span>
-#&gt; </div></span></pre>
+</div><div class='output co'>#&gt; <span class='message'>3522 observations outside of [2014-04-07, 2014-10-05] were removed.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 4 rows containing missing values (position_stack).</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 4 rows containing missing values (position_stack).</span></div><div class='img'><img src='add_rolling_average-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

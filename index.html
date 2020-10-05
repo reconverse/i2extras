@@ -85,7 +85,8 @@
 <a href="#what-does-it-do" class="anchor"></a>What does it do?</h1>
 <p>The main features of the package include:</p>
 <ul>
-<li><p><strong><code>rolling_average</code></strong> and <strong><code>remove_rolling</code></strong>: add or remove a rolling average to/from an <code>incidence()</code> object.</p></li>
+<li><p><strong><code>fit_curve</code></strong> and <strong><code>add_growth_rate</code></strong>: fit a trend (poisson / negative binomial) to an <code>incidence()</code> object and calculate the associated growth rate.</p></li>
+<li><p><strong><code>add_rolling_average</code></strong>: add a rolling average to an <code>incidence()</code> object.</p></li>
 <li><p><strong><code><a href="reference/bootstrap.html">bootstrap()</a></code></strong>: generates a bootstrapped <code>incidence()</code> object by re-sampling, with replacement, the original dates of events.</p></li>
 <li><p><strong><code><a href="reference/find_peak.html">find_peak()</a></code></strong>: locates the peak time of the epicurve.</p></li>
 <li><p><strong><code><a href="reference/estimate_peak.html">estimate_peak()</a></code></strong>: uses bootstrap to estimate the peak time (and related confidence interval) of a partially observed outbreak. We can use <strong><code><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy()</a></code></strong> to generate nicer looking output.</p></li>
@@ -127,7 +128,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -128,7 +128,7 @@ information on the resampling." />
 information on the resampling.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>estimate_peak</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>0.05</span>, <span class='kw'>progress</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>estimate_peak</span><span class='op'>(</span><span class='va'>x</span>, n <span class='op'>=</span> <span class='fl'>100</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, progress <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -181,26 +181,31 @@ equally likely to be reported</p></li>
     <div class='dont-index'><p><code><a href='bootstrap.html'>bootstrap()</a></code> for the bootstrapping underlying this
 approach and <code><a href='find_peak.html'>find_peak()</a></code> to find the peak in a single
 <a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> object.</p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>, with inputs on
+caveats from Michael Höhle.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"outbreaks"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='kw'>&amp;&amp;</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span>(<span class='st'>"incidence2"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span>( {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"incidence2"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span><span class='op'>(</span> <span class='op'>{</span>
     <span class='co'># load data and create incidence</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span>(<span class='no'>fluH7N9_china_2013</span>, <span class='kw'>package</span> <span class='kw'>=</span> <span class='st'>"outbreaks"</span>)
-    <span class='no'>i</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>incidence2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span>(<span class='no'>fluH7N9_china_2013</span>, <span class='kw'>date_index</span> <span class='kw'>=</span> <span class='no'>date_of_onset</span>)
-    <span class='no'>i</span>
+    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
+    <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'>incidence2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, date_index <span class='op'>=</span> <span class='va'>date_of_onset</span><span class='op'>)</span>
+    <span class='va'>i</span>
 
     <span class='co'># one simple bootstrap</span>
-    <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bootstrap.html'>bootstrap</a></span>(<span class='no'>i</span>)
-    <span class='no'>x</span>
+    <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='bootstrap.html'>bootstrap</a></span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
+    <span class='va'>x</span>
 
     <span class='co'># find 95% CI for peak time using bootstrap</span>
-    <span class='no'>peak_data</span> <span class='kw'>&lt;-</span> <span class='fu'>estimate_peak</span>(<span class='no'>i</span>)
-    <span class='no'>peak_data</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span>(<span class='no'>peak_data</span>$<span class='no'>peaks</span>)
-  })
-}</div><div class='output co'>#&gt; &gt; data(fluH7N9_china_2013, package = "outbreaks")
+    <span class='va'>peak_data</span> <span class='op'>&lt;-</span> <span class='fu'>estimate_peak</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
+    <span class='va'>peak_data</span>
+    <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>peak_data</span><span class='op'>$</span><span class='va'>peaks</span><span class='op'>)</span>
+  <span class='op'>}</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div><div class='output co'>#&gt; &gt; data(fluH7N9_china_2013, package = "outbreaks")
 #&gt; &gt; i &lt;- incidence2::incidence(fluH7N9_china_2013, date_index = date_of_onset)</div><div class='output co'>#&gt; <span class='message'>10 missing observations were removed.</span></div><div class='output co'>#&gt; &gt; i
 #&gt; <span style='color: #555555;'>An incidence2 object: 159 x 2
 #&gt; </span><span>[126 cases from days 2013-02-19 to 2013-07-27]
@@ -302,7 +307,7 @@ approach and <code><a href='find_peak.html'>find_peak()</a></code> to find the p
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

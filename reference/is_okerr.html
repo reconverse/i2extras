@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects exported from other packages — reexports • incidence2plus</title>
+<title>Error handling for incidence2_fit objects — is_okerr • incidence2plus</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,9 @@
 
 
 
-<meta property="og:title" content="Objects exported from other packages — reexports" />
-<meta property="og:description" content="These objects are imported from other packages. Follow the links
-below to see their documentation.
-
-  genericstidy
-
-" />
+<meta property="og:title" content="Error handling for incidence2_fit objects — is_okerr" />
+<meta property="og:description" content="These functions are used to filter succesful model fits from those that
+errored." />
 
 
 
@@ -120,21 +116,53 @@ below to see their documentation.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Objects exported from other packages</h1>
+    <h1>Error handling for incidence2_fit objects</h1>
     
-    <div class="hidden name"><code>reexports.Rd</code></div>
+    <div class="hidden name"><code>is_okerr.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These objects are imported from other packages. Follow the links
-below to see their documentation.</p>
-<dl>
-  <dt>generics</dt><dd><p><code><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></code></p></dd>
-
-</dl>
+    <p>These functions are used to filter succesful model fits from those that
+errored.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>is_ok</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
+<span class='co'># S3 method for default</span>
+<span class='fu'>is_ok</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for incidence2_fit</span>
+<span class='fu'>is_ok</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>is_err</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>is_err</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for incidence2_fit</span>
+<span class='fu'>is_err</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>The output of function <code><a href='fit_curve.html'>fit_curve.incidence2()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not currently used.</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The following accessors are available:</p><ul>
+<li><p><code>ok()</code>: returns rows from an <code><a href='fit_curve.html'>incidence2_fit</a></code> object that did not error
+during the model fitting stages.</p></li>
+<li><p><code>err()</code>: returns rows from an <code><a href='fit_curve.html'>incidence2_fit</a></code> object that errored
+during the model fitting stages.</p></li>
+</ul>
 
 
   </div>

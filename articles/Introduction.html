@@ -83,9 +83,10 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">outbreaks</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">incidence2</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">incidence2plus</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/incidence2">incidence2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">incidence2plus</span><span class="op">)</span> </pre></div>
 <div id="bootstrapping-and-finding-peaks" class="section level1">
 <h1 class="hasAnchor">
 <a href="#bootstrapping-and-finding-peaks" class="anchor"></a>Bootstrapping and finding peaks</h1>
@@ -94,39 +95,41 @@
 <h2 class="hasAnchor">
 <a href="#bootstrap" class="anchor"></a><code>bootstrap()</code>
 </h2>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">fluH7N9_china_2013</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">fluH7N9_china_2013</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
 <span class="co">#&gt; 10 missing observations were removed.</span>
-<span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span>(<span class="no">x</span>)
-<span class="co">#&gt; An incidence2 object: 49 x 3</span>
+<span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
+<span class="co">#&gt; An incidence2 object: 52 x 3</span>
 <span class="co">#&gt; [126 cases from days 2013-02-19 to 2013-07-27]</span>
 <span class="co">#&gt; [interval: 1 day]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date       gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-02-19 m          3</span>
-<span class="co">#&gt;  2 2013-03-07 m          1</span>
-<span class="co">#&gt;  3 2013-03-09 f          1</span>
-<span class="co">#&gt;  4 2013-03-17 m          1</span>
-<span class="co">#&gt;  5 2013-03-19 f          2</span>
-<span class="co">#&gt;  6 2013-03-20 f          2</span>
-<span class="co">#&gt;  7 2013-03-20 m          2</span>
-<span class="co">#&gt;  8 2013-03-21 f          1</span>
-<span class="co">#&gt;  9 2013-03-21 m          1</span>
-<span class="co">#&gt; 10 2013-03-25 m          4</span>
-<span class="co">#&gt; # … with 39 more rows</span></pre></body></html></div>
+<span class="co">#&gt;  1 2013-02-19 m          1</span>
+<span class="co">#&gt;  2 2013-02-27 m          2</span>
+<span class="co">#&gt;  3 2013-03-07 m          2</span>
+<span class="co">#&gt;  4 2013-03-08 m          2</span>
+<span class="co">#&gt;  5 2013-03-13 f          2</span>
+<span class="co">#&gt;  6 2013-03-17 m          3</span>
+<span class="co">#&gt;  7 2013-03-19 f          2</span>
+<span class="co">#&gt;  8 2013-03-20 f          2</span>
+<span class="co">#&gt;  9 2013-03-20 m          3</span>
+<span class="co">#&gt; 10 2013-03-21 f          1</span>
+<span class="co">#&gt; # … with 42 more rows</span></pre></div>
 </div>
 <div id="find_peak" class="section level2">
 <h2 class="hasAnchor">
 <a href="#find_peak" class="anchor"></a><code>find_peak()</code>
 </h2>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">fluH7N9_china_2013</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">gender</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">fluH7N9_china_2013</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
 <span class="co">#&gt; 10 missing observations were removed.</span>
 
 <span class="co"># peaks across each group</span>
-<span class="no">x</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span>(<span class="kw">regroup</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
+<span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span><span class="op">(</span>regroup <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 3</span>
 <span class="co">#&gt;   date       gender count</span>
 <span class="co">#&gt;   &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
@@ -134,7 +137,7 @@
 <span class="co">#&gt; 2 2013-04-03 m          6</span>
 
 <span class="co"># peak without groupings</span>
-<span class="no">x</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span>()
+<span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; `.` is stratified by groups</span>
 <span class="co">#&gt; regrouping groups before finding peaks</span>
 <span class="co">#&gt; An incidence2 object: 1 x 2</span>
@@ -144,7 +147,7 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;   date       count</span>
 <span class="co">#&gt;   &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt; 1 2013-04-03     7</span></pre></body></html></div>
+<span class="co">#&gt; 1 2013-04-03     7</span></pre></div>
 </div>
 <div id="estimate_peak" class="section level2">
 <h2 class="hasAnchor">
@@ -157,12 +160,13 @@
 <li>the reporting is assumed to be constant over time, i.e. every case is equally likely to be reported.</li>
 </ul>
 <p>Also note that <code><a href="../reference/estimate_peak.html">estimate_peak()</a></code> will always returns a list but is compatible with <code>broom::tidy()</code> :</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">dat</span> <span class="kw">&lt;-</span> <span class="no">fluH7N9_china_2013</span>
-<span class="no">x</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span>(<span class="no">dat</span>, <span class="kw">date_index</span> <span class="kw">=</span> <span class="no">date_of_onset</span>, <span class="kw">groups</span> <span class="kw">=</span> <span class="no">province</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">fluH7N9_china_2013</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">province</span><span class="op">)</span>
 <span class="co">#&gt; 10 missing observations were removed.</span>
 
 <span class="co"># regrouping for overall peak</span>
-<span class="no">x</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/regroup.html">regroup</a></span>() <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span>()
+<span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/regroup.html">regroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Estimating peaks from bootstrap samples:</span>
 <span class="co">#&gt; ================================================================================</span>
 <span class="co">#&gt; [[1]]</span>
@@ -188,16 +192,16 @@
 <span class="co">#&gt; # A tibble: 100 x 2</span>
 <span class="co">#&gt;    date       count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-04-13    11</span>
-<span class="co">#&gt;  2 2013-03-29    11</span>
-<span class="co">#&gt;  3 2013-04-06     9</span>
-<span class="co">#&gt;  4 2013-04-11    10</span>
-<span class="co">#&gt;  5 2013-04-03    11</span>
-<span class="co">#&gt;  6 2013-04-03     8</span>
-<span class="co">#&gt;  7 2013-04-03     9</span>
-<span class="co">#&gt;  8 2013-04-17    11</span>
-<span class="co">#&gt;  9 2013-04-06    11</span>
-<span class="co">#&gt; 10 2013-04-06    10</span>
+<span class="co">#&gt;  1 2013-04-03    10</span>
+<span class="co">#&gt;  2 2013-03-29    14</span>
+<span class="co">#&gt;  3 2013-04-06    13</span>
+<span class="co">#&gt;  4 2013-04-06     9</span>
+<span class="co">#&gt;  5 2013-04-01    10</span>
+<span class="co">#&gt;  6 2013-04-15     8</span>
+<span class="co">#&gt;  7 2013-03-29     9</span>
+<span class="co">#&gt;  8 2013-04-12     9</span>
+<span class="co">#&gt;  9 2013-04-01    14</span>
+<span class="co">#&gt; 10 2013-04-11    12</span>
 <span class="co">#&gt; # … with 90 more rows</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; </span>
@@ -205,23 +209,23 @@
 <span class="co">#&gt; [1] "estimate_peak"</span>
 
 <span class="co"># across provinces (with progress bar suppressed and tidy output)</span>
-<span class="no">x</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span>(<span class="kw">progress</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span>()
+<span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span><span class="op">(</span>progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 13 x 5</span>
 <span class="co">#&gt;    grouping  estimate       n conf.low   conf.high </span>
 <span class="co">#&gt;    &lt;chr&gt;     &lt;date&gt;     &lt;int&gt; &lt;date&gt;     &lt;date&gt;    </span>
-<span class="co">#&gt;  1 Anhui     2013-03-25   207 2013-03-09 2013-04-14</span>
-<span class="co">#&gt;  2 Beijing   2013-04-20   147 2013-04-11 2013-05-21</span>
-<span class="co">#&gt;  3 Fujian    2013-04-21   233 2013-04-17 2013-04-29</span>
+<span class="co">#&gt;  1 Anhui     2013-03-25   218 2013-03-09 2013-04-14</span>
+<span class="co">#&gt;  2 Beijing   2013-04-21   148 2013-04-11 2013-05-21</span>
+<span class="co">#&gt;  3 Fujian    2013-04-21   229 2013-04-17 2013-04-29</span>
 <span class="co">#&gt;  4 Guangdong 2013-07-27   100 2013-07-27 2013-07-27</span>
 <span class="co">#&gt;  5 Hebei     2013-07-10   100 2013-07-10 2013-07-10</span>
-<span class="co">#&gt;  6 Henan     2013-04-09   181 2013-04-06 2013-04-17</span>
-<span class="co">#&gt;  7 Hunan     2013-04-16   149 2013-04-14 2013-04-23</span>
-<span class="co">#&gt;  8 Jiangsu   2013-03-25   381 2013-03-13 2013-04-15</span>
-<span class="co">#&gt;  9 Jiangxi   2013-04-20   248 2013-04-15 2013-05-03</span>
-<span class="co">#&gt; 10 Shandong  2013-04-19   151 2013-04-16 2013-04-27</span>
-<span class="co">#&gt; 11 Shanghai  2013-03-30   516 2013-02-27 2013-04-04</span>
+<span class="co">#&gt;  6 Henan     2013-04-09   193 2013-04-06 2013-04-17</span>
+<span class="co">#&gt;  7 Hunan     2013-04-16   152 2013-04-14 2013-04-23</span>
+<span class="co">#&gt;  8 Jiangsu   2013-03-26   389 2013-03-08 2013-04-22</span>
+<span class="co">#&gt;  9 Jiangxi   2013-04-20   236 2013-04-15 2013-05-03</span>
+<span class="co">#&gt; 10 Shandong  2013-04-18   137 2013-04-16 2013-04-27</span>
+<span class="co">#&gt; 11 Shanghai  2013-03-31   532 2013-03-19 2013-04-04</span>
 <span class="co">#&gt; 12 Taiwan    2013-04-12   100 2013-04-12 2013-04-12</span>
-<span class="co">#&gt; 13 Zhejiang  2013-04-09   708 2013-04-03 2013-04-15</span></pre></body></html></div>
+<span class="co">#&gt; 13 Zhejiang  2013-04-08   712 2013-03-29 2013-04-15</span></pre></div>
 </div>
 </div>
   </div>
@@ -241,7 +245,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

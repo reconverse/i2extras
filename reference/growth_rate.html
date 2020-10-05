@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Objects exported from other packages — reexports • incidence2plus</title>
+<title>Calculate growth/decay rate — growth_rate • incidence2plus</title>
 
 
 <!-- jquery -->
@@ -39,13 +39,8 @@
 
 
 
-<meta property="og:title" content="Objects exported from other packages — reexports" />
-<meta property="og:description" content="These objects are imported from other packages. Follow the links
-below to see their documentation.
-
-  genericstidy
-
-" />
+<meta property="og:title" content="Calculate growth/decay rate — growth_rate" />
+<meta property="og:description" content="Calculate growth/decay rate" />
 
 
 
@@ -120,21 +115,45 @@ below to see their documentation.
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Objects exported from other packages</h1>
+    <h1>Calculate growth/decay rate</h1>
     
-    <div class="hidden name"><code>reexports.Rd</code></div>
+    <div class="hidden name"><code>growth_rate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>These objects are imported from other packages. Follow the links
-below to see their documentation.</p>
-<dl>
-  <dt>generics</dt><dd><p><code><a href='https://rdrr.io/pkg/generics/man/tidy.html'>tidy</a></code></p></dd>
-
-</dl>
+    <p>Calculate growth/decay rate</p>
     </div>
 
+    <pre class="usage"><span class='fu'>add_growth_rate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
+<span class='co'># S3 method for default</span>
+<span class='fu'>add_growth_rate</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for incidence2_fit</span>
+<span class='fu'>add_growth_rate</span><span class='op'>(</span><span class='va'>x</span>, alpha <span class='op'>=</span> <span class='fl'>0.05</span>, growth_decay_time <span class='op'>=</span> <span class='cn'>TRUE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>The output of function <code><a href='fit_curve.html'>fit_curve.incidence2()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Not currently used.</p></td>
+    </tr>
+    <tr>
+      <th>alpha</th>
+      <td><p>Value of alpha used to calculate confidence intervals; defaults
+to 0.05 which corresponds to a 95% confidence interval.</p></td>
+    </tr>
+    <tr>
+      <th>growth_decay_time</th>
+      <td><p>Should a doubling/halving time and corresponding
+confidence intervals be added to the outpu. Default TRUE.</p></td>
+    </tr>
+    </table>
 
 
   </div>
