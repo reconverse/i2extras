@@ -41,7 +41,7 @@
 
 <meta property="og:title" content="Error handling for incidence2_fit objects — is_okerr" />
 <meta property="og:description" content="These functions are used to filter succesful model fits from those that
-errored." />
+errored or gave warnings." />
 
 
 
@@ -123,7 +123,7 @@ errored." />
 
     <div class="ref-description">
     <p>These functions are used to filter succesful model fits from those that
-errored.</p>
+errored or gave warnings.</p>
     </div>
 
     <pre class="usage"><span class='fu'>is_ok</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -132,7 +132,7 @@ errored.</p>
 <span class='fu'>is_ok</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for incidence2_fit</span>
-<span class='fu'>is_ok</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>is_ok</span><span class='op'>(</span><span class='va'>x</span>, include_warnings <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>is_err</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
@@ -140,7 +140,15 @@ errored.</p>
 <span class='fu'>is_err</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for incidence2_fit</span>
-<span class='fu'>is_err</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>is_err</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>is_warning</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>is_warning</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S3 method for incidence2_fit</span>
+<span class='fu'>is_warning</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,6 +160,11 @@ errored.</p>
     <tr>
       <th>...</th>
       <td><p>Not currently used.</p></td>
+    </tr>
+    <tr>
+      <th>include_warnings</th>
+      <td><p>Include results in output that triggered warnings but
+not errors.  Defaults to <code>FALSE</code>.</p></td>
     </tr>
     </table>
 
