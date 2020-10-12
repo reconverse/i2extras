@@ -2,12 +2,15 @@
 % Please edit documentation in R/plot_fit.R
 \name{plot.incidence2_fit}
 \alias{plot.incidence2_fit}
-\title{Plot a rolling average incidence object}
+\title{Plot a fitted epicurve}
 \usage{
-\method{plot}{incidence2_fit}(x, ...)
+\method{plot}{incidence2_fit}(x, include_warnings = FALSE, ...)
 }
 \arguments{
 \item{x}{An \code{incidence2_fit} object created by \code{\link[=fit]{fit()}}.}
+
+\item{include_warnings}{Include results in plot that triggered warnings but
+not errors.  Defaults to \code{FALSE}.}
 
 \item{...}{Additional arguments to be passed to
 \code{\link[incidence2:plot.incidence2]{incidence2::plot.incidence2()}} or \code{\link[incidence2:plot.incidence2]{incidence2::facet_plot()}}.}
@@ -17,5 +20,5 @@ An incidence plot with the addition of a fitted curve.  This will
 be facetted if the object is grouped.
 }
 \description{
-Plot a rolling average incidence object
+Plot a fitted epicurve
 }

@@ -8,28 +8,40 @@
 \alias{is_err}
 \alias{is_err.default}
 \alias{is_err.incidence2_fit}
+\alias{is_warning}
+\alias{is_warning.default}
+\alias{is_warning.incidence2_fit}
 \title{Error handling for incidence2_fit objects}
 \usage{
 is_ok(x, ...)
 
 \method{is_ok}{default}(x, ...)
 
-\method{is_ok}{incidence2_fit}(x, ...)
+\method{is_ok}{incidence2_fit}(x, include_warnings = FALSE, ...)
 
 is_err(x, ...)
 
 \method{is_err}{default}(x, ...)
 
 \method{is_err}{incidence2_fit}(x, ...)
+
+is_warning(x, ...)
+
+\method{is_warning}{default}(x, ...)
+
+\method{is_warning}{incidence2_fit}(x, ...)
 }
 \arguments{
 \item{x}{The output of function \code{\link[=fit_curve.incidence2]{fit_curve.incidence2()}}.}
 
 \item{...}{Not currently used.}
+
+\item{include_warnings}{Include results in output that triggered warnings but
+not errors.  Defaults to \code{FALSE}.}
 }
 \description{
 These functions are used to filter succesful model fits from those that
-errored.
+errored or gave warnings.
 }
 \details{
 The following accessors are available:

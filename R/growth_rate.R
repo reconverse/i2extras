@@ -4,12 +4,11 @@
 #' @param alpha Value of alpha used to calculate confidence intervals; defaults
 #'   to 0.05 which corresponds to a 95% confidence interval.
 #' @param growth_decay_time Should a doubling/halving time and corresponding
-#'   confidence intervals be added to the outpu. Default TRUE.
+#'   confidence intervals be added to the output. Default TRUE.
 #' @param ... Not currently used.
 #'
-#' @name growth_rate
 #' @export
-add_growth_rate <- function(x, ...) {
+growth_rate <- function(x, ...) {
   UseMethod("growth_rate")
 }
 
@@ -17,7 +16,7 @@ add_growth_rate <- function(x, ...) {
 #' @rdname growth_rate
 #' @aliases growth_rate.default
 #' @export
-add_growth_rate.default <- function(x, ...) {
+growth_rate.default <- function(x, ...) {
   stop(sprintf("Not implemented for class %s",
                paste(class(x), collapse = ", ")))
 }
@@ -26,7 +25,7 @@ add_growth_rate.default <- function(x, ...) {
 #' @rdname growth_rate
 #' @aliases growth_rate.incidence2_fit
 #' @export
-add_growth_rate.incidence2_fit <- function(x, alpha = 0.05, growth_decay_time = TRUE, ...) {
+growth_rate.incidence2_fit <- function(x, alpha = 0.05, growth_decay_time = TRUE, ...) {
   dat <- is_ok(x)
   model_var <- attr(dat, "model")
   
@@ -56,6 +55,7 @@ add_growth_rate.incidence2_fit <- function(x, alpha = 0.05, growth_decay_time = 
   }
 
   res <- tibble::tibble(
+    model = dat[[model_var]],
     groups,
     r,
     r_lower,
@@ -68,7 +68,7 @@ add_growth_rate.incidence2_fit <- function(x, alpha = 0.05, growth_decay_time = 
 
 add_two_time <- function(dat, r = "r", r_lower = "r_lower", r_upper = "r_upper") {
     condition <- dat[[r]] < 0
-    dat$growth_decay <- ifelse(condition, "halving", "doubling")
+    dat$growth_or_decay <- ifelse(condition, "halving", "doubling")
     dat$time <- ifelse(condition, log(0.5)/dat[[r]], log(2)/dat[[r]])
     dat$time_lower <- ifelse(condition, log(0.5)/dat[[r_lower]], log(2)/dat[[r_upper]])
     dat$time_upper <- ifelse(condition, log(0.5)/dat[[r_upper]], log(2)/dat[[r_lower]])

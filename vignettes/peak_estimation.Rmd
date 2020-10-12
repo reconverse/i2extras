@@ -3,7 +3,7 @@ title: "Peak estimation"
 author: "Tim Taylor"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Handling incidence objects}
+  %\VignetteIndexEntry{Peak estimation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

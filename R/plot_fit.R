@@ -1,16 +1,19 @@
-#' Plot a rolling average incidence object
+#' Plot a fitted epicurve
 #'
 #' @param x An `incidence2_fit` object created by [fit()].
 #' @param ... Additional arguments to be passed to
 #'   [incidence2::plot.incidence2()] or [incidence2::facet_plot()].
+#' @param include_warnings Include results in plot that triggered warnings but
+#'   not errors.  Defaults to `FALSE`.
 #'
 #' @return An incidence plot with the addition of a fitted curve.  This will
 #'   be facetted if the object is grouped.
 #'
 #' @importFrom rlang sym
 #' @export
-plot.incidence2_fit <- function(x, ...) {
+plot.incidence2_fit <- function(x, include_warnings = FALSE, ...) {
 
+  
   group_vars <- attr(x, "groups")
   date_var <- attr(x, "date")
   count_var <- attr(x, "count")
@@ -18,6 +21,7 @@ plot.incidence2_fit <- function(x, ...) {
   cumulative <- attr(x, "cumulative")
   date_group <- attr(x, "date_group")
 
+  x <- is_ok(x, include_warnings = include_warnings)
   x$model <- NULL
 
   dat <- tidyr::unnest(x, tidyr::everything())
@@ -43,11 +47,11 @@ plot.incidence2_fit <- function(x, ...) {
 
   graph +
     ggplot2::geom_point(
-      mapping = ggplot2::aes(x = !!sym(date_var) + shift, y = .data$fit),
+      mapping = ggplot2::aes(x = !!sym(date_var) + shift, y = .data$estimate),
       size = 0.5) +
     ggplot2::geom_ribbon(ggplot2::aes(x = !!sym(date_var) + shift,
-                                      ymin = .data$lower,
-                                      ymax = .data$upper),
+                                      ymin = .data$lower_ci,
+                                      ymax = .data$upper_ci),
                          alpha = 0.4,
                          fill = col_model)
 }

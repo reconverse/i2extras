@@ -67,6 +67,14 @@ incidence2_fit_can_reconstruct <- function(x, to) {
     }
   }
 
+  ## check error_vars are present
+  warning_vars <- attr(to, "warning_vars")
+  if (!is.null(warning_vars)) {
+    if (!(all(warning_vars %in% x_names))) {
+      return(FALSE)
+    }
+  }
+
   ## check model is present
   model <- attr(to, "model")
   if (!(model %in% x_names)) {

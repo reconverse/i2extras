@@ -51,7 +51,7 @@ fit_curve.incidence2 <- function(dat,
     fiterr <- base_transpose(fiterr)
     prederr <- lapply(
       fiterr[[1]],
-      function(x) safely(stats::predict)(x, interval = "ci")
+      function(x) safely(stats::predict)(x, add_pi = FALSE)
     )
     prederr <- base_transpose(prederr)
     model <- lapply(
@@ -72,7 +72,7 @@ fit_curve.incidence2 <- function(dat,
   } else {
     fitted_model <- trending::fit(trending_model, data = dat)
     model <- trending::get_model(fitted_model)
-    estimates <- stats::predict(fitted_model, interval = "ci")
+    estimates <- stats::predict(fitted_model, add_pi = FALSE)
     out <- tibble::tibble(
       model = list(model),
       estimates = list(estimates)
