@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot a rolling average incidence object — plot.incidence2_fit • incidence2plus</title>
+<title>Plot a fitted epicurve — plot.incidence2_fit • incidence2plus</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Plot a rolling average incidence object — plot.incidence2_fit" />
-<meta property="og:description" content="Plot a rolling average incidence object" />
+<meta property="og:title" content="Plot a fitted epicurve — plot.incidence2_fit" />
+<meta property="og:description" content="Plot a fitted epicurve" />
 
 
 
@@ -95,7 +95,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Introduction.html">Peak estimation</a>
+      <a href="../articles/fitting_epicurves.html">Fitting epicurves</a>
+    </li>
+    <li>
+      <a href="../articles/peak_estimation.html">Peak estimation</a>
     </li>
   </ul>
 </li>
@@ -115,17 +118,17 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot a rolling average incidence object</h1>
+    <h1>Plot a fitted epicurve</h1>
     
     <div class="hidden name"><code>plot.incidence2_fit.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Plot a rolling average incidence object</p>
+    <p>Plot a fitted epicurve</p>
     </div>
 
     <pre class="usage"><span class='co'># S3 method for incidence2_fit</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, include_warnings <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -135,14 +138,14 @@
       <td><p>An <code>incidence2_fit</code> object created by <code>fit()</code>.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>Additional arguments to be passed to
-<code><a href='https://rdrr.io/pkg/incidence2/man/plot.incidence2.html'>incidence2::plot.incidence2()</a></code> or <code><a href='https://rdrr.io/pkg/incidence2/man/plot.incidence2.html'>incidence2::facet_plot()</a></code>.</p></td>
-    </tr>
-    <tr>
       <th>include_warnings</th>
       <td><p>Include results in plot that triggered warnings but
 not errors.  Defaults to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>Additional arguments to be passed to
+<code><a href='https://rdrr.io/pkg/incidence2/man/plot.incidence2.html'>incidence2::plot.incidence2()</a></code> or <code><a href='https://rdrr.io/pkg/incidence2/man/plot.incidence2.html'>incidence2::facet_plot()</a></code>.</p></td>
     </tr>
     </table>
 

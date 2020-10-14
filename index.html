@@ -54,7 +54,10 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/Introduction.html">Peak estimation</a>
+      <a href="articles/fitting_epicurves.html">Fitting epicurves</a>
+    </li>
+    <li>
+      <a href="articles/peak_estimation.html">Peak estimation</a>
     </li>
   </ul>
 </li>
@@ -85,12 +88,39 @@
 <a href="#what-does-it-do" class="anchor"></a>What does it do?</h1>
 <p>The main features of the package include:</p>
 <ul>
-<li><p><strong><code>fit_curve</code></strong> and <strong><code>add_growth_rate</code></strong>: fit a trend (poisson / negative binomial) to an <code>incidence()</code> object and calculate the associated growth rate.</p></li>
+<li><p><strong><code>fit_curve</code></strong> and <strong><code>growth_rate</code></strong>: fit a trend (poisson / negative binomial) to an <code>incidence()</code> object and calculate the associated growth rate.</p></li>
 <li><p><strong><code>add_rolling_average</code></strong>: add a rolling average to an <code>incidence()</code> object.</p></li>
 <li><p><strong><code><a href="reference/bootstrap.html">bootstrap()</a></code></strong>: generates a bootstrapped <code>incidence()</code> object by re-sampling, with replacement, the original dates of events.</p></li>
 <li><p><strong><code><a href="reference/find_peak.html">find_peak()</a></code></strong>: locates the peak time of the epicurve.</p></li>
 <li><p><strong><code><a href="reference/estimate_peak.html">estimate_peak()</a></code></strong>: uses bootstrap to estimate the peak time (and related confidence interval) of a partially observed outbreak. We can use <strong><code><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy()</a></code></strong> to generate nicer looking output.</p></li>
 </ul>
+<div id="installing-the-package" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installing-the-package" class="anchor"></a>Installing the package</h2>
+<p>Once it is released on <a href="https://CRAN.R-project.org">CRAN</a>, you will be able to install the stable version of the package with:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"incidence2plus"</span><span class="op">)</span></pre></div>
+<p>The development version can be installed from <a href="https://github.com/">GitHub</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
+<span class="op">}</span>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"reconhub/incidence2plus"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+</div>
+</div>
+<div id="resources" class="section level1">
+<h1 class="hasAnchor">
+<a href="#resources" class="anchor"></a>Resources</h1>
+<div id="vignettes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#vignettes" class="anchor"></a>Vignettes</h2>
+<p>An overview of <em>incidence2plus</em> is provided in the included vignettes: * <code><a href="articles/peak_estimation.html">vignette("peak_estimation", package = "incidence2plus")</a></code></p>
+</div>
+<div id="getting-help-online" class="section level2">
+<h2 class="hasAnchor">
+<a href="#getting-help-online" class="anchor"></a>Getting help online</h2>
+<p>Bug reports and feature requests should be posted on <em>github</em> using the <a href="https://github.com/reconhub/incidence2plus/issues"><em>issue</em> system</a>. All other questions should be posted on the <strong>RECON</strong> slack channel see <a href="https://www.repidemicsconsortium.org/forum/" class="uri">https://www.repidemicsconsortium.org/forum/</a> for details on how to join.</p>
+</div>
 </div>
 
   </div>
