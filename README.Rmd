@@ -32,26 +32,26 @@ authors before using.
 
 # Scope
 
-*incidence2* adds additional functionality to the
+*incidence2plus* adds additional functionality to the
 [incidence2](https://github.com/reconhub/incidence2) package.
 
 # What does it do?
 
 The main features of the package include:
 
-- **`fit_curve`** and **`growth_rate`**: fit a trend (poisson / negative
-  binomial) to an `incidence()` object and calculate the associated growth
+- [fit_curve()] and [growth_rate](): fit a trend (poisson / negative
+  binomial) to an `incidence2` object and calculate the associated growth
   rate.
 
-- **`add_rolling_average`**: add a rolling average to an `incidence()` object.
+- [add_rolling_average()]: add a rolling average to an `incidence2` object.
   
-- **`bootstrap()`**: generates a bootstrapped `incidence()` object by re-sampling,
+- [bootstrap()]: generates a bootstrapped `incidence2` object by re-sampling,
   with replacement, the original dates of events.
 
-- **`find_peak()`**: locates the peak time of the epicurve.
+- [find_peak()]: locates the peak time of the epicurve.
 
-- **`estimate_peak()`**: uses bootstrap to estimate the peak time (and related
-  confidence interval) of a partially observed outbreak. We can use **`tidy()`**
+- [estimate_peak()]: uses bootstrap to estimate the peak time (and related
+  confidence interval) of a partially observed outbreak. We can use [tidy()]
   to generate nicer looking output.
 
 
@@ -80,6 +80,7 @@ remotes::install_github("reconhub/incidence2plus", build_vignettes = TRUE)
 
 An overview of *incidence2plus* is provided in the included vignettes:
 * `vignette("peak_estimation", package = "incidence2plus")`
+* `vignette("fitting_epicurves", package = "incidence2plus")`
 
 
 ## Getting help online
