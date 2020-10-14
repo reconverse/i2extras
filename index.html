@@ -81,18 +81,20 @@
 <div id="scope" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#scope" class="anchor"></a>Scope</h1></div>
-<p><em>incidence2</em> adds additional functionality to the <a href="https://github.com/reconhub/incidence2">incidence2</a> package.</p>
+<p><em>incidence2plus</em> adds additional functionality to the <a href="https://github.com/reconhub/incidence2">incidence2</a> package.</p>
 </div>
 <div id="what-does-it-do" class="section level1">
 <h1 class="hasAnchor">
 <a href="#what-does-it-do" class="anchor"></a>What does it do?</h1>
 <p>The main features of the package include:</p>
 <ul>
-<li><p><strong><code>fit_curve</code></strong> and <strong><code>growth_rate</code></strong>: fit a trend (poisson / negative binomial) to an <code>incidence()</code> object and calculate the associated growth rate.</p></li>
-<li><p><strong><code>add_rolling_average</code></strong>: add a rolling average to an <code>incidence()</code> object.</p></li>
-<li><p><strong><code><a href="reference/bootstrap.html">bootstrap()</a></code></strong>: generates a bootstrapped <code>incidence()</code> object by re-sampling, with replacement, the original dates of events.</p></li>
-<li><p><strong><code><a href="reference/find_peak.html">find_peak()</a></code></strong>: locates the peak time of the epicurve.</p></li>
-<li><p><strong><code><a href="reference/estimate_peak.html">estimate_peak()</a></code></strong>: uses bootstrap to estimate the peak time (and related confidence interval) of a partially observed outbreak. We can use <strong><code><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy()</a></code></strong> to generate nicer looking output.</p></li>
+<li><p><br><span class="math display"><em>f</em><em>i</em><em>t</em>_<em>c</em><em>u</em><em>r</em><em>v</em><em>e</em>()</span><br> and <a href="">growth_rate</a>: fit a trend (poisson / negative binomial) to an <code>incidence2</code> object and calculate the associated growth rate.</p></li>
+<li>
+</li>
+<li><p>with replacement, the original dates of events.</p></li>
+<li>
+</li>
+<li><p><br><span class="math display"><em>e</em><em>s</em><em>t</em><em>i</em><em>m</em><em>a</em><em>t</em><em>e</em>_<em>p</em><em>e</em><em>a</em><em>k</em>()</span><br>: uses bootstrap to estimate the peak time (and related confidence interval) of a partially observed outbreak. We can use <br><span class="math display"><em>t</em><em>i</em><em>d</em><em>y</em>()</span><br> to generate nicer looking output.</p></li>
 </ul>
 <div id="installing-the-package" class="section level2">
 <h2 class="hasAnchor">
@@ -114,7 +116,7 @@
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
-<p>An overview of <em>incidence2plus</em> is provided in the included vignettes: * <code><a href="articles/peak_estimation.html">vignette("peak_estimation", package = "incidence2plus")</a></code></p>
+<p>An overview of <em>incidence2plus</em> is provided in the included vignettes: * <code><a href="articles/peak_estimation.html">vignette("peak_estimation", package = "incidence2plus")</a></code> * <code><a href="articles/fitting_epicurves.html">vignette("fitting_epicurves", package = "incidence2plus")</a></code></p>
 </div>
 <div id="getting-help-online" class="section level2">
 <h2 class="hasAnchor">
