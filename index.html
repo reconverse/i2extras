@@ -88,13 +88,11 @@
 <a href="#what-does-it-do" class="anchor"></a>What does it do?</h1>
 <p>The main features of the package include:</p>
 <ul>
-<li><p><br><span class="math display"><em>f</em><em>i</em><em>t</em>_<em>c</em><em>u</em><em>r</em><em>v</em><em>e</em>()</span><br> and <a href="">growth_rate</a>: fit a trend (poisson / negative binomial) to an <code>incidence2</code> object and calculate the associated growth rate.</p></li>
-<li>
-</li>
-<li><p>with replacement, the original dates of events.</p></li>
-<li>
-</li>
-<li><p><br><span class="math display"><em>e</em><em>s</em><em>t</em><em>i</em><em>m</em><em>a</em><em>t</em><em>e</em>_<em>p</em><em>e</em><em>a</em><em>k</em>()</span><br>: uses bootstrap to estimate the peak time (and related confidence interval) of a partially observed outbreak. We can use <br><span class="math display"><em>t</em><em>i</em><em>d</em><em>y</em>()</span><br> to generate nicer looking output.</p></li>
+<li><p><code><a href="reference/fit_curve.html">fit_curve()</a></code> and <code><a href="reference/growth_rate.html">growth_rate()</a></code>: fit a trend (poisson / negative binomial) to an <code>incidence2</code> object and calculate the associated growth rate.</p></li>
+<li><p><code><a href="reference/add_rolling_average.html">add_rolling_average()</a></code>: add a rolling average to an <code>incidence2</code> object.</p></li>
+<li><p><code><a href="reference/bootstrap.html">bootstrap()</a></code>: generates a bootstrapped <code>incidence2</code> object by re-sampling, with replacement, the original dates of events.</p></li>
+<li><p><code><a href="reference/find_peak.html">find_peak()</a></code>: locates the peak time of the epicurve.</p></li>
+<li><p><code><a href="reference/estimate_peak.html">estimate_peak()</a></code>: uses bootstrap to estimate the peak time (and related confidence interval) of a partially observed outbreak. We can use <code><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy()</a></code> to generate nicer looking output.</p></li>
 </ul>
 <div id="installing-the-package" class="section level2">
 <h2 class="hasAnchor">
@@ -116,7 +114,11 @@
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
-<p>An overview of <em>incidence2plus</em> is provided in the included vignettes: * <code><a href="articles/peak_estimation.html">vignette("peak_estimation", package = "incidence2plus")</a></code> * <code><a href="articles/fitting_epicurves.html">vignette("fitting_epicurves", package = "incidence2plus")</a></code></p>
+<p>An overview of <em>incidence2plus</em> is provided in the included vignettes:</p>
+<ul>
+<li><p><code><a href="articles/peak_estimation.html">vignette("peak_estimation", package = "incidence2plus")</a></code></p></li>
+<li><p><code><a href="articles/fitting_epicurves.html">vignette("fitting_epicurves", package = "incidence2plus")</a></code></p></li>
+</ul>
 </div>
 <div id="getting-help-online" class="section level2">
 <h2 class="hasAnchor">
