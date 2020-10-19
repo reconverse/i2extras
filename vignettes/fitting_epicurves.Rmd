@@ -18,26 +18,75 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Example
+To illustrate the trend fitting functionality of *incidence2plus* we will use
+the simulated Ebola Virus Disease (EVD) outbreak data from the
+[outbreaks](https://CRAN.R-project.org/package=outbreaks) package.
+
+## Loading relevant packages and data
 ```{r}
 library(outbreaks)
 library(incidence2)
 library(incidence2plus)
 library(tidyr)
 
-# Data -------------------------------------------------------------------------
 raw_dat <- ebola_sim_clean$linelist
+```
 
+For this example we will restrict ourselves to the first 20 weeks of data:
 
-# Example 1 - no groups --------------------------------------------------------
+```{r}
 dat <- incidence(
     raw_dat, 
     date_index = date_of_onset,
-    interval = "week"
-)
+    interval = 7
+)[1:20, ]
+dat
+plot(dat)
+```
 
-out <- fit_curve(dat[1:20, ], model = "poisson", alpha = 0.05)
+## Modeling incidence
+We can use `fit_curve()` to fit the data with either a poisson or 
+negative binomial regression model.  The output from this will be a nested
+object with class [incidence2_fit] which as methods available for both 
+automatic plotting and the calculation of growth (decay) rates and doubling
+(halving) times.
+
+```{r}
+out <- fit_curve(dat, model = "poisson", alpha = 0.05)
 out
 out %>% unnest(estimates)
 out %>% plot()
 out %>% growth_rate()
+```
+
+`fit_curve` will also work on grouped incidence objects:
+
+```{r}
+grouped_dat <- incidence(
+    raw_dat, 
+    date_index = date_of_onset,
+    interval = 7,
+    groups = hospital
+)[1:140, ]
+grouped_dat
+
+out <- fit_curve(grouped_dat, model = "poisson", alpha = 0.05)
+out
+out %>% plot()
+out %>% growth_rate()
+```
+
+## Rolling average
+We can add a rolling average, across current and previous intervals, to
+an `incidence2` object with the `add_rolling_average()` function:
+
+```{r rolling_average}
+ra <- 
+  grouped_dat %>% 
+  add_rolling_average(before = 2) # group observations with the 2 prior
+ra
+ra %>% unnest(rolling_average)
+
+plot(ra, color = "white")
 ```

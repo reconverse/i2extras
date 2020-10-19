@@ -1,17 +1,18 @@
 #' Plot a fitted epicurve
 #'
 #' @param x An `incidence2_fit` object created by [fit()].
-#' @param ... Additional arguments to be passed to
-#'   [incidence2::plot.incidence2()] or [incidence2::facet_plot()].
 #' @param include_warnings Include results in plot that triggered warnings but
 #'   not errors.  Defaults to `FALSE`.
+#' @param ci Plot confidence intervals (defaults to TRUE).
+#' @param ... Additional arguments to be passed to
+#'   [incidence2::plot.incidence2()] or [incidence2::facet_plot()].
 #'
 #' @return An incidence plot with the addition of a fitted curve.  This will
 #'   be facetted if the object is grouped.
 #'
 #' @importFrom rlang sym
 #' @export
-plot.incidence2_fit <- function(x, include_warnings = FALSE, ...) {
+plot.incidence2_fit <- function(x, include_warnings = FALSE, ci = TRUE, ...) {
 
   
   group_vars <- attr(x, "groups")
@@ -45,13 +46,21 @@ plot.incidence2_fit <- function(x, include_warnings = FALSE, ...) {
   shift <- mean(incidence2::get_interval(dat, integer = TRUE))/2
   col_model <- "#BBB67E"
 
-  graph +
+  graph <- graph +
     ggplot2::geom_point(
       mapping = ggplot2::aes(x = !!sym(date_var) + shift, y = .data$estimate),
-      size = 0.5) +
-    ggplot2::geom_ribbon(ggplot2::aes(x = !!sym(date_var) + shift,
+      size = 0.5)
+      
+  if (ci) {
+    graph <- graph +
+      ggplot2::geom_ribbon(ggplot2::aes(x = !!sym(date_var) + shift,
                                       ymin = .data$lower_ci,
                                       ymax = .data$upper_ci),
-                         alpha = 0.4,
-                         fill = col_model)
+                           alpha = 0.6,
+                           fill = col_model)
+  }   
+
+  graph
+     
+    
 }

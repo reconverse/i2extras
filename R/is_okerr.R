@@ -142,7 +142,7 @@ is_warning.incidence2_fit <- function(x, ...) {
           )
       )
       w <- do.call(`|`, w)
-      x <- x[!ok, ]
+      x <- x[!w, ]
   }
   x
 }

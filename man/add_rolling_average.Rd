@@ -10,15 +10,15 @@ add_rolling_average(x, ...)
 
 \method{add_rolling_average}{default}(x, ...)
 
-\method{add_rolling_average}{incidence2}(x, width = 3, ...)
+\method{add_rolling_average}{incidence2}(x, before = 2, ...)
 }
 \arguments{
 \item{x}{An \link[incidence2:incidence]{incidence2::incidence} object.}
 
 \item{...}{Not currently used.}
 
-\item{width}{how many dates (prior and current) to group with. Default 3 (
-2 days prior and the observation)}
+\item{before}{how many prior dates to group the current observation with.
+Default is 2 days.}
 }
 \value{
 An object of class \code{incidence2_rolling}.
@@ -44,13 +44,13 @@ if (requireNamespace("outbreaks", quietly = TRUE) &&
                     last_date = "2014-10-05",
                     groups = gender)
 
-  ra <- add_rolling_average(inci, width = 3)
+  ra <- add_rolling_average(inci, before = 2)
   plot(ra, color = "white")
 
 
 
   inci2 <- incidence2::regroup(inci)
-  ra2 <- add_rolling_average(inci2, width = 2)
+  ra2 <- add_rolling_average(inci2, before = 2)
   plot(ra, color = "white")
 
 }

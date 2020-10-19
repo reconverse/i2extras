@@ -5,8 +5,8 @@
 #'   If x is not grouped this will be a subclass of tibble.
 #'
 #' @param x An [incidence2::incidence] object.
-#' @param width how many dates (prior and current) to group with. Default 3 (
-#'   2 days prior and the observation)
+#' @param before how many prior dates to group the current observation with. 
+#'   Default is 2 days.
 #' @param ... Not currently used.
 #'
 #' @note If groups are present the average will be calculated across each
@@ -26,13 +26,13 @@
 #'                     last_date = "2014-10-05",
 #'                     groups = gender)
 #'
-#'   ra <- add_rolling_average(inci, width = 3)
+#'   ra <- add_rolling_average(inci, before = 2)
 #'   plot(ra, color = "white")
 #'
 #'
 #'
 #'   inci2 <- incidence2::regroup(inci)
-#'   ra2 <- add_rolling_average(inci2, width = 2)
+#'   ra2 <- add_rolling_average(inci2, before = 2)
 #'   plot(ra, color = "white")
 #'
 #' }
@@ -55,7 +55,7 @@ add_rolling_average.default <- function(x, ...) {
 #' @rdname add_rolling_average
 #' @aliases add_rolling_average.incidence2
 #' @export
-add_rolling_average.incidence2 <- function(x, width = 3, ...) {
+add_rolling_average.incidence2 <- function(x, before = 2, ...) {
   ellipsis::check_dots_empty()
   group_vars <- incidence2::get_group_names(x)
   count_var <- incidence2::get_counts_name(x)
@@ -65,12 +65,12 @@ add_rolling_average.incidence2 <- function(x, width = 3, ...) {
     out <- dplyr::grouped_df(x, group_vars)
     out <- dplyr::summarise(
       out,
-      rolling_average = list(ra(dplyr::cur_data(), date_var, count_var, width)),
+      rolling_average = list(ra(dplyr::cur_data(), date_var, count_var, before + 1)),
       .groups = "drop"
     )
 
   } else {
-    out <- ra(dat = x, date = date_var, count = count_var, width = width)
+    out <- ra(dat = x, date = date_var, count = count_var, width = before + 1)
   }
 
   # create subclass of tibble

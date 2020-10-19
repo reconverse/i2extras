@@ -49,13 +49,13 @@ growth_rate.incidence2_fit <- function(x, alpha = 0.05, growth_decay_time = TRUE
   
   groups <- attr(dat, "groups")
   if (!is.null(groups)) {
-    groups <- dat[[groups]]
+    groups <- dat[groups]
   } else {
     groups <- NA_character_
   }
 
   res <- tibble::tibble(
-    model = dat[[model_var]],
+   # model = dat[[model_var]],
     groups,
     r,
     r_lower,
