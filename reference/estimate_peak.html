@@ -157,11 +157,13 @@ information on the resampling.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An S3 object, estimate_peak, containing the following items:</p><ul>
-<li><p><code>observed</code>: the peak incidence of the original dataset</p></li>
-<li><p><code>estimated</code>: the mean peak time of the bootstrap datasets</p></li>
-<li><p><code>ci</code>: the confidence interval based on bootstrap datasets</p></li>
-<li><p><code>peaks</code>: the peak times of the bootstrap datasets</p></li>
+    <p>A tibble with the the following columns:</p><ul>
+<li><p><code>observed_date</code>: the date of peak incidence of the original dataset.</p></li>
+<li><p><code>observed_count</code>: the peak incidence of the original dataset.</p></li>
+<li><p><code>estimated</code>: the mean peak time of the bootstrap datasets.</p></li>
+<li><p><code>lower_ci/upper_ci</code>: the confidence interval based on bootstrap datasets.</p></li>
+<li><p><code>peaks</code>: a nested tibble containing the the peak times of the bootstrapped
+datasets.</p></li>
 </ul>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -253,47 +255,13 @@ caveats from Michael Höhle.</p>
 #&gt; &gt; peak_data &lt;- estimate_peak(i)</div><div class='output co'>#&gt; <span class='message'>Estimating peaks from bootstrap samples:</span></div><div class='output co'>#&gt; ================================================================================
 #&gt; 
 #&gt; &gt; peak_data
-#&gt; [[1]]
-#&gt; [[1]]$observed
-#&gt; </span><span style='color: #555555;'>An incidence2 object: 1 x 2
-#&gt; </span><span>[7 cases from days 2013-04-03 to 2013-04-03]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;   date       count
-#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'>1</span><span> 2013-04-03     7
-#&gt; 
-#&gt; 
-#&gt; [[1]]$estimated
-#&gt; [1] "2013-04-06"
-#&gt; 
-#&gt; [[1]]$ci
-#&gt;         2.5%        97.5% 
-#&gt; "2013-03-29" "2013-04-14" 
-#&gt; 
-#&gt; [[1]]$peaks
-#&gt; </span><span style='color: #555555;'># A tibble: 100 x 2</span><span>
-#&gt;    date       count
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> 2013-04-03    11
-#&gt; </span><span style='color: #555555;'> 2</span><span> 2013-03-29    10
-#&gt; </span><span style='color: #555555;'> 3</span><span> 2013-04-06     9
-#&gt; </span><span style='color: #555555;'> 4</span><span> 2013-04-11    11
-#&gt; </span><span style='color: #555555;'> 5</span><span> 2013-04-03     9
-#&gt; </span><span style='color: #555555;'> 6</span><span> 2013-03-29    12
-#&gt; </span><span style='color: #555555;'> 7</span><span> 2013-04-08    10
-#&gt; </span><span style='color: #555555;'> 8</span><span> 2013-04-01    10
-#&gt; </span><span style='color: #555555;'> 9</span><span> 2013-04-03     9
-#&gt; </span><span style='color: #555555;'>10</span><span> 2013-04-06     9
-#&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span>
-#&gt; 
-#&gt; 
-#&gt; attr(,"class")
-#&gt; [1] "estimate_peak"
+#&gt; </span><span style='color: #555555;'># A tibble: 1 x 6</span><span>
+#&gt;   date       observed_count estimated_date lower_ci   upper_ci   peaks          
+#&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>              </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>         </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;list&gt;</span><span>         
+#&gt; </span><span style='color: #555555;'>1</span><span> 2013-04-03              7 2013-04-06     2013-03-29 2013-04-14 </span><span style='color: #555555;'>&lt;tibble [100 ×</span><span>…
 #&gt; &gt; summary(peak_data$peaks)
-#&gt; Length  Class   Mode 
-#&gt;      0   NULL   NULL </div><div class='input'>
+#&gt;      Length Class  Mode
+#&gt; [1,] 2      tbl_df list</div><div class='input'>
 </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
