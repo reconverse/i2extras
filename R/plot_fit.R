@@ -4,6 +4,7 @@
 #' @param include_warnings Include results in plot that triggered warnings but
 #'   not errors.  Defaults to `FALSE`.
 #' @param ci Plot confidence intervals (defaults to TRUE).
+#' @param pi Plot prediction intervals (defaults to FALSE).
 #' @param ... Additional arguments to be passed to
 #'   [incidence2::plot.incidence2()] or [incidence2::facet_plot()].
 #'
@@ -12,7 +13,8 @@
 #'
 #' @importFrom rlang sym
 #' @export
-plot.incidence2_fit <- function(x, include_warnings = FALSE, ci = TRUE, ...) {
+plot.incidence2_fit <- function(x, include_warnings = FALSE, 
+                                ci = TRUE, pi = FALSE, ...) {
 
   
   group_vars <- attr(x, "groups")
@@ -56,9 +58,18 @@ plot.incidence2_fit <- function(x, include_warnings = FALSE, ci = TRUE, ...) {
       ggplot2::geom_ribbon(ggplot2::aes(x = !!sym(date_var) + shift,
                                       ymin = .data$lower_ci,
                                       ymax = .data$upper_ci),
-                           alpha = 0.6,
+                           alpha = 0.5,
                            fill = col_model)
-  }   
+  }
+
+  if (pi) {
+    graph <- graph +
+      ggplot2::geom_ribbon(ggplot2::aes(x = !!sym(date_var) + shift,
+                                      ymin = .data$lower_pi,
+                                      ymax = .data$upper_pi),
+                           alpha = 0.3,
+                           fill = col_model)
+  }
 
   graph
      

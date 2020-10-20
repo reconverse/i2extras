@@ -30,12 +30,14 @@
 #'
 #' @param progress Should a progress bar be displayed (default = TRUE)
 #'
-#' @return An S3 object, estimate_peak, containing the following items:
-#'
-#' - `observed`: the peak incidence of the original dataset
-#' - `estimated`: the mean peak time of the bootstrap datasets
-#' - `ci`: the confidence interval based on bootstrap datasets
-#' - `peaks`: the peak times of the bootstrap datasets
+#' @return A tibble with the the following columns:
+#' 
+#' - `observed_date`: the date of peak incidence of the original dataset.
+#' - `observed_count`: the peak incidence of the original dataset.
+#' - `estimated`: the mean peak time of the bootstrap datasets.
+#' - `lower_ci/upper_ci`: the confidence interval based on bootstrap datasets.
+#' - `peaks`: a nested tibble containing the the peak times of the bootstrapped
+#'   datasets.
 #'
 #' @seealso [bootstrap()] for the bootstrapping underlying this
 #'   approach and [find_peak()] to find the peak in a single
@@ -76,20 +78,27 @@ estimate_peak <- function(x, n = 100, alpha = 0.05, progress = TRUE) {
   }
 
 
-  out <- lapply(
-    1:length(split_x),
-    function(i) {
-      dat <- split_x[[i]]
-      bootstrap_peak(incidence2::regroup(dat),
-                     n = n,
-                     alpha = alpha,
-                     iteration = i,
-                     num_iterations = length(split_x),
-                     progress = progress)
-    }
+  out <- suppressMessages(
+    lapply(
+      1:length(split_x),
+      function(i) {
+        dat <- split_x[[i]]
+        bootstrap_peak(incidence2::regroup(dat),
+                       n = n,
+                       alpha = alpha,
+                       iteration = i,
+                       num_iterations = length(split_x),
+                       progress = progress)
+      }
+    )
   )
-  names(out) <- names(split_x)
-  class(out) <- "estimate_peak"
+   
+  out <- dplyr::bind_rows(out)
+  if (!is.null(names(split_x))) {
+    groupings <- as.data.frame(do.call(rbind, strsplit(names(split_x),"-")))
+    names(groupings) <- names(f_groups)
+    out <- dplyr::bind_cols(tibble::as_tibble(groupings), out)
+  }
   out
 
 }
@@ -100,14 +109,12 @@ bootstrap_peak <- function(x, n = 100, alpha = 0.05, iteration = 1,
                            num_iterations = 1, progress = FALSE) {
 
   date_var <- incidence2::get_dates_name(x)
-
-  out <- list()
+  count_var <- incidence2::get_counts_name(x)
 
   ## use it to find CI for epidemic peak
-  out$observed <- find_peak(x)
+  observed <- find_peak(x)
 
   ## peaks on 'n' bootstrap samples
-
   if (progress) {
     if (num_iterations > 1) {
       msg <- sprintf("Group %s of %s; Estimating peaks from bootstrap samples:\n",
@@ -119,36 +126,40 @@ bootstrap_peak <- function(x, n = 100, alpha = 0.05, iteration = 1,
 
     message(msg)
     pb <- utils::txtProgressBar(min = 0, max = n, style = 1)
-    peak_boot <- lapply(1:n,
+    peak_boot <- lapply(seq_len(n),
                         function(i) {
-                          res <- find_peak(suppressMessages(bootstrap(x)))
+                          res <- find_peak(bootstrap(x))
                           utils::setTxtProgressBar(pb, i)
                           res
                         }
     )
     cat("\n\n")
   } else {
-    peak_boot <- lapply(1:n, function(i) find_peak(suppressMessages(bootstrap(x))))
+    peak_boot <- lapply(1:n, function(i) find_peak(bootstrap(x)))
   }
 
 
-  suppressMessages({
-    ## convert to vector without losing Date class
-    peak_boot <- dplyr::bind_rows(peak_boot)
+  ## convert to vector without losing Date class
+  peak_boot <- dplyr::bind_rows(peak_boot)
 
-    # store relevant stats
-    out$estimated <- mean(peak_boot[[date_var]])
-    QUANTILE <-
-      if (inherits(peak_boot[[date_var]], c("Date", "POSIX"))) {
-        quantile_Date
-      } else {
-        stats::quantile
-      }
-
-    out$ci <- QUANTILE(peak_boot[[date_var]], c(alpha / 2, 1 - alpha / 2))
-    out$peaks <- peak_boot
-    out
-  })
+  # store relevant stats
+  estimated <- mean(peak_boot[[date_var]])
+  QUANTILE <-
+    if (inherits(peak_boot[[date_var]], c("Date", "POSIX"))) {
+      quantile_Date
+    } else {
+      stats::quantile
+    }
+  ci <- QUANTILE(peak_boot[[date_var]], c(alpha / 2, 1 - alpha / 2))
+  
+  tibble::tibble(
+      {{date_var}} := observed[[date_var]],
+      observed_count = observed[[count_var]],
+      estimated_date = estimated,
+      lower_ci = ci[1],
+      upper_ci = ci[2],
+      peaks = list(peak_boot)
+  )
 }
 
 

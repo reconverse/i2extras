@@ -55,7 +55,6 @@ automatic plotting and the calculation of growth (decay) rates and doubling
 ```{r}
 out <- fit_curve(dat, model = "poisson", alpha = 0.05)
 out
-out %>% unnest(estimates)
 out %>% plot()
 out %>% growth_rate()
 ```
@@ -73,7 +72,7 @@ grouped_dat
 
 out <- fit_curve(grouped_dat, model = "poisson", alpha = 0.05)
 out
-out %>% plot()
+out %>% plot(pi=TRUE)
 out %>% growth_rate()
 ```
 

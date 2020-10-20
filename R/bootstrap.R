@@ -44,6 +44,7 @@ bootstrap <- function(x, randomise_groups = FALSE) {
   count_var <- incidence2::get_counts_name(x)
   group_vars <- incidence2::get_group_names(x)
   date_var <- incidence2::get_dates_name(x)
+  date_group_var <- incidence2::get_date_group_names(x)
 
 
   tbl <- suppressMessages(select(x, !all_of(count_var)))
@@ -66,6 +67,7 @@ bootstrap <- function(x, randomise_groups = FALSE) {
   tbl <- tibble::new_tibble(tbl,
                             groups = group_vars,
                             date = date_var,
+                            date_group = date_group_var,
                             count = count_var,
                             interval = incidence2::get_interval(x),
                             cumulative = attr(x, "cumulative"),

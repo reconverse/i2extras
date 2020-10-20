@@ -17,12 +17,14 @@ estimate_peak(x, n = 100, alpha = 0.05, progress = TRUE)
 \item{progress}{Should a progress bar be displayed (default = TRUE)}
 }
 \value{
-An S3 object, estimate_peak, containing the following items:
+A tibble with the the following columns:
 \itemize{
-\item \code{observed}: the peak incidence of the original dataset
-\item \code{estimated}: the mean peak time of the bootstrap datasets
-\item \code{ci}: the confidence interval based on bootstrap datasets
-\item \code{peaks}: the peak times of the bootstrap datasets
+\item \code{observed_date}: the date of peak incidence of the original dataset.
+\item \code{observed_count}: the peak incidence of the original dataset.
+\item \code{estimated}: the mean peak time of the bootstrap datasets.
+\item \code{lower_ci/upper_ci}: the confidence interval based on bootstrap datasets.
+\item \code{peaks}: a nested tibble containing the the peak times of the bootstrapped
+datasets.
 }
 }
 \description{

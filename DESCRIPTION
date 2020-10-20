@@ -17,7 +17,6 @@ Imports:
     utils,
     stats,
     rlang,
-    generics,
     ggplot2,
     ellipsis,
     MASS,

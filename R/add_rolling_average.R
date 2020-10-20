@@ -60,36 +60,45 @@ add_rolling_average.incidence2 <- function(x, before = 2, ...) {
   group_vars <- incidence2::get_group_names(x)
   count_var <- incidence2::get_counts_name(x)
   date_var <- incidence2::get_dates_name(x)
+  date_group_var <- incidence2::get_date_group_names(x)
 
   if (!is.null(group_vars)) {
     out <- dplyr::grouped_df(x, group_vars)
     out <- dplyr::summarise(
       out,
-      rolling_average = list(ra(dplyr::cur_data(), date_var, count_var, before + 1)),
+      rolling_average = list(
+        rolling_average(
+          dplyr::cur_data(), 
+          date_var, 
+          count_var, 
+          before + 1
+        )
+      ),
       .groups = "drop"
     )
 
   } else {
-    out <- ra(dat = x, date = date_var, count = count_var, width = before + 1)
+    out <- rolling_average(
+      dat = x, date = date_var, count = count_var, width = before + 1
+    )
   }
 
   # create subclass of tibble
   out <- tibble::new_tibble(out,
                             groups = group_vars,
                             date = date_var,
+                            date_group = date_group_var,
                             count = count_var,
                             interval = incidence2::get_interval(x),
                             cumulative = attr(x, "cumulative"),
                             rolling_average = "rolling_average",
                             nrow = nrow(out),
                             class = "incidence2_rolling")
-
-  attr(out, "date_group") <- attr(x, "date_group")
   tibble::validate_tibble(out)
 }
 
 
-ra <- function(dat, date, count, width = 3) {
+rolling_average <- function(dat, date, count, width = 3) {
   dat <- dplyr::arrange(dat, .data[[date]])
   dat <- dplyr::mutate(
     dat,

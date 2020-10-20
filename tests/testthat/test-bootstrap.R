@@ -93,19 +93,29 @@ test_that("estimate_peak can roughly estimate it", {
 
   e1 <- estimate_peak(x)
   e2 <- estimate_peak(y)
-  expect_named(e1[[1]], c("observed", "estimated", "ci", "peaks"))
-  expect_named(e2[[1]], c("observed", "estimated", "ci", "peaks"))
+  expect_named(
+    e1,
+    c("groups", "bin_date", "observed_count", "estimated_date", "lower_ci", 
+      "upper_ci", "peaks")
+  )
+  expect_named(
+    e2,
+    c("bin_date", "observed_count", "estimated_date", "lower_ci",
+      "upper_ci", "peaks")
+  )
 
   # The observed is identical to find_peak
-  expect_identical(e2[[1]]$observed, find_peak(y))
+  tmp <- find_peak(y)
+  expect_equal(e2$bin_date, tmp[[1]])
+  expect_equal(e2$observed_count, tmp[[2]])
 
   # The number of peaks defaults to 100
-  expect_identical(nrow(e1[[1]]$peaks), 100L)
-  expect_identical(nrow(e2[[1]]$peaks), 100L)
+  expect_identical(nrow(e1$peaks[[1]]), 100L)
+  expect_identical(nrow(e2$peaks[[1]]), 100L)
 
   # The observed falls within the confidence interval
-  expect_gte(as.integer(e1[[1]]$observed$bin_date), as.integer(e1[[1]]$ci[1]))
-  expect_lte(as.integer(e1[[1]]$observed$bin_date), as.integer(e1[[1]]$ci[2]))
-  expect_gte(as.integer(e2[[1]]$observed$bin_date), as.integer(e2[[1]]$ci[1]))
-  expect_lte(as.integer(e2[[1]]$observed$bin_date), as.integer(e2[[1]]$ci[2]))
+  expect_gte(as.integer(e1$bin_date[1]), as.integer(e1$lower_ci[1]))
+  expect_lte(as.integer(e1$bin_date[1]), as.integer(e1$upper_ci[1]))
+  expect_gte(as.integer(e2$bin_date[1]), as.integer(e2$lower_ci[1]))
+  expect_lte(as.integer(e2$bin_date[1]), as.integer(e2$upper_ci[1]))
 })
