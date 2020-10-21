@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">i2extras</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2</span>
       </span>
     </div>
 
@@ -148,7 +148,7 @@
 <div id="modeling-incidence" class="section level2">
 <h2 class="hasAnchor">
 <a href="#modeling-incidence" class="anchor"></a>Modeling incidence</h2>
-<p>We can use [fit_curve()] to fit the data with either a poisson or negative binomial regression model. The output from this will be a nested object with class [<code>incidence2_fit</code>] which has methods available for both automatic plotting and the calculation of growth (decay) rates and doubling (halving) times.</p>
+<p>We can use <code><a href="../reference/fit_curve.html">fit_curve()</a></code> to fit the data with either a poisson or negative binomial regression model. The output from this will be a nested object with class <code>incidence2_fit</code> which has methods available for both automatic plotting and the calculation of growth (decay) rates and doubling (halving) times.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit">
 <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">dat</span>, model <span class="op">=</span> <span class="st">"poisson"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
 <span class="va">out</span>
@@ -164,7 +164,7 @@
 <span class="co">#&gt;   model       r r_lower r_upper growth_or_decay  time time_lower time_upper</span>
 <span class="co">#&gt;   &lt;list&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 &lt;glm&gt;  0.0263  0.0240  0.0286 doubling         26.4       24.2       28.9</span></pre></div>
-<p>To unnest the data we can use [unnest()] (a function that has been reexported from the <a href="https://cran.r-project.org/package=tidyr">tidyr</a> package.</p>
+<p>To unnest the data we can use <code><a href="../reference/unnest.html">unnest()</a></code> (a function that has been reexported from the <a href="https://cran.r-project.org/package=tidyr">tidyr</a> package.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit">
 <span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">estimates</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 20 x 8</span>
@@ -190,7 +190,7 @@
 <span class="co">#&gt; 18 &lt;glm&gt;     86 2014-08-04    93.4     86.2    101.         69      121</span>
 <span class="co">#&gt; 19 &lt;glm&gt;    116 2014-08-11   112.     103.     123.         83      145</span>
 <span class="co">#&gt; 20 &lt;glm&gt;    139 2014-08-18   135.     122.     149.        101      174</span></pre></div>
-<p>[fit_curve()] also works nicely with grouped <code>incidence2</code> objects. In this situation, we return a nested tibble with some additional columns that indicate whether there has been a warning or error during the fitting or prediction stages.</p>
+<p><code><a href="../reference/fit_curve.html">fit_curve()</a></code> also works nicely with grouped <code>incidence2</code> objects. In this situation, we return a nested tibble with some additional columns that indicate whether there has been a warning or error during the fitting or prediction stages.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit">
 <span class="va">grouped_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span>
     <span class="va">raw_dat</span>, 
@@ -230,7 +230,9 @@
 <span class="co">#&gt; 5 Rokupa … &lt;glm&gt; &lt;df[,7] … &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
 <span class="co">#&gt; 6 &lt;NA&gt;     &lt;glm&gt; &lt;df[,7] … &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
 <span class="co">#&gt; # … with 1 more variable: prediction_error &lt;list&gt;</span>
-<span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>pi<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></pre></div>
+
+<span class="co"># plot with a prediction interval but not a confidence interval</span>
+<span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>ci <span class="op">=</span> <span class="cn">FALSE</span>, pi<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></pre></div>
 <p><img src="fitting_epicurves_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="op">)</span>
@@ -245,7 +247,7 @@
 <span class="co">#&gt; 5 Rokupa … &lt;glm&gt; 0.0283  0.0195  0.0382 doubling         24.5       18.1</span>
 <span class="co">#&gt; 6 &lt;NA&gt;     &lt;glm&gt; 0.0261  0.0217  0.0307 doubling         26.6       22.6</span>
 <span class="co">#&gt; # … with 1 more variable: time_upper &lt;dbl&gt;</span></pre></div>
-<p>We provide helper functions, [is_ok()], [is_warning()] and [is_error()] to help filter the output as necessary.</p>
+<p>We provide helper functions, <code><a href="../reference/is_okerr.html">is_ok()</a></code>, <code><a href="../reference/is_okerr.html">is_warning()</a></code> and <code><a href="../reference/is_okerr.html">is_error()</a></code> to help filter the output as necessary.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"negbin"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
 <span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="op">)</span>
