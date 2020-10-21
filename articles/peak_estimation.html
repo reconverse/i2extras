@@ -111,24 +111,24 @@
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
 <span class="co">#&gt; 10 missing observations were removed.</span>
 <span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; An incidence2 object: 50 x 3</span>
-<span class="co">#&gt; [126 cases from days 2013-03-07 to 2013-07-27]</span>
+<span class="co">#&gt; An incidence2 object: 56 x 3</span>
+<span class="co">#&gt; [126 cases from days 2013-02-19 to 2013-07-27]</span>
 <span class="co">#&gt; [interval: 1 day]</span>
 <span class="co">#&gt; [cumulative: FALSE]</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date       gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-03-07 m          4</span>
-<span class="co">#&gt;  2 2013-03-09 f          1</span>
-<span class="co">#&gt;  3 2013-03-13 f          1</span>
-<span class="co">#&gt;  4 2013-03-17 m          2</span>
-<span class="co">#&gt;  5 2013-03-19 f          3</span>
-<span class="co">#&gt;  6 2013-03-20 f          1</span>
-<span class="co">#&gt;  7 2013-03-21 f          1</span>
-<span class="co">#&gt;  8 2013-03-21 m          2</span>
-<span class="co">#&gt;  9 2013-03-25 m          3</span>
-<span class="co">#&gt; 10 2013-03-27 f          3</span>
-<span class="co">#&gt; # … with 40 more rows</span></pre></div>
+<span class="co">#&gt;  1 2013-02-19 m          1</span>
+<span class="co">#&gt;  2 2013-02-27 m          2</span>
+<span class="co">#&gt;  3 2013-03-07 m          2</span>
+<span class="co">#&gt;  4 2013-03-09 f          1</span>
+<span class="co">#&gt;  5 2013-03-13 f          1</span>
+<span class="co">#&gt;  6 2013-03-19 f          1</span>
+<span class="co">#&gt;  7 2013-03-20 f          1</span>
+<span class="co">#&gt;  8 2013-03-20 m          1</span>
+<span class="co">#&gt;  9 2013-03-21 f          2</span>
+<span class="co">#&gt; 10 2013-03-21 m          3</span>
+<span class="co">#&gt; # … with 46 more rows</span></pre></div>
 </div>
 <div id="find_peak" class="section level2">
 <h2 class="hasAnchor">
@@ -181,26 +181,26 @@
 <span class="co">#&gt; # A tibble: 1 x 6</span>
 <span class="co">#&gt;   date       observed_count estimated_date lower_ci   upper_ci   peaks          </span>
 <span class="co">#&gt;   &lt;date&gt;              &lt;int&gt; &lt;date&gt;         &lt;date&gt;     &lt;date&gt;     &lt;list&gt;         </span>
-<span class="co">#&gt; 1 2013-04-03              7 2013-04-06     2013-03-29 2013-04-17 &lt;tibble [100 ×…</span>
+<span class="co">#&gt; 1 2013-04-03              7 2013-04-05     2013-03-29 2013-04-16 &lt;tibble [100 ×…</span>
 
 <span class="co"># across provinces and with progress bar suppressed</span>
 <span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span><span class="op">(</span>progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 13 x 7</span>
 <span class="co">#&gt;    province date       observed_count estimated_date lower_ci   upper_ci   peaks</span>
 <span class="co">#&gt;    &lt;chr&gt;    &lt;date&gt;              &lt;int&gt; &lt;date&gt;         &lt;date&gt;     &lt;date&gt;     &lt;lis&gt;</span>
-<span class="co">#&gt;  1 Anhui    2013-03-09              1 2013-03-25     2013-03-09 2013-04-14 &lt;tib…</span>
-<span class="co">#&gt;  2 Beijing  2013-04-11              1 2013-04-19     2013-04-11 2013-05-21 &lt;tib…</span>
+<span class="co">#&gt;  1 Anhui    2013-03-09              1 2013-03-26     2013-03-09 2013-04-14 &lt;tib…</span>
+<span class="co">#&gt;  2 Beijing  2013-04-11              1 2013-04-21     2013-04-11 2013-05-21 &lt;tib…</span>
 <span class="co">#&gt;  3 Fujian   2013-04-17              1 2013-04-21     2013-04-17 2013-04-29 &lt;tib…</span>
 <span class="co">#&gt;  4 Guangdo… 2013-07-27              1 2013-07-27     2013-07-27 2013-07-27 &lt;tib…</span>
 <span class="co">#&gt;  5 Hebei    2013-07-10              1 2013-07-10     2013-07-10 2013-07-10 &lt;tib…</span>
 <span class="co">#&gt;  6 Henan    2013-04-06              1 2013-04-09     2013-04-06 2013-04-17 &lt;tib…</span>
-<span class="co">#&gt;  7 Hunan    2013-04-14              1 2013-04-15     2013-04-14 2013-04-23 &lt;tib…</span>
-<span class="co">#&gt;  8 Jiangsu  2013-03-19              2 2013-03-24     2013-03-08 2013-04-10 &lt;tib…</span>
+<span class="co">#&gt;  7 Hunan    2013-04-14              1 2013-04-17     2013-04-14 2013-04-23 &lt;tib…</span>
+<span class="co">#&gt;  8 Jiangsu  2013-03-19              2 2013-03-26     2013-03-08 2013-04-18 &lt;tib…</span>
 <span class="co">#&gt;  9 Jiangxi  2013-04-15              1 2013-04-19     2013-04-15 2013-05-03 &lt;tib…</span>
-<span class="co">#&gt; 10 Shandong 2013-04-16              1 2013-04-18     2013-04-16 2013-04-27 &lt;tib…</span>
-<span class="co">#&gt; 11 Shanghai 2013-04-01              4 2013-03-30     2013-03-07 2013-04-04 &lt;tib…</span>
+<span class="co">#&gt; 10 Shandong 2013-04-16              1 2013-04-19     2013-04-16 2013-04-27 &lt;tib…</span>
+<span class="co">#&gt; 11 Shanghai 2013-04-01              4 2013-03-29     2013-02-27 2013-04-04 &lt;tib…</span>
 <span class="co">#&gt; 12 Taiwan   2013-04-12              1 2013-04-12     2013-04-12 2013-04-12 &lt;tib…</span>
-<span class="co">#&gt; 13 Zhejiang 2013-04-06              5 2013-04-08     2013-03-29 2013-04-15 &lt;tib…</span></pre></div>
+<span class="co">#&gt; 13 Zhejiang 2013-04-06              5 2013-04-08     2013-03-31 2013-04-12 &lt;tib…</span></pre></div>
 </div>
 </div>
   </div>
