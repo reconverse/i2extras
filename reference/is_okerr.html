@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Error handling for incidence2_fit objects — is_okerr • incidence2plus</title>
+<title>Error handling for incidence2_fit objects — is_okerr • i2extras</title>
 
 
 <!-- jquery -->
@@ -72,7 +72,7 @@ errored or gave warnings." />
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">incidence2plus</a>
+        <a class="navbar-link" href="../index.html">i2extras</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
@@ -137,13 +137,13 @@ errored or gave warnings.</p>
 <span class='co'># S3 method for incidence2_fit</span>
 <span class='fu'>is_ok</span><span class='op'>(</span><span class='va'>x</span>, include_warnings <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>is_err</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>is_error</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>is_err</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>is_error</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for incidence2_fit</span>
-<span class='fu'>is_err</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>is_error</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='fu'>is_warning</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
@@ -174,10 +174,11 @@ not errors.  Defaults to <code>FALSE</code>.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The following accessors are available:</p><ul>
-<li><p><code>ok()</code>: returns rows from an <code><a href='fit_curve.html'>incidence2_fit</a></code> object that did not error
-during the model fitting stages.</p></li>
-<li><p><code>err()</code>: returns rows from an <code><a href='fit_curve.html'>incidence2_fit</a></code> object that errored
-during the model fitting stages.</p></li>
+<li><p><code>is_ok()</code>: returns rows from an <code><a href='fit_curve.html'>incidence2_fit</a></code> object that did not
+error (and optionally produce a warning).</p></li>
+<li><p><code>is_error()</code>: returns rows from an <code><a href='fit_curve.html'>incidence2_fit</a></code> object that errored.</p></li>
+<li><p><code>is_warning()</code>: returns rows from an <code><a href='fit_curve.html'>incidence2_fit</a></code> object that
+produced warnings.</p></li>
 </ul>
 
 

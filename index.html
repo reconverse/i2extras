@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What the Package Does (One Line, Title Case) • incidence2plus</title>
+<title>What the Package Does (One Line, Title Case) • i2extras</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
@@ -30,7 +30,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="index.html">incidence2plus</a>
+        <a class="navbar-link" href="index.html">i2extras</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
       </span>
     </div>
@@ -81,7 +81,7 @@
 <div id="scope" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#scope" class="anchor"></a>Scope</h1></div>
-<p><em>incidence2plus</em> adds additional functionality to the <a href="https://github.com/reconhub/incidence2">incidence2</a> package.</p>
+<p><em>i2extras</em> adds additional functionality to the <a href="https://github.com/reconhub/incidence2">incidence2</a> package.</p>
 </div>
 <div id="what-does-it-do" class="section level1">
 <h1 class="hasAnchor">
@@ -99,13 +99,13 @@
 <a href="#installing-the-package" class="anchor"></a>Installing the package</h2>
 <p>Once it is released on <a href="https://CRAN.R-project.org">CRAN</a>, you will be able to install the stable version of the package with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"incidence2plus"</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"i2extras"</span><span class="op">)</span></pre></div>
 <p>The development version can be installed from <a href="https://github.com/">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
 <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va"><a href="https://remotes.r-lib.org">remotes</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>
 <span class="op">}</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"reconhub/incidence2plus"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"reconhub/i2extras"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
 </div>
 </div>
 <div id="resources" class="section level1">
@@ -114,16 +114,16 @@
 <div id="vignettes" class="section level2">
 <h2 class="hasAnchor">
 <a href="#vignettes" class="anchor"></a>Vignettes</h2>
-<p>An overview of <em>incidence2plus</em> is provided in the included vignettes:</p>
+<p>An overview of <em>i2extras</em> is provided in the included vignettes:</p>
 <ul>
-<li><p><code><a href="articles/peak_estimation.html">vignette("peak_estimation", package = "incidence2plus")</a></code></p></li>
-<li><p><code><a href="articles/fitting_epicurves.html">vignette("fitting_epicurves", package = "incidence2plus")</a></code></p></li>
+<li><p><code><a href="articles/peak_estimation.html">vignette("peak_estimation", package = "i2extras")</a></code></p></li>
+<li><p><code><a href="articles/fitting_epicurves.html">vignette("fitting_epicurves", package = "i2extras")</a></code></p></li>
 </ul>
 </div>
 <div id="getting-help-online" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-help-online" class="anchor"></a>Getting help online</h2>
-<p>Bug reports and feature requests should be posted on <em>github</em> using the <a href="https://github.com/reconhub/incidence2plus/issues"><em>issue</em> system</a>. All other questions should be posted on the <strong>RECON</strong> slack channel see <a href="https://www.repidemicsconsortium.org/forum/" class="uri">https://www.repidemicsconsortium.org/forum/</a> for details on how to join.</p>
+<p>Bug reports and feature requests should be posted on <em>github</em> using the <a href="https://github.com/reconhub/i2extras/issues"><em>issue</em> system</a>. All other questions should be posted on the <strong>RECON</strong> slack channel see <a href="https://www.repidemicsconsortium.org/forum/" class="uri">https://www.repidemicsconsortium.org/forum/</a> for details on how to join.</p>
 </div>
 </div>
 
@@ -148,9 +148,9 @@
 <ul class="list-unstyled">
 <li><a href="https://www.repostatus.org/#wip"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public."></a></li>
 <li><a href="https://www.tidyverse.org/lifecycle/#experimental"><img src="https://img.shields.io/badge/lifecycle-experimental-orange.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://CRAN.R-project.org/package=incidence2plus"><img src="https://www.r-pkg.org/badges/version/incidence2" alt="CRAN status"></a></li>
-<li><a href="https://github.com/reconhub/incidence2plus/actions"><img src="https://github.com/reconhub/incidence2plus/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://codecov.io/gh/reconhub/incidence2plus?branch=master"><img src="https://codecov.io/gh/reconhub/incidence2plus/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://CRAN.R-project.org/package=i2extras"><img src="https://www.r-pkg.org/badges/version/incidence2" alt="CRAN status"></a></li>
+<li><a href="https://github.com/reconhub/i2extras/actions"><img src="https://github.com/reconhub/i2extras/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li><a href="https://codecov.io/gh/reconhub/i2extras?branch=master"><img src="https://codecov.io/gh/reconhub/i2extras/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
