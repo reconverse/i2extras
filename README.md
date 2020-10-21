@@ -76,7 +76,7 @@ An overview of *i2extras* is provided in the included vignettes:
 ## Getting help online
 
 Bug reports and feature requests should be posted on *github* using the
-[*issue* system](https://github.com/reconhub/i2extras/issues). All
-other questions should be posted on the **RECON** slack channel see
+[*issue* system](https://github.com/reconhub/i2extras/issues). All other
+questions should be posted on the **RECON** slack channel see
 <https://www.repidemicsconsortium.org/forum/> for details on how to
 join.
