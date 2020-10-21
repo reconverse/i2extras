@@ -1,35 +1,40 @@
 Package: i2extras
-Title: What the Package Does (One Line, Title Case)
+Type: Package
+Title: Trend fitting and peak estimation for incidence2 objects.
 Version: 0.0.0.9000
-Authors@R: utils::person(given = "Tim", family = "Taylor", email = "tjtnew@gmail.com", role = c("aut", "cre"),
-            comment = c(ORCID = "0000-0002-8587-7113"))
-Description: What the package does (one paragraph).
-URL: website
-License: GPL (>=2)
+Authors@R: c(
+  person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
+         comment = c(ORCID = "0000-0002-8587-7113")),
+  person("Thibaut", "Jombart", role = c("aut"), email = "thibautjombart@gmail.com"), 
+  person("Zhian N.", "Kamvar", role = "aut", email = "zkamvar@gmail.com",
+         comment = c(ORCID = "0000-0003-1458-7108"))
+  )
+Description: Provides additional functions to fit trends and estimate peaks
+  of in 'incidence2' objects.
+URL: https://www.repidemicsconsortium.org/i2extras/
+BugReports: https://github.com/reconhub/i2extras/issues
 Encoding: UTF-8
+License: MIT + file LICENSE
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
-Imports: 
-    incidence2,
-    dplyr,
-    tibble,
+Imports:
     utils,
     stats,
-    rlang,
-    ggplot2,
-    ellipsis,
     MASS,
+    incidence2,
+    trending,
+    dplyr,
+    tibble,
+    rlang,
     tidyr,
     vctrs,
-    trending
+    ellipsis,
+    ggplot2
 Suggests: 
     testthat,
     outbreaks,
     knitr,
     rmarkdown,
     covr
-Remotes:
-    reconhub/incidence2,
-    reconhub/trending
 VignetteBuilder: knitr
