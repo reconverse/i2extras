@@ -11,12 +11,12 @@ fit_curve(dat, model, ...)
 
 \method{fit_curve}{default}(dat, model, ...)
 
-\method{fit_curve}{incidence2}(dat, model = c("negbin", "poisson"), alpha = 0.05, ...)
+\method{fit_curve}{incidence2}(dat, model = c("poisson", "negbin"), alpha = 0.05, ...)
 }
 \arguments{
 \item{dat}{An \link[incidence2:incidence]{incidence2::incidence} object.}
 
-\item{model}{The regression model to fit (can be "negbin" or "poisson").}
+\item{model}{The regression model to fit (can be "poisson" or "negbin").}
 
 \item{...}{Additional arguments to pass to \code{\link[stats:glm]{stats::glm()}} for
 \code{model = "poisson"} or \code{\link[MASS:glm.nb]{MASS::glm.nb()}} for \code{model = "negbin"}.}

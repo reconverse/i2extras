@@ -51,8 +51,7 @@ The main features of the package include:
 - `find_peak()`: locates the peak time of the epicurve.
 
 - `estimate_peak()`: uses bootstrap to estimate the peak time (and related
-  confidence interval) of a partially observed outbreak. We can use `tidy()`
-  to generate nicer looking output.
+  confidence interval) of a partially observed outbreak.
 
 
 ## Installing the package

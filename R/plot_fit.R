@@ -49,9 +49,9 @@ plot.incidence2_fit <- function(x, include_warnings = FALSE,
   col_model <- "#BBB67E"
 
   graph <- graph +
-    ggplot2::geom_point(
-      mapping = ggplot2::aes(x = !!sym(date_var) + shift, y = .data$estimate),
-      size = 0.5)
+    ggplot2::geom_line(
+      mapping = ggplot2::aes(x = !!sym(date_var) + shift, y = .data$estimate)
+    )
       
   if (ci) {
     graph <- graph +

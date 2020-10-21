@@ -1,7 +1,7 @@
 Package: i2extras
 Type: Package
-Title: Trend Fitting and Peak Estimation for incidence2 Objects
-Version: 0.0.0.9000
+Title: Functions to Work with 'incidence2' Objects
+Version: 0.0.1
 Authors@R: c(
   person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
          comment = c(ORCID = "0000-0002-8587-7113")),
@@ -9,8 +9,10 @@ Authors@R: c(
   person("Zhian N.", "Kamvar", role = "aut", email = "zkamvar@gmail.com",
          comment = c(ORCID = "0000-0003-1458-7108"))
   )
-Description: Provides additional functions to fit trends to and estimate peaks
-  of 'incidence2' objects.
+Description: Provides functions to work with 'incidence2' objects, including a
+  simplified interface for trend fitting and peak estimation. This package is
+  part of the RECON (<https://www.repidemicsconsortium.org/>) toolkit for 
+  outbreak analysis.
 URL: https://www.repidemicsconsortium.org/i2extras/
 BugReports: https://github.com/reconhub/i2extras/issues
 Encoding: UTF-8

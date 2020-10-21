@@ -1,7 +1,7 @@
 #' Fit an epi curve
 #'
 #' @param dat An [incidence2::incidence] object.
-#' @param model The regression model to fit (can be "negbin" or "poisson").
+#' @param model The regression model to fit (can be "poisson" or "negbin").
 #' @param alpha Value of alpha used to calculate confidence intervals; defaults
 #'   to 0.05 which corresponds to a 95% confidence interval.
 #' @param ... Additional arguments to pass to [stats::glm()] for
@@ -27,7 +27,7 @@ fit_curve.default <- function(dat, model, ...) {
 #' @aliases fit_curve.incidence2 incidence2_fit
 #' @export
 fit_curve.incidence2 <- function(dat,
-                                 model = c("negbin", "poisson"),
+                                 model = c("poisson", "negbin"),
                                  alpha = 0.05,
                                  ...) {
   model <- match.arg(model)
