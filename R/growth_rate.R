@@ -47,21 +47,16 @@ growth_rate.incidence2_fit <- function(x, alpha = 0.05, growth_decay_time = TRUE
     double(1)
   )
   
-  groups <- attr(dat, "groups")
-  if (!is.null(groups)) {
-    groups <- dat[groups]
-  } else {
-    groups <- NA_character_
-  }
-
   res <- tibble::tibble(
-   # model = dat[[model_var]],
-    groups,
+    model = dat[[model_var]],
     r,
     r_lower,
     r_upper
   )
 
+  groups <- attr(dat, "groups")
+  if (!is.null(groups)) res <- dplyr::bind_cols(dat[groups], res)
+  
   if (growth_decay_time) add_two_time(res) else res
 
 }

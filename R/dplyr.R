@@ -158,6 +158,12 @@ incidence2_fit_reconstruct <- function(x, to) {
     attr(x, "error_vars") <- value[error_index]
   }
 
+  warning_vars <- attr(x, "warning_vars")
+  if (!is.null(warning_vars)) {
+    warning_index <- which(current_names %in% warning_vars)
+    attr(x, "warning_vars") <- value[warning_index]
+  }
+
 
 
   out <- NextMethod()

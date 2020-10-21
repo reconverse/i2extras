@@ -5,12 +5,13 @@
 \alias{is_ok}
 \alias{is_ok.default}
 \alias{is_ok.incidence2_fit}
-\alias{is_err}
-\alias{is_err.default}
-\alias{is_err.incidence2_fit}
+\alias{is_error}
+\alias{is_error.default}
+\alias{is_error.incidence2_fit}
 \alias{is_warning}
 \alias{is_warning.default}
 \alias{is_warning.incidence2_fit}
+\alias{is_err.incidence2_fit}
 \title{Error handling for incidence2_fit objects}
 \usage{
 is_ok(x, ...)
@@ -19,11 +20,11 @@ is_ok(x, ...)
 
 \method{is_ok}{incidence2_fit}(x, include_warnings = FALSE, ...)
 
-is_err(x, ...)
+is_error(x, ...)
 
-\method{is_err}{default}(x, ...)
+\method{is_error}{default}(x, ...)
 
-\method{is_err}{incidence2_fit}(x, ...)
+\method{is_error}{incidence2_fit}(x, ...)
 
 is_warning(x, ...)
 
@@ -46,9 +47,10 @@ errored or gave warnings.
 \details{
 The following accessors are available:
 \itemize{
-\item \code{ok()}: returns rows from an \code{\link{incidence2_fit}} object that did not error
-during the model fitting stages.
-\item \code{err()}: returns rows from an \code{\link{incidence2_fit}} object that errored
-during the model fitting stages.
+\item \code{is_ok()}: returns rows from an \code{\link{incidence2_fit}} object that did not
+error (and optionally produce a warning).
+\item \code{is_error()}: returns rows from an \code{\link{incidence2_fit}} object that errored.
+\item \code{is_warning()}: returns rows from an \code{\link{incidence2_fit}} object that
+produced warnings.
 }
 }

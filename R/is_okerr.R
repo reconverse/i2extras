@@ -12,11 +12,13 @@
 #' 
 #' @details The following accessors are available:
 #'
-#' * `ok()`: returns rows from an [`incidence2_fit`] object that did not error
-#'   during the model fitting stages.
+#' * `is_ok()`: returns rows from an [`incidence2_fit`] object that did not
+#'  error (and optionally produce a warning).
 #'
-#' * `err()`: returns rows from an [`incidence2_fit`] object that errored
-#'   during the model fitting stages.
+#' * `is_error()`: returns rows from an [`incidence2_fit`] object that errored.
+#' 
+#' * `is_warning()`: returns rows from an [`incidence2_fit`] object that
+#'   produced warnings.
 #'
 #' @name is_okerr
 NULL
@@ -77,26 +79,26 @@ is_ok.incidence2_fit <- function(x, include_warnings = FALSE, ...) {
 
 
 #' @rdname is_okerr
-#' @aliases is_err
+#' @aliases is_error
 #' @export
-is_err <- function(x, ...) {
-  UseMethod("is_err")
+is_error <- function(x, ...) {
+  UseMethod("is_error")
 }
 
 
 #' @rdname is_okerr
-#' @aliases is_err.default
+#' @aliases is_error.default
 #' @export
-is_err.default <- function(x, ...) {
+is_error.default <- function(x, ...) {
   stop(sprintf("Not implemented for class %s",
                paste(class(x), collapse = ", ")))
 }
 
 
 #' @rdname is_okerr
-#' @aliases is_err.incidence2_fit
+#' @aliases is_error.incidence2_fit
 #' @export
-is_err.incidence2_fit <- function(x, ...) {
+is_error.incidence2_fit <- function(x, ...) {
   error_vars <- attr(x, "error_vars")
   if (!is.null(error_vars)) {
       e <- suppressMessages(
@@ -105,7 +107,7 @@ is_err.incidence2_fit <- function(x, ...) {
             function(z) vapply(z, function(x) !is.null(x), logical(1))
           )
       )
-      e <- do.call(`|`, )
+      e <- do.call(`|`, e)
       x <- x[e, ]
   }
   x
@@ -142,7 +144,8 @@ is_warning.incidence2_fit <- function(x, ...) {
           )
       )
       w <- do.call(`|`, w)
-      x <- x[!w, ]
+      idx <- !names(x) %in% attr(x, "error_vars")
+      x <- x[w, idx]
   }
   x
 }

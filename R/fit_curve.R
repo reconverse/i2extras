@@ -33,7 +33,9 @@ fit_curve.incidence2 <- function(dat,
   model <- match.arg(model)
   groups <- incidence2::get_group_names(dat)
   dates <- incidence2::get_dates_name(dat)
+  date_group <- incidence2::get_date_group_names(dat)
   count <- incidence2::get_counts_name(dat)
+  
   fmla <- stats::as.formula(paste(count, "~", dates))
   trending_model <- switch(
     model,
@@ -86,6 +88,7 @@ fit_curve.incidence2 <- function(dat,
   out <- tibble::new_tibble(out,
                             groups = groups,
                             date = dates,
+                            date_group = date_group,
                             count = count,
                             interval = incidence2::get_interval(dat),
                             cumulative = attr(dat, "cumulative"),
@@ -96,7 +99,6 @@ fit_curve.incidence2 <- function(dat,
                             nrow = nrow(out),
                             class = "incidence2_fit")
 
-  attr(out, "date_group") <- attr(dat, "date_group")
   tibble::validate_tibble(out)
 }
 

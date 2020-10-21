@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 ```{r}
 library(outbreaks)
 library(incidence2)
-library(incidence2plus) 
+library(i2extras) 
 ```
 
 # Bootstrapping and finding peaks

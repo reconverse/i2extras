@@ -1,4 +1,4 @@
 library(testthat)
-library(incidence2plus)
+library(i2extras)
 
-test_check("incidence2plus")
+test_check("i2extras")
