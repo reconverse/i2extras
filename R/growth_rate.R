@@ -1,10 +1,12 @@
 #' Calculate growth/decay rate
-#' 
+#'
 #' @param x The output of function [fit_curve.incidence2()].
 #' @param alpha Value of alpha used to calculate confidence intervals; defaults
 #'   to 0.05 which corresponds to a 95% confidence interval.
 #' @param growth_decay_time Should a doubling/halving time and corresponding
 #'   confidence intervals be added to the output. Default TRUE.
+#' @param include_warnings Include models in output that triggered warnings but
+#'   not errors.  Defaults to `FALSE`.
 #' @param ... Not currently used.
 #'
 #' @export
@@ -25,10 +27,13 @@ growth_rate.default <- function(x, ...) {
 #' @rdname growth_rate
 #' @aliases growth_rate.incidence2_fit
 #' @export
-growth_rate.incidence2_fit <- function(x, alpha = 0.05, growth_decay_time = TRUE, ...) {
-  dat <- is_ok(x)
+growth_rate.incidence2_fit <- function(x, alpha = 0.05,
+                                       growth_decay_time = TRUE,
+                                       include_warnings = FALSE, ...) {
+
+  dat <- is_ok(x, include_warnings = include_warnings)
   model_var <- attr(dat, "model")
-  
+
   r <- vapply(
     dat[[model_var]],
     function(x) x$coefficients[2],
@@ -36,17 +41,17 @@ growth_rate.incidence2_fit <- function(x, alpha = 0.05, growth_decay_time = TRUE
   )
 
   r_lower <- vapply(
-    dat[[model_var]], 
+    dat[[model_var]],
     function(x) suppressMessages(stats::confint(x, 2, 1 - alpha)[1]),
     double(1)
   )
 
   r_upper <- vapply(
-    dat[[model_var]], 
+    dat[[model_var]],
     function(x) suppressMessages(stats::confint(x, 2, 1 - alpha)[2]),
     double(1)
   )
-  
+
   res <- tibble::tibble(
     model = dat[[model_var]],
     r,
@@ -56,7 +61,7 @@ growth_rate.incidence2_fit <- function(x, alpha = 0.05, growth_decay_time = TRUE
 
   groups <- attr(dat, "groups")
   if (!is.null(groups)) res <- dplyr::bind_cols(dat[groups], res)
-  
+
   if (growth_decay_time) add_two_time(res) else res
 
 }

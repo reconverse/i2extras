@@ -10,7 +10,13 @@ growth_rate(x, ...)
 
 \method{growth_rate}{default}(x, ...)
 
-\method{growth_rate}{incidence2_fit}(x, alpha = 0.05, growth_decay_time = TRUE, ...)
+\method{growth_rate}{incidence2_fit}(
+  x,
+  alpha = 0.05,
+  growth_decay_time = TRUE,
+  include_warnings = FALSE,
+  ...
+)
 }
 \arguments{
 \item{x}{The output of function \code{\link[=fit_curve.incidence2]{fit_curve.incidence2()}}.}
@@ -22,6 +28,9 @@ to 0.05 which corresponds to a 95\% confidence interval.}
 
 \item{growth_decay_time}{Should a doubling/halving time and corresponding
 confidence intervals be added to the output. Default TRUE.}
+
+\item{include_warnings}{Include models in output that triggered warnings but
+not errors.  Defaults to \code{FALSE}.}
 }
 \description{
 Calculate growth/decay rate
