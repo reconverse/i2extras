@@ -1,9 +1,6 @@
 
 <!-- badges: start -->
 
-[![Project Status: WIP – Initial development is in progress, but there
-has not yet been a stable, usable release suitable for the
-public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 [![CRAN
@@ -13,11 +10,6 @@ status](https://github.com/reconhub/i2extras/workflows/R-CMD-check/badge.svg)](h
 [![Codecov test
 coverage](https://codecov.io/gh/reconhub/i2extras/branch/master/graph/badge.svg)](https://codecov.io/gh/reconhub/i2extras?branch=master)
 <!-- badges: end -->
-
-<br> **<span style="color: red;">Disclaimer</span>**
-
-This package is a work in progress. Please reach out to the authors
-before using.
 
 # Scope
 
