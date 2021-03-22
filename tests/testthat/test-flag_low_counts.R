@@ -1,9 +1,9 @@
 library(incidence2)
 library(outbreaks)
 
-context("flag_lowcounts")
+context("flag_low_counts")
 
-test_that("flag_lowcounts works as expected", {
+test_that("flag_low_counts works as expected", {
   skip_on_cran()
 
   dat <- dplyr::filter(ebola_sim_clean$linelist,
@@ -40,7 +40,7 @@ test_that("flag_lowcounts works as expected", {
 })
 
 
-test_that("flag_lowcounts errors as it should", {
+test_that("flag_low_counts errors as it should", {
   msg <- "`letters` is not an incidence object"
   expect_error(flag_low_counts(letters), msg)
 })
