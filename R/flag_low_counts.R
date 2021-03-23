@@ -49,6 +49,7 @@ flag_low_counts <- function(x, counts = NULL, threshold = 0.01, set_missing = TR
     stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
   }
 
+  ##browser()
   ## snapshot original attributes
   original_attributes <- attributes(x)
 
@@ -88,7 +89,7 @@ flag_low_counts <- function(x, counts = NULL, threshold = 0.01, set_missing = TR
         {{counts}},
         function(x) if_else(
                         below_thres(x),
-                        NA_integer_,
+                        NA_counts_(x),
                         x
                     )
         )
