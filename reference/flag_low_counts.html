@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find the peak date of an incidence curve — find_peak • i2extras</title>
+<title>Flag low counts and set them to NAs — flag_low_counts • i2extras</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,13 @@
 
 
 
-<meta property="og:title" content="Find the peak date of an incidence curve — find_peak" />
-<meta property="og:description" content="This function can be used to find the peak of an epidemic curve stored as an
-incidence2::incidence object." />
+<meta property="og:title" content="Flag low counts and set them to NAs — flag_low_counts" />
+<meta property="og:description" content="Low counts may be genuine, but they can also reflect actually missing data or
+strong under-reporting. This function aims to detect the latter by flagging
+any count below a certain threshold, expressed as a fraction of the median
+count. Setting low values to NAs can be useful to help fitting temporal
+trends to the data, as zeros / low counts can throw off some models
+(e.g. Negative Binomial GLMs)." />
 
 
 
@@ -127,17 +131,21 @@ incidence2::incidence object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find the peak date of an incidence curve</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconhub/i2extras/blob/master/R/find_peak.R'><code>R/find_peak.R</code></a></small>
-    <div class="hidden name"><code>find_peak.Rd</code></div>
+    <h1>Flag low counts and set them to NAs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconhub/i2extras/blob/master/R/flag_low_counts.R'><code>R/flag_low_counts.R</code></a></small>
+    <div class="hidden name"><code>flag_low_counts.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function can be used to find the peak of an epidemic curve stored as an
-<a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> object.</p>
+    <p>Low counts may be genuine, but they can also reflect actually missing data or
+strong under-reporting. This function aims to detect the latter by flagging
+any count below a certain threshold, expressed as a fraction of the median
+count. Setting low values to NAs can be useful to help fitting temporal
+trends to the data, as zeros / low counts can throw off some models
+(e.g. Negative Binomial GLMs).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>find_peak</span><span class='op'>(</span><span class='va'>x</span>, regroup <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>flag_low_counts</span><span class='op'>(</span><span class='va'>x</span>, counts <span class='op'>=</span> <span class='cn'>NULL</span>, threshold <span class='op'>=</span> <span class='fl'>0.01</span>, set_missing <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -147,67 +155,43 @@ incidence2::incidence object." />
       <td><p>An <a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> object.</p></td>
     </tr>
     <tr>
-      <th>regroup</th>
-      <td><p>If <code>TRUE</code> (default), any groups will be regrouped before
-finding a peak. If <code>FALSE</code>, separate peaks will be found for each group.</p></td>
+      <th>counts</th>
+      <td><p>A tidyselect compliant indication of the counts to be used.</p></td>
+    </tr>
+    <tr>
+      <th>threshold</th>
+      <td><p>A numeric multiplier of the median count to be used as
+threshold. Defaults to 0.01, in which case any count lower than 1% of the
+median count is flagged as low count.</p></td>
+    </tr>
+    <tr>
+      <th>set_missing</th>
+      <td><p>A <code>logical</code> indicating if the low counts identified should
+be replaced with NAs (<code>TRUE</code>, default). If <code>FALSE</code>, new logical columns
+with the <code>flag_low</code> suffix will be added, indicating which entries are
+below the threshold.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The date of the (first) highest incidence in the data.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='estimate_peak.html'>estimate_peak()</a></code> for bootstrap estimates of the peak time</p></div>
+    <p>An <a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> object.</p>
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Thibaut Jombart <a href='mailto:thibautjombart@gmail.com'>thibautjombart@gmail.com</a>, Zhian N. Kamvar
-<a href='mailto:zkamvar@gmail.com'>zkamvar@gmail.com</a></p>
+    <p>Tim Taylor and Thibaut Jombart</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
+    <pre class="examples"><div class='input'>
+<span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
     <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"incidence2"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-
-  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span><span class='op'>(</span> <span class='op'>{</span>
-    <span class='co'># load data and create incidence</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
-    <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'>incidence2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, date_index <span class='op'>=</span> <span class='va'>date_of_onset</span><span class='op'>)</span>
-    <span class='va'>i</span>
-
-    <span class='fu'>find_peak</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
-  <span class='op'>}</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>covid19_england_nhscalls_2020</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
+  <span class='va'>dat</span> <span class='op'>&lt;-</span> <span class='va'>covid19_england_nhscalls_2020</span>
+  <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'>incidence</span><span class='op'>(</span><span class='va'>dat</span>, <span class='va'>date</span>, interval <span class='op'>=</span> <span class='st'>"monday week"</span>, count <span class='op'>=</span> <span class='va'>count</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>flag_low_counts</span><span class='op'>(</span><span class='va'>i</span>, threshold <span class='op'>=</span> <span class='fl'>0.1</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>flag_low_counts</span><span class='op'>(</span><span class='va'>i</span>, threshold <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>, title <span class='op'>=</span> <span class='st'>"removing counts below the median"</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; &gt; data(fluH7N9_china_2013, package = "outbreaks")
-#&gt; &gt; i &lt;- incidence2::incidence(fluH7N9_china_2013, date_index = date_of_onset)</div><div class='output co'>#&gt; <span class='message'>10 missing observations were removed.</span></div><div class='output co'>#&gt; &gt; i
-#&gt; <span style='color: #949494;'>An incidence2 object: 159 x 2
-#&gt; </span><span>[126 cases from days 2013-02-19 to 2013-07-27]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    date       count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2013-02-19     1
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2013-02-20     0
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2013-02-21     0
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2013-02-22     0
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2013-02-23     0
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2013-02-24     0
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2013-02-25     0
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2013-02-26     0
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2013-02-27     1
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2013-02-28     0
-#&gt; </span><span style='color: #949494;'># … with 149 more rows</span><span>
-#&gt; 
-#&gt; &gt; find_peak(i)
-#&gt; </span><span style='color: #949494;'>An incidence2 object: 1 x 2
-#&gt; </span><span>[7 cases from days 2013-04-03 to 2013-04-03]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;   date       count
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2013-04-03     7
-#&gt; </div></span></pre>
+</div><div class='output co'>#&gt; <span class='error'>Error in incidence(dat, date, interval = "monday week", count = count): could not find function "incidence"</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

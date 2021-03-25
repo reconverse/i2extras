@@ -223,14 +223,14 @@
 <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"poisson"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
 <span class="va">out</span>
 <span class="co">#&gt; # A tibble: 6 x 7</span>
-<span class="co">#&gt;   hospital model estimates fitting_warning fitting_error prediction_warn…</span>
-<span class="co">#&gt;   &lt;fct&gt;    &lt;lis&gt; &lt;list&gt;    &lt;list&gt;          &lt;list&gt;        &lt;list&gt;          </span>
-<span class="co">#&gt; 1 Connaug… &lt;glm&gt; &lt;df[,7] … &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
-<span class="co">#&gt; 2 Militar… &lt;glm&gt; &lt;df[,7] … &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
-<span class="co">#&gt; 3 other    &lt;glm&gt; &lt;df[,7] … &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
-<span class="co">#&gt; 4 Princes… &lt;glm&gt; &lt;df[,7] … &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
-<span class="co">#&gt; 5 Rokupa … &lt;glm&gt; &lt;df[,7] … &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
-<span class="co">#&gt; 6 &lt;NA&gt;     &lt;glm&gt; &lt;df[,7] … &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
+<span class="co">#&gt;   hospital       model estimates  fitting_warning fitting_error prediction_warn…</span>
+<span class="co">#&gt;   &lt;fct&gt;          &lt;lis&gt; &lt;list&gt;     &lt;list&gt;          &lt;list&gt;        &lt;list&gt;          </span>
+<span class="co">#&gt; 1 Connaught Hos… &lt;glm&gt; &lt;df[,7] [… &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
+<span class="co">#&gt; 2 Military Hosp… &lt;glm&gt; &lt;df[,7] [… &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
+<span class="co">#&gt; 3 other          &lt;glm&gt; &lt;df[,7] [… &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
+<span class="co">#&gt; 4 Princess Chri… &lt;glm&gt; &lt;df[,7] [… &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
+<span class="co">#&gt; 5 Rokupa Hospit… &lt;glm&gt; &lt;df[,7] [… &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
+<span class="co">#&gt; 6 &lt;NA&gt;           &lt;glm&gt; &lt;df[,7] [… &lt;NULL&gt;          &lt;NULL&gt;        &lt;NULL&gt;          </span>
 <span class="co">#&gt; # … with 1 more variable: prediction_error &lt;list&gt;</span>
 
 <span class="co"># plot with a prediction interval but not a confidence interval</span>
@@ -240,14 +240,14 @@
 <code class="sourceCode R"><span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; Note: incidence2_fit class dropped in returned object</span>
 <span class="co">#&gt; # A tibble: 6 x 9</span>
-<span class="co">#&gt;   hospital model      r r_lower r_upper growth_or_decay  time time_lower</span>
-<span class="co">#&gt;   &lt;fct&gt;    &lt;lis&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Connaug… &lt;glm&gt; 0.0281  0.0238  0.0327 doubling         24.6       21.2</span>
-<span class="co">#&gt; 2 Militar… &lt;glm&gt; 0.0256  0.0201  0.0315 doubling         27.0       22.0</span>
-<span class="co">#&gt; 3 other    &lt;glm&gt; 0.0245  0.0190  0.0303 doubling         28.3       22.8</span>
-<span class="co">#&gt; 4 Princes… &lt;glm&gt; 0.0237  0.0159  0.0323 doubling         29.2       21.5</span>
-<span class="co">#&gt; 5 Rokupa … &lt;glm&gt; 0.0283  0.0195  0.0382 doubling         24.5       18.1</span>
-<span class="co">#&gt; 6 &lt;NA&gt;     &lt;glm&gt; 0.0261  0.0217  0.0307 doubling         26.6       22.6</span>
+<span class="co">#&gt;   hospital         model      r r_lower r_upper growth_or_decay  time time_lower</span>
+<span class="co">#&gt;   &lt;fct&gt;            &lt;lis&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Connaught Hospi… &lt;glm&gt; 0.0281  0.0238  0.0327 doubling         24.6       21.2</span>
+<span class="co">#&gt; 2 Military Hospit… &lt;glm&gt; 0.0256  0.0201  0.0315 doubling         27.0       22.0</span>
+<span class="co">#&gt; 3 other            &lt;glm&gt; 0.0245  0.0190  0.0303 doubling         28.3       22.8</span>
+<span class="co">#&gt; 4 Princess Christ… &lt;glm&gt; 0.0237  0.0159  0.0323 doubling         29.2       21.5</span>
+<span class="co">#&gt; 5 Rokupa Hospital  &lt;glm&gt; 0.0283  0.0195  0.0382 doubling         24.5       18.1</span>
+<span class="co">#&gt; 6 &lt;NA&gt;             &lt;glm&gt; 0.0261  0.0217  0.0307 doubling         26.6       22.6</span>
 <span class="co">#&gt; # … with 1 more variable: time_upper &lt;dbl&gt;</span></code></pre></div>
 <p>We provide helper functions, <code><a href="../reference/is_okerr.html">is_ok()</a></code>, <code><a href="../reference/is_okerr.html">is_warning()</a></code> and <code><a href="../reference/is_okerr.html">is_error()</a></code> to help filter the output as necessary.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
