@@ -1,5 +1,5 @@
 library(incidence2)
-
+#skip("needs fixing")
 context("rolling_average")
 
 dates <- Sys.Date() + 1:10

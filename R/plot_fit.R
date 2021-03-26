@@ -13,16 +13,15 @@
 #'
 #' @importFrom rlang sym
 #' @export
-plot.incidence2_fit <- function(x, include_warnings = FALSE, 
+plot.incidence2_fit <- function(x, include_warnings = FALSE,
                                 ci = TRUE, pi = FALSE, ...) {
 
-  
+
   group_vars <- attr(x, "groups")
   date_var <- attr(x, "date")
   count_var <- attr(x, "count")
   interval <- attr(x, "interval")
   cumulative <- attr(x, "cumulative")
-  date_group <- attr(x, "date_group")
 
   x <- is_ok(x, include_warnings = include_warnings)
   x$model <- NULL
@@ -34,8 +33,7 @@ plot.incidence2_fit <- function(x, include_warnings = FALSE,
     date = date_var,
     count = count_var,
     interval = interval,
-    cumulative = cumulative,
-    date_group = date_group
+    cumulative = cumulative
   )
 
   if (is.null(group_vars)) {
@@ -45,14 +43,19 @@ plot.incidence2_fit <- function(x, include_warnings = FALSE,
   }
 
 
-  shift <- mean(incidence2::get_interval(dat, integer = TRUE))/2
+  if (inherits(dat[[date_var]], "period")) {
+    shift <- mean(incidence2::get_interval(dat, integer = TRUE))/2
+  } else {
+    shift <-0
+  }
+
   col_model <- "#BBB67E"
 
   graph <- graph +
     ggplot2::geom_line(
       mapping = ggplot2::aes(x = !!sym(date_var) + shift, y = .data$estimate)
     )
-      
+
   if (ci) {
     graph <- graph +
       ggplot2::geom_ribbon(ggplot2::aes(x = !!sym(date_var) + shift,
@@ -72,6 +75,6 @@ plot.incidence2_fit <- function(x, include_warnings = FALSE,
   }
 
   graph
-     
-    
+
+
 }

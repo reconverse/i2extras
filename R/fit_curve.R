@@ -31,12 +31,11 @@ fit_curve.incidence2 <- function(dat,
                                  alpha = 0.05,
                                  ...) {
   model <- match.arg(model)
-  groups <- incidence2::get_group_names(dat)
-  dates <- incidence2::get_dates_name(dat)
-  date_group <- incidence2::get_date_group_names(dat)
-  count <- incidence2::get_counts_name(dat)
-  
-  fmla <- stats::as.formula(paste(count, "~", dates))
+  groups_var <- incidence2::get_group_names(dat)
+  date_var <- incidence2::get_dates_name(dat)
+  count_var <- incidence2::get_counts_name(dat)
+
+  fmla <- stats::as.formula(paste(count_var, "~", date_var))
   trending_model <- switch(
     model,
     negbin = trending::glm_nb_model(fmla, ...),
@@ -44,8 +43,8 @@ fit_curve.incidence2 <- function(dat,
     stop('Invalid model. Please use one of "negbin" or "poisson".')
   )
 
-  if (!is.null(groups)) {
-    out <- dplyr::nest_by(grouped_df(dat, groups))
+  if (!is.null(groups_var)) {
+    out <- dplyr::nest_by(grouped_df(dat, groups_var))
     fiterr <- lapply(
       out$data,
       function(x) safely(trending::fit)(trending_model, x)
@@ -62,7 +61,7 @@ fit_curve.incidence2 <- function(dat,
     )
     model <- base_transpose(model)
     out$model <- model[[1]]
-    out$estimates <-prederr[[1]] 
+    out$estimates <-prederr[[1]]
     out$fitting_warning <- fiterr[[2]]
     out$fitting_error <- fiterr[[3]]
     out$prediction_warning <-prederr[[3]]
@@ -86,10 +85,9 @@ fit_curve.incidence2 <- function(dat,
 
   # create subclass of tibble
   out <- tibble::new_tibble(out,
-                            groups = groups,
-                            date = dates,
-                            date_group = date_group,
-                            count = count,
+                            groups = groups_var,
+                            date = date_var,
+                            count = count_var,
                             interval = incidence2::get_interval(dat),
                             cumulative = attr(dat, "cumulative"),
                             model = "model",

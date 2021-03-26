@@ -4,6 +4,8 @@
 \alias{fit_model}
 \alias{fit_model.default}
 \alias{fit_model.trending_model}
+\alias{fit_model.list}
+\alias{fit_model.trending_model_list}
 \title{Fit a model to an incidence object}
 \usage{
 fit_model(x, model, ...)
@@ -11,6 +13,8 @@ fit_model(x, model, ...)
 \method{fit_model}{default}(x, model, ...)
 
 \method{fit_model}{trending_model}(x, model, ...)
+
+\method{fit_model}{list}(x, model, ...)
 }
 \arguments{
 \item{x}{An \link[incidence2:incidence]{incidence2::incidence} object.}
@@ -20,15 +24,6 @@ fit_model(x, model, ...)
 models (see \code{?trending::trending_model()} for further details).}
 
 \item{...}{Not currently used.}
-
-\item{ci}{Logical indicating whether to calculate confidence intervals for
-the model (defaults to TRUE).}
-
-\item{pi}{Logical indicating whether to calculate prediction intervals for
-the model (defaults to TRUE).}
-
-\item{alpha}{Value of alpha used to calculate confidence  / prediction
-intervals; defaults to 0.05 which corresponds to a 95\% confidence interval.}
 }
 \value{
 An object of class \code{incidence2_fit} or \code{incidence2_fit_list} if a

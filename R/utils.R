@@ -1,12 +1,11 @@
 minimal_incidence <- function(x, groups, date, count, interval,
-                              cumulative = FALSE, date_group = NULL) {
+                              cumulative = FALSE) {
   tibble::new_tibble(x,
                      groups = groups,
                      date = date,
                      count = count,
                      interval = interval,
                      cumulative = cumulative,
-                     date_group = NULL,
                      nrow = nrow(x),
                      class = "incidence2")
 }
@@ -49,7 +48,7 @@ safely <- function(fun) {
 #' @param x A count vector.
 #'
 #' @return A `NA` of the type matching the input.
-#' 
+#'
 NA_counts_ <- function(x) {
   if (is.integer(x)) {
     return(NA_integer_)

@@ -56,8 +56,12 @@
 #' }
 #'
 #' @import data.table
+#' @importFrom stats quantile setNames
 #' @export
 estimate_peak <- function(x, n = 100, alpha = 0.05, progress = TRUE) {
+
+  bootstrap_peaks <- ..observed_peak <- observed_count <- . <- NULL
+  i.bootstrap_peaks <- NULL
 
   if (!inherits(x, "incidence2")) {
     stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
@@ -84,7 +88,7 @@ estimate_peak <- function(x, n = 100, alpha = 0.05, progress = TRUE) {
     close(pb)
     cat("\n")
   } else {
-    out <- lapply(seq_len(n), function(y) find_peak(bootstrap(x), regroup = FALSE))
+    out <- lapply(seq_len(n), function(y) find_peak(bootstrap(x)))
   }
   out <- rbindlist(out)
 

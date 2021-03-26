@@ -17,7 +17,6 @@ plot.incidence2_rolling <- function(x, ...) {
   count_var <- attr(x, "count")
   interval <- attr(x, "interval")
   cumulative <- attr(x, "cumulative")
-  date_group <- attr(x, "date_group")
 
   dat <- tidyr::unnest(x, cols = !!sym(ra))
 
@@ -27,8 +26,7 @@ plot.incidence2_rolling <- function(x, ...) {
     date = date_var,
     count = count_var,
     interval = interval,
-    cumulative = cumulative,
-    date_group = date_group
+    cumulative = cumulative
   )
 
 
@@ -38,7 +36,11 @@ plot.incidence2_rolling <- function(x, ...) {
     graph <- incidence2::facet_plot(dat, ...)
   }
 
-  shift <- mean(incidence2::get_interval(dat, integer = TRUE))/2
+  if (inherits(dat[[date_var]], "period")) {
+    shift <- mean(incidence2::get_interval(dat, integer = TRUE))/2
+  } else {
+    shift <-0
+  }
 
   graph +
     ggplot2::geom_point(mapping = ggplot2::aes(x = !!sym(date_var) + shift,

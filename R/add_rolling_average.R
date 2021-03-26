@@ -5,7 +5,7 @@
 #'   If x is not grouped this will be a subclass of tibble.
 #'
 #' @param x An [incidence2::incidence] object.
-#' @param before how many prior dates to group the current observation with. 
+#' @param before how many prior dates to group the current observation with.
 #'   Default is 2 days.
 #' @param ... Not currently used.
 #'
@@ -17,19 +17,18 @@
 #' @examples
 #' if (requireNamespace("outbreaks", quietly = TRUE) &&
 #'     requireNamespace("incidence2", quietly = TRUE)) {
+#'
 #'   data(ebola_sim_clean, package = "outbreaks")
 #'   dat <- ebola_sim_clean$linelist
+#'   dat <- subset(dat, date_of_onset <= as.Date("2014-10-05"))
 #'
 #'   inci <- incidence2::incidence(dat,
 #'                     date_index = date_of_onset,
 #'                     interval = "week",
-#'                     last_date = "2014-10-05",
 #'                     groups = gender)
 #'
 #'   ra <- add_rolling_average(inci, before = 2)
 #'   plot(ra, color = "white")
-#'
-#'
 #'
 #'   inci2 <- incidence2::regroup(inci)
 #'   ra2 <- add_rolling_average(inci2, before = 2)
@@ -54,13 +53,13 @@ add_rolling_average.default <- function(x, ...) {
 
 #' @rdname add_rolling_average
 #' @aliases add_rolling_average.incidence2
+#' @importFrom rlang .data
 #' @export
 add_rolling_average.incidence2 <- function(x, before = 2, ...) {
   ellipsis::check_dots_empty()
   group_vars <- incidence2::get_group_names(x)
   count_var <- incidence2::get_counts_name(x)
   date_var <- incidence2::get_dates_name(x)
-  date_group_var <- incidence2::get_date_group_names(x)
 
   if (!is.null(group_vars)) {
     out <- dplyr::grouped_df(x, group_vars)
@@ -68,9 +67,9 @@ add_rolling_average.incidence2 <- function(x, before = 2, ...) {
       out,
       rolling_average = list(
         rolling_average(
-          dplyr::cur_data(), 
-          date_var, 
-          count_var, 
+          dplyr::cur_data(),
+          date_var,
+          count_var,
           before + 1
         )
       ),
@@ -87,7 +86,6 @@ add_rolling_average.incidence2 <- function(x, before = 2, ...) {
   out <- tibble::new_tibble(out,
                             groups = group_vars,
                             date = date_var,
-                            date_group = date_group_var,
                             count = count_var,
                             interval = incidence2::get_interval(x),
                             cumulative = attr(x, "cumulative"),
@@ -103,11 +101,15 @@ rolling_average <- function(dat, date, count, width = 3) {
   dat <- dplyr::mutate(
     dat,
     rolling_average = as.vector(
-      stats::filter(
-        .data[[count]],
-        rep(1 / width, width),
-        sides = 1
-      )
+      {
+        tmp <- .data[[count]]
+        filter <- rep(1 / width, width)
+        if (length(tmp) < length(filter)) {
+          rep(NA, length(tmp))
+        } else {
+          stats::filter(tmp, filter, sides = 1)
+        }
+      }
     )
   )
   dat

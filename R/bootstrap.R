@@ -30,6 +30,7 @@
 #' }
 #'
 #' @import data.table
+#' @importFrom stats na.omit rmultinom
 #' @export
 bootstrap <- function(x, randomise_groups = FALSE) {
 

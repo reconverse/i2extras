@@ -24,6 +24,7 @@
 #' }
 #'
 #' @import data.table
+#' @importFrom utils head
 #' @export
 find_peak <- function(x) {
 
