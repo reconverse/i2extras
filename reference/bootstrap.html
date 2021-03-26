@@ -42,8 +42,7 @@
 <meta property="og:title" content="Bootstrap incidence time series — bootstrap" />
 <meta property="og:description" content="This function can be used to bootstrap incidence2::incidence objects.
 Bootstrapping is done by sampling with replacement the original input dates.
-See details for
-more information on how this is implemented." />
+See details for more information on how this is implemented." />
 
 
 
@@ -137,8 +136,7 @@ more information on how this is implemented." />
     <div class="ref-description">
     <p>This function can be used to bootstrap <a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> objects.
 Bootstrapping is done by sampling with replacement the original input dates.
-See <code>details</code> for
-more information on how this is implemented.</p>
+See <code>details</code> for more information on how this is implemented.</p>
     </div>
 
     <pre class="usage"><span class='fu'>bootstrap</span><span class='op'>(</span><span class='va'>x</span>, randomise_groups <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
@@ -161,7 +159,7 @@ dynamics. If <code>FALSE</code> (default), data are resampled within groups.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <code>incidence</code> object.</p>
+    <p>An <code>incidence2</code> object.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>As original data are not stored in <a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> objects,
@@ -175,59 +173,32 @@ by their relative incidence.</p>
     <p>Thibaut Jombart, Tim Taylor</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>&amp;&amp;</span>
-    <span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"incidence2"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://rdrr.io/r/base/source.html'>withAutoprint</a></span><span class='op'>(</span> <span class='op'>{</span>
-    <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
-    <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'>incidence2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, date_index <span class='op'>=</span> <span class='va'>date_of_onset</span><span class='op'>)</span>
-    <span class='va'>i</span>
-
-    <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'>bootstrap</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
-    <span class='va'>x</span>
-   <span class='op'>}</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
+  <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'>incidence2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, date_index <span class='op'>=</span> <span class='va'>date_of_onset</span><span class='op'>)</span>
+  <span class='fu'>bootstrap</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
+  <span class='fu'>bootstrap</span><span class='op'>(</span><span class='va'>i</span>, randomise_groups <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 <span class='op'>}</span>
-</div><div class='output co'>#&gt; &gt; data(fluH7N9_china_2013, package = "outbreaks")
-#&gt; &gt; i &lt;- incidence2::incidence(fluH7N9_china_2013, date_index = date_of_onset)</div><div class='output co'>#&gt; <span class='message'>10 missing observations were removed.</span></div><div class='output co'>#&gt; &gt; i
-#&gt; <span style='color: #949494;'>An incidence2 object: 159 x 2
-#&gt; </span><span>[126 cases from days 2013-02-19 to 2013-07-27]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
+</div><div class='output co'>#&gt; <span class='message'>10 missing observations were removed.</span></div><div class='output co'>#&gt; <span style='color: #949494;'>An incidence2 object: 46 x 2
+#&gt; </span><span>126 cases from 2013-02-19 to 2013-07-27
+#&gt; interval: 1 day
+#&gt; cumulative: FALSE
 #&gt; 
-#&gt;    date       count
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2013-02-19     1
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2013-02-20     0
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2013-02-21     0
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2013-02-22     0
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2013-02-23     0
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2013-02-24     0
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2013-02-25     0
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2013-02-26     0
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2013-02-27     1
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2013-02-28     0
-#&gt; </span><span style='color: #949494;'># … with 149 more rows</span><span>
-#&gt; 
-#&gt; &gt; x &lt;- bootstrap(i)
-#&gt; &gt; x
-#&gt; </span><span style='color: #949494;'>An incidence2 object: 36 x 2
-#&gt; </span><span>[126 cases from days 2013-02-19 to 2013-07-27]
-#&gt; [interval: 1 day]
-#&gt; [cumulative: FALSE]
-#&gt; 
-#&gt;    date       count
+#&gt;    date_index count
 #&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
 #&gt; </span><span style='color: #BCBCBC;'> 1</span><span> 2013-02-19     2
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2013-02-27     1
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2013-03-08     1
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2013-03-09     1
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2013-03-19     1
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2013-03-20     4
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2013-03-21     3
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2013-03-22     1
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2013-03-25     2
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2013-03-28     7
-#&gt; </span><span style='color: #949494;'># … with 26 more rows</span><span>
-#&gt; </div></span></pre>
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> 2013-02-27     2
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> 2013-03-07     4
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> 2013-03-08     3
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> 2013-03-09     1
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> 2013-03-13     1
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> 2013-03-17     0
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> 2013-03-19     1
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> 2013-03-20     2
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> 2013-03-21     2
+#&gt; </span><span style='color: #949494;'># … with 36 more rows</span><span>
+#&gt; </div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

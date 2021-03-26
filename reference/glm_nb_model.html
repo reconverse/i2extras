@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Find the peak date of an incidence curve — find_peak • i2extras</title>
+<title>Interface for model construction — glm_nb_model • i2extras</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,13 @@
 
 
 
-<meta property="og:title" content="Find the peak date of an incidence curve — find_peak" />
-<meta property="og:description" content="This function can be used to find the peak of an epidemic curve stored as an
-incidence2::incidence object." />
+<meta property="og:title" content="Interface for model construction — glm_nb_model" />
+<meta property="og:description" content="These objects are imported from other packages. Follow the links
+below to see their documentation.
+
+  trendingglm_nb_model
+
+" />
 
 
 
@@ -127,53 +131,23 @@ incidence2::incidence object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Find the peak date of an incidence curve</h1>
-    <small class="dont-index">Source: <a href='https://github.com/reconhub/i2extras/blob/master/R/find_peak.R'><code>R/find_peak.R</code></a></small>
-    <div class="hidden name"><code>find_peak.Rd</code></div>
+    <h1>Interface for model construction</h1>
+    <small class="dont-index">Source: <a href='https://github.com/reconhub/i2extras/blob/master/R/reexports.R'><code>R/reexports.R</code></a></small>
+    <div class="hidden name"><code>glm_nb_model.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function can be used to find the peak of an epidemic curve stored as an
-<a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> object.</p>
+    <p>These objects are imported from other packages. Follow the links
+below to see their documentation.</p>
+<dl>
+  <dt>trending</dt><dd><p><code><a href='https://rdrr.io/pkg/trending/man/trending_model.html'>glm_nb_model</a></code></p></dd>
+
+</dl>
     </div>
 
-    <pre class="usage"><span class='fu'>find_peak</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>x</th>
-      <td><p>An <a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence2::incidence</a> object.</p></td>
-    </tr>
-    </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A tibble containing the date of the (first) highest incidence in the
-data along with the count. If <code>x</code> is grouped object then the output will
-have the peak calculated for each grouping.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='estimate_peak.html'>estimate_peak()</a></code> for bootstrap estimates of the peak time.</p></div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p>Tim Taylor</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/ns-load.html'>requireNamespace</a></span><span class='op'>(</span><span class='st'>"outbreaks"</span>, quietly <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>
-
-  <span class='co'># load data and create incidence</span>
-  <span class='fu'><a href='https://rdrr.io/r/utils/data.html'>data</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, package <span class='op'>=</span> <span class='st'>"outbreaks"</span><span class='op'>)</span>
-  <span class='va'>i</span> <span class='op'>&lt;-</span> <span class='fu'>incidence2</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/incidence2/man/incidence.html'>incidence</a></span><span class='op'>(</span><span class='va'>fluH7N9_china_2013</span>, date_index <span class='op'>=</span> <span class='va'>date_of_onset</span><span class='op'>)</span>
-  <span class='fu'>find_peak</span><span class='op'>(</span><span class='va'>i</span><span class='op'>)</span>
-
-<span class='op'>}</span>
-</div><div class='output co'>#&gt; <span class='message'>10 missing observations were removed.</span></div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 1 x 2</span><span>
-#&gt;   date_index count
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;date&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> 2013-04-03     7</div><div class='input'>
-</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -110,27 +110,27 @@
 </h2>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">fluH7N9_china_2013</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
 <span class="co">#&gt; 10 missing observations were removed.</span>
 <span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; An incidence2 object: 50 x 3</span>
-<span class="co">#&gt; [126 cases from days 2013-02-27 to 2013-07-10]</span>
-<span class="co">#&gt; [interval: 1 day]</span>
-<span class="co">#&gt; [cumulative: FALSE]</span>
+<span class="co">#&gt; An incidence2 object: 67 x 3</span>
+<span class="co">#&gt; 126 cases from 2013-02-19 to 2013-07-27</span>
+<span class="co">#&gt; interval: 1 day</span>
+<span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    date       gender count</span>
+<span class="co">#&gt;    date_index gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-02-27 m          2</span>
-<span class="co">#&gt;  2 2013-03-07 m          1</span>
-<span class="co">#&gt;  3 2013-03-08 m          2</span>
-<span class="co">#&gt;  4 2013-03-09 f          2</span>
-<span class="co">#&gt;  5 2013-03-17 m          2</span>
-<span class="co">#&gt;  6 2013-03-19 f          2</span>
-<span class="co">#&gt;  7 2013-03-22 f          1</span>
-<span class="co">#&gt;  8 2013-03-25 m          3</span>
-<span class="co">#&gt;  9 2013-03-28 m          5</span>
-<span class="co">#&gt; 10 2013-03-29 f          2</span>
-<span class="co">#&gt; # … with 40 more rows</span></code></pre></div>
+<span class="co">#&gt;  1 2013-02-19 m          0</span>
+<span class="co">#&gt;  2 2013-02-27 m          2</span>
+<span class="co">#&gt;  3 2013-03-07 m          1</span>
+<span class="co">#&gt;  4 2013-03-08 m          0</span>
+<span class="co">#&gt;  5 2013-03-09 f          2</span>
+<span class="co">#&gt;  6 2013-03-13 f          2</span>
+<span class="co">#&gt;  7 2013-03-17 m          3</span>
+<span class="co">#&gt;  8 2013-03-19 f          1</span>
+<span class="co">#&gt;  9 2013-03-20 f          2</span>
+<span class="co">#&gt; 10 2013-03-20 m          0</span>
+<span class="co">#&gt; # … with 57 more rows</span></code></pre></div>
 </div>
 <div id="find_peak" class="section level2">
 <h2 class="hasAnchor">
@@ -138,27 +138,21 @@
 </h2>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">fluH7N9_china_2013</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
+<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
 <span class="co">#&gt; 10 missing observations were removed.</span>
 
 <span class="co"># peaks across each group</span>
-<span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span><span class="op">(</span>regroup <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/find_peak.html">find_peak</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 3</span>
-<span class="co">#&gt;   date       gender count</span>
-<span class="co">#&gt;   &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt; 1 2013-04-11 f          3</span>
-<span class="co">#&gt; 2 2013-04-03 m          6</span>
+<span class="co">#&gt;   gender date_index count</span>
+<span class="co">#&gt;   &lt;fct&gt;  &lt;date&gt;     &lt;int&gt;</span>
+<span class="co">#&gt; 1 f      2013-04-11     3</span>
+<span class="co">#&gt; 2 m      2013-04-03     6</span>
 
 <span class="co"># peak without groupings</span>
-<span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; `.` is stratified by groups</span>
-<span class="co">#&gt; regrouping groups before finding peaks</span>
-<span class="co">#&gt; An incidence2 object: 1 x 2</span>
-<span class="co">#&gt; [7 cases from days 2013-04-03 to 2013-04-03]</span>
-<span class="co">#&gt; [interval: 1 day]</span>
-<span class="co">#&gt; [cumulative: FALSE]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;   date       count</span>
+<span class="fu"><a href="../reference/find_peak.html">find_peak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/regroup.html">regroup</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt;   date_index count</span>
 <span class="co">#&gt;   &lt;date&gt;     &lt;int&gt;</span>
 <span class="co">#&gt; 1 2013-04-03     7</span></code></pre></div>
 </div>
@@ -172,37 +166,240 @@
 <li>dates with no events (zero incidence) will never be in bootstrapped datasets; and</li>
 <li>the reporting is assumed to be constant over time, i.e. every case is equally likely to be reported.</li>
 </ul>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">fluH7N9_china_2013</span>
-<span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">province</span><span class="op">)</span>
-<span class="co">#&gt; 10 missing observations were removed.</span>
-
-<span class="co"># regrouping for overall peak</span>
-<span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/regroup.html">regroup</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; ================================================================================</span>
-<span class="co">#&gt; # A tibble: 1 x 6</span>
-<span class="co">#&gt;   date       observed_count estimated_date lower_ci   upper_ci   peaks          </span>
-<span class="co">#&gt;   &lt;date&gt;              &lt;int&gt; &lt;date&gt;         &lt;date&gt;     &lt;date&gt;     &lt;list&gt;         </span>
-<span class="co">#&gt; 1 2013-04-03              7 2013-04-06     2013-03-29 2013-04-17 &lt;tibble [100 ×…</span>
-
-<span class="co"># across provinces and with progress bar suppressed</span>
-<span class="va">x</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span><span class="op">(</span>progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 13 x 7</span>
-<span class="co">#&gt;    province date       observed_count estimated_date lower_ci   upper_ci   peaks</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;date&gt;              &lt;int&gt; &lt;date&gt;         &lt;date&gt;     &lt;date&gt;     &lt;lis&gt;</span>
-<span class="co">#&gt;  1 Anhui    2013-03-09              1 2013-03-25     2013-03-09 2013-04-14 &lt;tib…</span>
-<span class="co">#&gt;  2 Beijing  2013-04-11              1 2013-04-20     2013-04-11 2013-05-21 &lt;tib…</span>
-<span class="co">#&gt;  3 Fujian   2013-04-17              1 2013-04-21     2013-04-17 2013-04-29 &lt;tib…</span>
-<span class="co">#&gt;  4 Guangdo… 2013-07-27              1 2013-07-27     2013-07-27 2013-07-27 &lt;tib…</span>
-<span class="co">#&gt;  5 Hebei    2013-07-10              1 2013-07-10     2013-07-10 2013-07-10 &lt;tib…</span>
-<span class="co">#&gt;  6 Henan    2013-04-06              1 2013-04-09     2013-04-06 2013-04-17 &lt;tib…</span>
-<span class="co">#&gt;  7 Hunan    2013-04-14              1 2013-04-16     2013-04-14 2013-04-23 &lt;tib…</span>
-<span class="co">#&gt;  8 Jiangsu  2013-03-19              2 2013-03-25     2013-03-13 2013-04-13 &lt;tib…</span>
-<span class="co">#&gt;  9 Jiangxi  2013-04-15              1 2013-04-19     2013-04-15 2013-05-03 &lt;tib…</span>
-<span class="co">#&gt; 10 Shandong 2013-04-16              1 2013-04-19     2013-04-16 2013-04-27 &lt;tib…</span>
-<span class="co">#&gt; 11 Shanghai 2013-04-01              4 2013-03-30     2013-02-19 2013-04-04 &lt;tib…</span>
-<span class="co">#&gt; 12 Taiwan   2013-04-12              1 2013-04-12     2013-04-12 2013-04-12 &lt;tib…</span>
-<span class="co">#&gt; 13 Zhejiang 2013-04-06              5 2013-04-08     2013-03-29 2013-04-15 &lt;tib…</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>dat &lt;-<span class="st"> </span>fluH7N9_china_<span class="dv">2013</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>x &lt;-<span class="st"> </span><span class="kw">incidence</span>(dat, <span class="dt">date_index =</span> date_of_onset, <span class="dt">groups =</span> province)</span>
+<span id="cb4-3"><a href="#cb4-3"></a><span class="co">#&gt; 10 missing observations were removed.</span></span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co"># regrouping for overall peak</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a><span class="kw">estimate_peak</span>(<span class="kw">regroup</span>(x))</span>
+<span id="cb4-7"><a href="#cb4-7"></a><span class="co">#&gt; Estimating peaks from bootstrap samples:</span></span>
+<span id="cb4-8"><a href="#cb4-8"></a><span class="co">#&gt; </span></span>
+<span id="cb4-9"><a href="#cb4-9"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-10"><a href="#cb4-10"></a><span class="st">  </span><span class="er">|</span><span class="st">                                                                      </span><span class="er">|</span><span class="st">   </span><span class="dv">0</span>%</span>
+<span id="cb4-11"><a href="#cb4-11"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-12"><a href="#cb4-12"></a><span class="st">  </span><span class="er">|=</span><span class="st">                                                                     </span><span class="er">|</span><span class="st">   </span><span class="dv">1</span>%</span>
+<span id="cb4-13"><a href="#cb4-13"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-14"><a href="#cb4-14"></a><span class="st">  </span><span class="er">|=</span><span class="st">                                                                     </span><span class="er">|</span><span class="st">   </span><span class="dv">2</span>%</span>
+<span id="cb4-15"><a href="#cb4-15"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-16"><a href="#cb4-16"></a><span class="st">  </span><span class="er">|==</span><span class="st">                                                                    </span><span class="er">|</span><span class="st">   </span><span class="dv">3</span>%</span>
+<span id="cb4-17"><a href="#cb4-17"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-18"><a href="#cb4-18"></a><span class="st">  </span><span class="er">|===</span><span class="st">                                                                   </span><span class="er">|</span><span class="st">   </span><span class="dv">4</span>%</span>
+<span id="cb4-19"><a href="#cb4-19"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-20"><a href="#cb4-20"></a><span class="st">  </span><span class="er">|====</span><span class="st">                                                                  </span><span class="er">|</span><span class="st">   </span><span class="dv">5</span>%</span>
+<span id="cb4-21"><a href="#cb4-21"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-22"><a href="#cb4-22"></a><span class="st">  </span><span class="er">|====</span><span class="st">                                                                  </span><span class="er">|</span><span class="st">   </span><span class="dv">6</span>%</span>
+<span id="cb4-23"><a href="#cb4-23"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-24"><a href="#cb4-24"></a><span class="st">  </span><span class="er">|=====</span><span class="st">                                                                 </span><span class="er">|</span><span class="st">   </span><span class="dv">7</span>%</span>
+<span id="cb4-25"><a href="#cb4-25"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-26"><a href="#cb4-26"></a><span class="st">  </span><span class="er">|======</span><span class="st">                                                                </span><span class="er">|</span><span class="st">   </span><span class="dv">8</span>%</span>
+<span id="cb4-27"><a href="#cb4-27"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-28"><a href="#cb4-28"></a><span class="st">  </span><span class="er">|======</span><span class="st">                                                                </span><span class="er">|</span><span class="st">   </span><span class="dv">9</span>%</span>
+<span id="cb4-29"><a href="#cb4-29"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-30"><a href="#cb4-30"></a><span class="st">  </span><span class="er">|=======</span><span class="st">                                                               </span><span class="er">|</span><span class="st">  </span><span class="dv">10</span>%</span>
+<span id="cb4-31"><a href="#cb4-31"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-32"><a href="#cb4-32"></a><span class="st">  </span><span class="er">|========</span><span class="st">                                                              </span><span class="er">|</span><span class="st">  </span><span class="dv">11</span>%</span>
+<span id="cb4-33"><a href="#cb4-33"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-34"><a href="#cb4-34"></a><span class="st">  </span><span class="er">|========</span><span class="st">                                                              </span><span class="er">|</span><span class="st">  </span><span class="dv">12</span>%</span>
+<span id="cb4-35"><a href="#cb4-35"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-36"><a href="#cb4-36"></a><span class="st">  </span><span class="er">|=========</span><span class="st">                                                             </span><span class="er">|</span><span class="st">  </span><span class="dv">13</span>%</span>
+<span id="cb4-37"><a href="#cb4-37"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-38"><a href="#cb4-38"></a><span class="st">  </span><span class="er">|==========</span><span class="st">                                                            </span><span class="er">|</span><span class="st">  </span><span class="dv">14</span>%</span>
+<span id="cb4-39"><a href="#cb4-39"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-40"><a href="#cb4-40"></a><span class="st">  </span><span class="er">|==========</span><span class="st">                                                            </span><span class="er">|</span><span class="st">  </span><span class="dv">15</span>%</span>
+<span id="cb4-41"><a href="#cb4-41"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-42"><a href="#cb4-42"></a><span class="st">  </span><span class="er">|===========</span><span class="st">                                                           </span><span class="er">|</span><span class="st">  </span><span class="dv">16</span>%</span>
+<span id="cb4-43"><a href="#cb4-43"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-44"><a href="#cb4-44"></a><span class="st">  </span><span class="er">|============</span><span class="st">                                                          </span><span class="er">|</span><span class="st">  </span><span class="dv">17</span>%</span>
+<span id="cb4-45"><a href="#cb4-45"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-46"><a href="#cb4-46"></a><span class="st">  </span><span class="er">|=============</span><span class="st">                                                         </span><span class="er">|</span><span class="st">  </span><span class="dv">18</span>%</span>
+<span id="cb4-47"><a href="#cb4-47"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-48"><a href="#cb4-48"></a><span class="st">  </span><span class="er">|=============</span><span class="st">                                                         </span><span class="er">|</span><span class="st">  </span><span class="dv">19</span>%</span>
+<span id="cb4-49"><a href="#cb4-49"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-50"><a href="#cb4-50"></a><span class="st">  </span><span class="er">|==============</span><span class="st">                                                        </span><span class="er">|</span><span class="st">  </span><span class="dv">20</span>%</span>
+<span id="cb4-51"><a href="#cb4-51"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-52"><a href="#cb4-52"></a><span class="st">  </span><span class="er">|===============</span><span class="st">                                                       </span><span class="er">|</span><span class="st">  </span><span class="dv">21</span>%</span>
+<span id="cb4-53"><a href="#cb4-53"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-54"><a href="#cb4-54"></a><span class="st">  </span><span class="er">|===============</span><span class="st">                                                       </span><span class="er">|</span><span class="st">  </span><span class="dv">22</span>%</span>
+<span id="cb4-55"><a href="#cb4-55"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-56"><a href="#cb4-56"></a><span class="st">  </span><span class="er">|================</span><span class="st">                                                      </span><span class="er">|</span><span class="st">  </span><span class="dv">23</span>%</span>
+<span id="cb4-57"><a href="#cb4-57"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-58"><a href="#cb4-58"></a><span class="st">  </span><span class="er">|=================</span><span class="st">                                                     </span><span class="er">|</span><span class="st">  </span><span class="dv">24</span>%</span>
+<span id="cb4-59"><a href="#cb4-59"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-60"><a href="#cb4-60"></a><span class="st">  </span><span class="er">|==================</span><span class="st">                                                    </span><span class="er">|</span><span class="st">  </span><span class="dv">25</span>%</span>
+<span id="cb4-61"><a href="#cb4-61"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-62"><a href="#cb4-62"></a><span class="st">  </span><span class="er">|==================</span><span class="st">                                                    </span><span class="er">|</span><span class="st">  </span><span class="dv">26</span>%</span>
+<span id="cb4-63"><a href="#cb4-63"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-64"><a href="#cb4-64"></a><span class="st">  </span><span class="er">|===================</span><span class="st">                                                   </span><span class="er">|</span><span class="st">  </span><span class="dv">27</span>%</span>
+<span id="cb4-65"><a href="#cb4-65"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-66"><a href="#cb4-66"></a><span class="st">  </span><span class="er">|====================</span><span class="st">                                                  </span><span class="er">|</span><span class="st">  </span><span class="dv">28</span>%</span>
+<span id="cb4-67"><a href="#cb4-67"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-68"><a href="#cb4-68"></a><span class="st">  </span><span class="er">|====================</span><span class="st">                                                  </span><span class="er">|</span><span class="st">  </span><span class="dv">29</span>%</span>
+<span id="cb4-69"><a href="#cb4-69"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-70"><a href="#cb4-70"></a><span class="st">  </span><span class="er">|=====================</span><span class="st">                                                 </span><span class="er">|</span><span class="st">  </span><span class="dv">30</span>%</span>
+<span id="cb4-71"><a href="#cb4-71"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-72"><a href="#cb4-72"></a><span class="st">  </span><span class="er">|======================</span><span class="st">                                                </span><span class="er">|</span><span class="st">  </span><span class="dv">31</span>%</span>
+<span id="cb4-73"><a href="#cb4-73"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-74"><a href="#cb4-74"></a><span class="st">  </span><span class="er">|======================</span><span class="st">                                                </span><span class="er">|</span><span class="st">  </span><span class="dv">32</span>%</span>
+<span id="cb4-75"><a href="#cb4-75"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-76"><a href="#cb4-76"></a><span class="st">  </span><span class="er">|=======================</span><span class="st">                                               </span><span class="er">|</span><span class="st">  </span><span class="dv">33</span>%</span>
+<span id="cb4-77"><a href="#cb4-77"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-78"><a href="#cb4-78"></a><span class="st">  </span><span class="er">|========================</span><span class="st">                                              </span><span class="er">|</span><span class="st">  </span><span class="dv">34</span>%</span>
+<span id="cb4-79"><a href="#cb4-79"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-80"><a href="#cb4-80"></a><span class="st">  </span><span class="er">|========================</span><span class="st">                                              </span><span class="er">|</span><span class="st">  </span><span class="dv">35</span>%</span>
+<span id="cb4-81"><a href="#cb4-81"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-82"><a href="#cb4-82"></a><span class="st">  </span><span class="er">|=========================</span><span class="st">                                             </span><span class="er">|</span><span class="st">  </span><span class="dv">36</span>%</span>
+<span id="cb4-83"><a href="#cb4-83"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-84"><a href="#cb4-84"></a><span class="st">  </span><span class="er">|==========================</span><span class="st">                                            </span><span class="er">|</span><span class="st">  </span><span class="dv">37</span>%</span>
+<span id="cb4-85"><a href="#cb4-85"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-86"><a href="#cb4-86"></a><span class="st">  </span><span class="er">|===========================</span><span class="st">                                           </span><span class="er">|</span><span class="st">  </span><span class="dv">38</span>%</span>
+<span id="cb4-87"><a href="#cb4-87"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-88"><a href="#cb4-88"></a><span class="st">  </span><span class="er">|===========================</span><span class="st">                                           </span><span class="er">|</span><span class="st">  </span><span class="dv">39</span>%</span>
+<span id="cb4-89"><a href="#cb4-89"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-90"><a href="#cb4-90"></a><span class="st">  </span><span class="er">|============================</span><span class="st">                                          </span><span class="er">|</span><span class="st">  </span><span class="dv">40</span>%</span>
+<span id="cb4-91"><a href="#cb4-91"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-92"><a href="#cb4-92"></a><span class="st">  </span><span class="er">|=============================</span><span class="st">                                         </span><span class="er">|</span><span class="st">  </span><span class="dv">41</span>%</span>
+<span id="cb4-93"><a href="#cb4-93"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-94"><a href="#cb4-94"></a><span class="st">  </span><span class="er">|=============================</span><span class="st">                                         </span><span class="er">|</span><span class="st">  </span><span class="dv">42</span>%</span>
+<span id="cb4-95"><a href="#cb4-95"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-96"><a href="#cb4-96"></a><span class="st">  </span><span class="er">|==============================</span><span class="st">                                        </span><span class="er">|</span><span class="st">  </span><span class="dv">43</span>%</span>
+<span id="cb4-97"><a href="#cb4-97"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-98"><a href="#cb4-98"></a><span class="st">  </span><span class="er">|===============================</span><span class="st">                                       </span><span class="er">|</span><span class="st">  </span><span class="dv">44</span>%</span>
+<span id="cb4-99"><a href="#cb4-99"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-100"><a href="#cb4-100"></a><span class="st">  </span><span class="er">|================================</span><span class="st">                                      </span><span class="er">|</span><span class="st">  </span><span class="dv">45</span>%</span>
+<span id="cb4-101"><a href="#cb4-101"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-102"><a href="#cb4-102"></a><span class="st">  </span><span class="er">|================================</span><span class="st">                                      </span><span class="er">|</span><span class="st">  </span><span class="dv">46</span>%</span>
+<span id="cb4-103"><a href="#cb4-103"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-104"><a href="#cb4-104"></a><span class="st">  </span><span class="er">|=================================</span><span class="st">                                     </span><span class="er">|</span><span class="st">  </span><span class="dv">47</span>%</span>
+<span id="cb4-105"><a href="#cb4-105"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-106"><a href="#cb4-106"></a><span class="st">  </span><span class="er">|==================================</span><span class="st">                                    </span><span class="er">|</span><span class="st">  </span><span class="dv">48</span>%</span>
+<span id="cb4-107"><a href="#cb4-107"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-108"><a href="#cb4-108"></a><span class="st">  </span><span class="er">|==================================</span><span class="st">                                    </span><span class="er">|</span><span class="st">  </span><span class="dv">49</span>%</span>
+<span id="cb4-109"><a href="#cb4-109"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-110"><a href="#cb4-110"></a><span class="st">  </span><span class="er">|===================================</span><span class="st">                                   </span><span class="er">|</span><span class="st">  </span><span class="dv">50</span>%</span>
+<span id="cb4-111"><a href="#cb4-111"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-112"><a href="#cb4-112"></a><span class="st">  </span><span class="er">|====================================</span><span class="st">                                  </span><span class="er">|</span><span class="st">  </span><span class="dv">51</span>%</span>
+<span id="cb4-113"><a href="#cb4-113"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-114"><a href="#cb4-114"></a><span class="st">  </span><span class="er">|====================================</span><span class="st">                                  </span><span class="er">|</span><span class="st">  </span><span class="dv">52</span>%</span>
+<span id="cb4-115"><a href="#cb4-115"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-116"><a href="#cb4-116"></a><span class="st">  </span><span class="er">|=====================================</span><span class="st">                                 </span><span class="er">|</span><span class="st">  </span><span class="dv">53</span>%</span>
+<span id="cb4-117"><a href="#cb4-117"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-118"><a href="#cb4-118"></a><span class="st">  </span><span class="er">|======================================</span><span class="st">                                </span><span class="er">|</span><span class="st">  </span><span class="dv">54</span>%</span>
+<span id="cb4-119"><a href="#cb4-119"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-120"><a href="#cb4-120"></a><span class="st">  </span><span class="er">|======================================</span><span class="st">                                </span><span class="er">|</span><span class="st">  </span><span class="dv">55</span>%</span>
+<span id="cb4-121"><a href="#cb4-121"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-122"><a href="#cb4-122"></a><span class="st">  </span><span class="er">|=======================================</span><span class="st">                               </span><span class="er">|</span><span class="st">  </span><span class="dv">56</span>%</span>
+<span id="cb4-123"><a href="#cb4-123"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-124"><a href="#cb4-124"></a><span class="st">  </span><span class="er">|========================================</span><span class="st">                              </span><span class="er">|</span><span class="st">  </span><span class="dv">57</span>%</span>
+<span id="cb4-125"><a href="#cb4-125"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-126"><a href="#cb4-126"></a><span class="st">  </span><span class="er">|=========================================</span><span class="st">                             </span><span class="er">|</span><span class="st">  </span><span class="dv">58</span>%</span>
+<span id="cb4-127"><a href="#cb4-127"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-128"><a href="#cb4-128"></a><span class="st">  </span><span class="er">|=========================================</span><span class="st">                             </span><span class="er">|</span><span class="st">  </span><span class="dv">59</span>%</span>
+<span id="cb4-129"><a href="#cb4-129"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-130"><a href="#cb4-130"></a><span class="st">  </span><span class="er">|==========================================</span><span class="st">                            </span><span class="er">|</span><span class="st">  </span><span class="dv">60</span>%</span>
+<span id="cb4-131"><a href="#cb4-131"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-132"><a href="#cb4-132"></a><span class="st">  </span><span class="er">|===========================================</span><span class="st">                           </span><span class="er">|</span><span class="st">  </span><span class="dv">61</span>%</span>
+<span id="cb4-133"><a href="#cb4-133"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-134"><a href="#cb4-134"></a><span class="st">  </span><span class="er">|===========================================</span><span class="st">                           </span><span class="er">|</span><span class="st">  </span><span class="dv">62</span>%</span>
+<span id="cb4-135"><a href="#cb4-135"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-136"><a href="#cb4-136"></a><span class="st">  </span><span class="er">|============================================</span><span class="st">                          </span><span class="er">|</span><span class="st">  </span><span class="dv">63</span>%</span>
+<span id="cb4-137"><a href="#cb4-137"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-138"><a href="#cb4-138"></a><span class="st">  </span><span class="er">|=============================================</span><span class="st">                         </span><span class="er">|</span><span class="st">  </span><span class="dv">64</span>%</span>
+<span id="cb4-139"><a href="#cb4-139"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-140"><a href="#cb4-140"></a><span class="st">  </span><span class="er">|==============================================</span><span class="st">                        </span><span class="er">|</span><span class="st">  </span><span class="dv">65</span>%</span>
+<span id="cb4-141"><a href="#cb4-141"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-142"><a href="#cb4-142"></a><span class="st">  </span><span class="er">|==============================================</span><span class="st">                        </span><span class="er">|</span><span class="st">  </span><span class="dv">66</span>%</span>
+<span id="cb4-143"><a href="#cb4-143"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-144"><a href="#cb4-144"></a><span class="st">  </span><span class="er">|===============================================</span><span class="st">                       </span><span class="er">|</span><span class="st">  </span><span class="dv">67</span>%</span>
+<span id="cb4-145"><a href="#cb4-145"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-146"><a href="#cb4-146"></a><span class="st">  </span><span class="er">|================================================</span><span class="st">                      </span><span class="er">|</span><span class="st">  </span><span class="dv">68</span>%</span>
+<span id="cb4-147"><a href="#cb4-147"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-148"><a href="#cb4-148"></a><span class="st">  </span><span class="er">|================================================</span><span class="st">                      </span><span class="er">|</span><span class="st">  </span><span class="dv">69</span>%</span>
+<span id="cb4-149"><a href="#cb4-149"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-150"><a href="#cb4-150"></a><span class="st">  </span><span class="er">|=================================================</span><span class="st">                     </span><span class="er">|</span><span class="st">  </span><span class="dv">70</span>%</span>
+<span id="cb4-151"><a href="#cb4-151"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-152"><a href="#cb4-152"></a><span class="st">  </span><span class="er">|==================================================</span><span class="st">                    </span><span class="er">|</span><span class="st">  </span><span class="dv">71</span>%</span>
+<span id="cb4-153"><a href="#cb4-153"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-154"><a href="#cb4-154"></a><span class="st">  </span><span class="er">|==================================================</span><span class="st">                    </span><span class="er">|</span><span class="st">  </span><span class="dv">72</span>%</span>
+<span id="cb4-155"><a href="#cb4-155"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-156"><a href="#cb4-156"></a><span class="st">  </span><span class="er">|===================================================</span><span class="st">                   </span><span class="er">|</span><span class="st">  </span><span class="dv">73</span>%</span>
+<span id="cb4-157"><a href="#cb4-157"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-158"><a href="#cb4-158"></a><span class="st">  </span><span class="er">|====================================================</span><span class="st">                  </span><span class="er">|</span><span class="st">  </span><span class="dv">74</span>%</span>
+<span id="cb4-159"><a href="#cb4-159"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-160"><a href="#cb4-160"></a><span class="st">  </span><span class="er">|====================================================</span><span class="st">                  </span><span class="er">|</span><span class="st">  </span><span class="dv">75</span>%</span>
+<span id="cb4-161"><a href="#cb4-161"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-162"><a href="#cb4-162"></a><span class="st">  </span><span class="er">|=====================================================</span><span class="st">                 </span><span class="er">|</span><span class="st">  </span><span class="dv">76</span>%</span>
+<span id="cb4-163"><a href="#cb4-163"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-164"><a href="#cb4-164"></a><span class="st">  </span><span class="er">|======================================================</span><span class="st">                </span><span class="er">|</span><span class="st">  </span><span class="dv">77</span>%</span>
+<span id="cb4-165"><a href="#cb4-165"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-166"><a href="#cb4-166"></a><span class="st">  </span><span class="er">|=======================================================</span><span class="st">               </span><span class="er">|</span><span class="st">  </span><span class="dv">78</span>%</span>
+<span id="cb4-167"><a href="#cb4-167"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-168"><a href="#cb4-168"></a><span class="st">  </span><span class="er">|=======================================================</span><span class="st">               </span><span class="er">|</span><span class="st">  </span><span class="dv">79</span>%</span>
+<span id="cb4-169"><a href="#cb4-169"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-170"><a href="#cb4-170"></a><span class="st">  </span><span class="er">|========================================================</span><span class="st">              </span><span class="er">|</span><span class="st">  </span><span class="dv">80</span>%</span>
+<span id="cb4-171"><a href="#cb4-171"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-172"><a href="#cb4-172"></a><span class="st">  </span><span class="er">|=========================================================</span><span class="st">             </span><span class="er">|</span><span class="st">  </span><span class="dv">81</span>%</span>
+<span id="cb4-173"><a href="#cb4-173"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-174"><a href="#cb4-174"></a><span class="st">  </span><span class="er">|=========================================================</span><span class="st">             </span><span class="er">|</span><span class="st">  </span><span class="dv">82</span>%</span>
+<span id="cb4-175"><a href="#cb4-175"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-176"><a href="#cb4-176"></a><span class="st">  </span><span class="er">|==========================================================</span><span class="st">            </span><span class="er">|</span><span class="st">  </span><span class="dv">83</span>%</span>
+<span id="cb4-177"><a href="#cb4-177"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-178"><a href="#cb4-178"></a><span class="st">  </span><span class="er">|===========================================================</span><span class="st">           </span><span class="er">|</span><span class="st">  </span><span class="dv">84</span>%</span>
+<span id="cb4-179"><a href="#cb4-179"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-180"><a href="#cb4-180"></a><span class="st">  </span><span class="er">|============================================================</span><span class="st">          </span><span class="er">|</span><span class="st">  </span><span class="dv">85</span>%</span>
+<span id="cb4-181"><a href="#cb4-181"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-182"><a href="#cb4-182"></a><span class="st">  </span><span class="er">|============================================================</span><span class="st">          </span><span class="er">|</span><span class="st">  </span><span class="dv">86</span>%</span>
+<span id="cb4-183"><a href="#cb4-183"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-184"><a href="#cb4-184"></a><span class="st">  </span><span class="er">|=============================================================</span><span class="st">         </span><span class="er">|</span><span class="st">  </span><span class="dv">87</span>%</span>
+<span id="cb4-185"><a href="#cb4-185"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-186"><a href="#cb4-186"></a><span class="st">  </span><span class="er">|==============================================================</span><span class="st">        </span><span class="er">|</span><span class="st">  </span><span class="dv">88</span>%</span>
+<span id="cb4-187"><a href="#cb4-187"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-188"><a href="#cb4-188"></a><span class="st">  </span><span class="er">|==============================================================</span><span class="st">        </span><span class="er">|</span><span class="st">  </span><span class="dv">89</span>%</span>
+<span id="cb4-189"><a href="#cb4-189"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-190"><a href="#cb4-190"></a><span class="st">  </span><span class="er">|===============================================================</span><span class="st">       </span><span class="er">|</span><span class="st">  </span><span class="dv">90</span>%</span>
+<span id="cb4-191"><a href="#cb4-191"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-192"><a href="#cb4-192"></a><span class="st">  </span><span class="er">|================================================================</span><span class="st">      </span><span class="er">|</span><span class="st">  </span><span class="dv">91</span>%</span>
+<span id="cb4-193"><a href="#cb4-193"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-194"><a href="#cb4-194"></a><span class="st">  </span><span class="er">|================================================================</span><span class="st">      </span><span class="er">|</span><span class="st">  </span><span class="dv">92</span>%</span>
+<span id="cb4-195"><a href="#cb4-195"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-196"><a href="#cb4-196"></a><span class="st">  </span><span class="er">|=================================================================</span><span class="st">     </span><span class="er">|</span><span class="st">  </span><span class="dv">93</span>%</span>
+<span id="cb4-197"><a href="#cb4-197"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-198"><a href="#cb4-198"></a><span class="st">  </span><span class="er">|==================================================================</span><span class="st">    </span><span class="er">|</span><span class="st">  </span><span class="dv">94</span>%</span>
+<span id="cb4-199"><a href="#cb4-199"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-200"><a href="#cb4-200"></a><span class="st">  </span><span class="er">|==================================================================</span><span class="st">    </span><span class="er">|</span><span class="st">  </span><span class="dv">95</span>%</span>
+<span id="cb4-201"><a href="#cb4-201"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-202"><a href="#cb4-202"></a><span class="st">  </span><span class="er">|===================================================================</span><span class="st">   </span><span class="er">|</span><span class="st">  </span><span class="dv">96</span>%</span>
+<span id="cb4-203"><a href="#cb4-203"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-204"><a href="#cb4-204"></a><span class="st">  </span><span class="er">|====================================================================</span><span class="st">  </span><span class="er">|</span><span class="st">  </span><span class="dv">97</span>%</span>
+<span id="cb4-205"><a href="#cb4-205"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-206"><a href="#cb4-206"></a><span class="st">  </span><span class="er">|=====================================================================</span><span class="st"> </span><span class="er">|</span><span class="st">  </span><span class="dv">98</span>%</span>
+<span id="cb4-207"><a href="#cb4-207"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-208"><a href="#cb4-208"></a><span class="st">  </span><span class="er">|=====================================================================</span><span class="st"> </span><span class="er">|</span><span class="st">  </span><span class="dv">99</span>%</span>
+<span id="cb4-209"><a href="#cb4-209"></a>  <span class="op">|</span><span class="st">                                                                            </span></span>
+<span id="cb4-210"><a href="#cb4-210"></a><span class="st">  </span><span class="er">|======================================================================|</span><span class="st"> </span><span class="dv">100</span>%</span>
+<span id="cb4-211"><a href="#cb4-211"></a><span class="co">#&gt; # A tibble: 1 x 6</span></span>
+<span id="cb4-212"><a href="#cb4-212"></a><span class="co">#&gt;   observed_peak observed_count bootstrap_peaks  lower_ci   median     upper_ci  </span></span>
+<span id="cb4-213"><a href="#cb4-213"></a><span class="co">#&gt;   &lt;date&gt;                 &lt;int&gt; &lt;list&gt;           &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    </span></span>
+<span id="cb4-214"><a href="#cb4-214"></a><span class="co">#&gt; 1 2013-04-03                 7 &lt;tibble [100 × … 2013-03-28 2013-04-06 2013-04-14</span></span>
+<span id="cb4-215"><a href="#cb4-215"></a></span>
+<span id="cb4-216"><a href="#cb4-216"></a><span class="co"># across provinces and with progress bar suppressed</span></span>
+<span id="cb4-217"><a href="#cb4-217"></a><span class="kw">estimate_peak</span>(x, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb4-218"><a href="#cb4-218"></a><span class="co">#&gt; # A tibble: 13 x 7</span></span>
+<span id="cb4-219"><a href="#cb4-219"></a><span class="co">#&gt;    province  observed_peak observed_count bootstrap_peaks  lower_ci   median    </span></span>
+<span id="cb4-220"><a href="#cb4-220"></a><span class="co">#&gt;    &lt;fct&gt;     &lt;date&gt;                 &lt;int&gt; &lt;list&gt;           &lt;date&gt;     &lt;date&gt;    </span></span>
+<span id="cb4-221"><a href="#cb4-221"></a><span class="co">#&gt;  1 Anhui     2013-03-09                 1 &lt;tibble [100 × … 2013-03-09 2013-03-28</span></span>
+<span id="cb4-222"><a href="#cb4-222"></a><span class="co">#&gt;  2 Beijing   2013-04-11                 1 &lt;tibble [100 × … 2013-04-11 2013-04-11</span></span>
+<span id="cb4-223"><a href="#cb4-223"></a><span class="co">#&gt;  3 Fujian    2013-04-17                 1 &lt;tibble [100 × … 2013-04-17 2013-04-18</span></span>
+<span id="cb4-224"><a href="#cb4-224"></a><span class="co">#&gt;  4 Guangdong 2013-07-27                 1 &lt;tibble [100 × … 2013-07-27 2013-07-27</span></span>
+<span id="cb4-225"><a href="#cb4-225"></a><span class="co">#&gt;  5 Hebei     2013-07-10                 1 &lt;tibble [100 × … 2013-07-10 2013-07-10</span></span>
+<span id="cb4-226"><a href="#cb4-226"></a><span class="co">#&gt;  6 Henan     2013-04-06                 1 &lt;tibble [100 × … 2013-04-06 2013-04-08</span></span>
+<span id="cb4-227"><a href="#cb4-227"></a><span class="co">#&gt;  7 Hunan     2013-04-14                 1 &lt;tibble [100 × … 2013-04-14 2013-04-14</span></span>
+<span id="cb4-228"><a href="#cb4-228"></a><span class="co">#&gt;  8 Jiangsu   2013-03-19                 2 &lt;tibble [100 × … 2013-03-08 2013-03-21</span></span>
+<span id="cb4-229"><a href="#cb4-229"></a><span class="co">#&gt;  9 Jiangxi   2013-04-15                 1 &lt;tibble [100 × … 2013-04-15 2013-04-19</span></span>
+<span id="cb4-230"><a href="#cb4-230"></a><span class="co">#&gt; 10 Shandong  2013-04-16                 1 &lt;tibble [100 × … 2013-04-16 2013-04-16</span></span>
+<span id="cb4-231"><a href="#cb4-231"></a><span class="co">#&gt; 11 Shanghai  2013-04-01                 4 &lt;tibble [100 × … 2013-03-17 2013-04-01</span></span>
+<span id="cb4-232"><a href="#cb4-232"></a><span class="co">#&gt; 12 Taiwan    2013-04-12                 1 &lt;tibble [100 × … 2013-04-12 2013-04-12</span></span>
+<span id="cb4-233"><a href="#cb4-233"></a><span class="co">#&gt; 13 Zhejiang  2013-04-06                 5 &lt;tibble [100 × … 2013-03-29 2013-04-10</span></span>
+<span id="cb4-234"><a href="#cb4-234"></a><span class="co">#&gt; # … with 1 more variable: upper_ci &lt;date&gt;</span></span></code></pre></div>
 </div>
 </div>
   </div>

@@ -111,39 +111,39 @@
 <span class="va">raw_dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span></code></pre></div>
 <p>For this example we will restrict ourselves to the first 20 weeks of data:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span>
     <span class="va">raw_dat</span>, 
     date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
-    interval <span class="op">=</span> <span class="fl">7</span>
+    interval <span class="op">=</span> <span class="st">"week"</span>
 <span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="op">]</span>
 <span class="va">dat</span>
 <span class="co">#&gt; An incidence2 object: 20 x 2</span>
-<span class="co">#&gt; [783 cases from days 2014-04-07 to 2014-08-18]</span>
-<span class="co">#&gt; [interval: 7 days]</span>
-<span class="co">#&gt; [cumulative: FALSE]</span>
+<span class="co">#&gt; 783 cases from 2014-W15 to 2014-W34</span>
+<span class="co">#&gt; interval: 1 monday week</span>
+<span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    bin_date   count</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-04-07     1</span>
-<span class="co">#&gt;  2 2014-04-14     1</span>
-<span class="co">#&gt;  3 2014-04-21     5</span>
-<span class="co">#&gt;  4 2014-04-28     4</span>
-<span class="co">#&gt;  5 2014-05-05    12</span>
-<span class="co">#&gt;  6 2014-05-12    17</span>
-<span class="co">#&gt;  7 2014-05-19    15</span>
-<span class="co">#&gt;  8 2014-05-26    19</span>
-<span class="co">#&gt;  9 2014-06-02    23</span>
-<span class="co">#&gt; 10 2014-06-09    21</span>
-<span class="co">#&gt; 11 2014-06-16    30</span>
-<span class="co">#&gt; 12 2014-06-23    22</span>
-<span class="co">#&gt; 13 2014-06-30    34</span>
-<span class="co">#&gt; 14 2014-07-07    38</span>
-<span class="co">#&gt; 15 2014-07-14    61</span>
-<span class="co">#&gt; 16 2014-07-21    59</span>
-<span class="co">#&gt; 17 2014-07-28    80</span>
-<span class="co">#&gt; 18 2014-08-04    86</span>
-<span class="co">#&gt; 19 2014-08-11   116</span>
-<span class="co">#&gt; 20 2014-08-18   139</span>
+<span class="co">#&gt;    date_index count</span>
+<span class="co">#&gt;    &lt;yrwk&gt;     &lt;int&gt;</span>
+<span class="co">#&gt;  1 2014-W15       1</span>
+<span class="co">#&gt;  2 2014-W16       1</span>
+<span class="co">#&gt;  3 2014-W17       5</span>
+<span class="co">#&gt;  4 2014-W18       4</span>
+<span class="co">#&gt;  5 2014-W19      12</span>
+<span class="co">#&gt;  6 2014-W20      17</span>
+<span class="co">#&gt;  7 2014-W21      15</span>
+<span class="co">#&gt;  8 2014-W22      19</span>
+<span class="co">#&gt;  9 2014-W23      23</span>
+<span class="co">#&gt; 10 2014-W24      21</span>
+<span class="co">#&gt; 11 2014-W25      30</span>
+<span class="co">#&gt; 12 2014-W26      22</span>
+<span class="co">#&gt; 13 2014-W27      34</span>
+<span class="co">#&gt; 14 2014-W28      38</span>
+<span class="co">#&gt; 15 2014-W29      61</span>
+<span class="co">#&gt; 16 2014-W30      59</span>
+<span class="co">#&gt; 17 2014-W31      80</span>
+<span class="co">#&gt; 18 2014-W32      86</span>
+<span class="co">#&gt; 19 2014-W33     116</span>
+<span class="co">#&gt; 20 2014-W34     139</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
 <p><img src="fitting_epicurves_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
@@ -158,66 +158,66 @@
 <span class="co">#&gt;   model  estimates        </span>
 <span class="co">#&gt;   &lt;list&gt; &lt;list&gt;           </span>
 <span class="co">#&gt; 1 &lt;glm&gt;  &lt;df[,7] [20 × 7]&gt;</span>
-<span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></code></pre></div>
 <p><img src="fitting_epicurves_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;   model       r r_lower r_upper growth_or_decay  time time_lower time_upper</span>
-<span class="co">#&gt;   &lt;list&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 &lt;glm&gt;  0.0263  0.0240  0.0286 doubling         26.4       24.2       28.9</span></code></pre></div>
+<span class="co">#&gt;   model      r r_lower r_upper growth_or_decay  time time_lower time_upper</span>
+<span class="co">#&gt;   &lt;list&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 &lt;glm&gt;  0.184   0.168   0.200 doubling         3.77       3.46       4.12</span></code></pre></div>
 <p>To unnest the data we can use <code><a href="../reference/unnest.html">unnest()</a></code> (a function that has been reexported from the <a href="https://cran.r-project.org/package=tidyr">tidyr</a> package.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">estimates</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">estimates</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 20 x 8</span>
-<span class="co">#&gt;    model  count bin_date   estimate lower_ci upper_ci lower_pi upper_pi</span>
-<span class="co">#&gt;    &lt;list&gt; &lt;int&gt; &lt;date&gt;        &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 &lt;glm&gt;      1 2014-04-07     4.09     3.20     5.23        0       10</span>
-<span class="co">#&gt;  2 &lt;glm&gt;      1 2014-04-14     4.92     3.91     6.19        1       11</span>
-<span class="co">#&gt;  3 &lt;glm&gt;      5 2014-04-21     5.92     4.77     7.33        1       13</span>
-<span class="co">#&gt;  4 &lt;glm&gt;      4 2014-04-28     7.11     5.82     8.68        2       15</span>
-<span class="co">#&gt;  5 &lt;glm&gt;     12 2014-05-05     8.55     7.11    10.3         2       17</span>
-<span class="co">#&gt;  6 &lt;glm&gt;     17 2014-05-12    10.3      8.67    12.2         3       19</span>
-<span class="co">#&gt;  7 &lt;glm&gt;     15 2014-05-19    12.3     10.6     14.4         5       22</span>
-<span class="co">#&gt;  8 &lt;glm&gt;     19 2014-05-26    14.8     12.9     17.1         6       26</span>
-<span class="co">#&gt;  9 &lt;glm&gt;     23 2014-06-02    17.8     15.7     20.3         8       30</span>
-<span class="co">#&gt; 10 &lt;glm&gt;     21 2014-06-09    21.4     19.1     24.0        11       34</span>
-<span class="co">#&gt; 11 &lt;glm&gt;     30 2014-06-16    25.8     23.3     28.5        14       39</span>
-<span class="co">#&gt; 12 &lt;glm&gt;     22 2014-06-23    31.0     28.3     33.9        18       46</span>
-<span class="co">#&gt; 13 &lt;glm&gt;     34 2014-06-30    37.2     34.3     40.4        23       53</span>
-<span class="co">#&gt; 14 &lt;glm&gt;     38 2014-07-07    44.8     41.5     48.2        29       62</span>
-<span class="co">#&gt; 15 &lt;glm&gt;     61 2014-07-14    53.8     50.1     57.7        37       73</span>
-<span class="co">#&gt; 16 &lt;glm&gt;     59 2014-07-21    64.7     60.3     69.4        46       86</span>
-<span class="co">#&gt; 17 &lt;glm&gt;     80 2014-07-28    77.7     72.2     83.7        56      102</span>
-<span class="co">#&gt; 18 &lt;glm&gt;     86 2014-08-04    93.4     86.2    101.         69      121</span>
-<span class="co">#&gt; 19 &lt;glm&gt;    116 2014-08-11   112.     103.     123.         83      145</span>
-<span class="co">#&gt; 20 &lt;glm&gt;    139 2014-08-18   135.     122.     149.        101      174</span></code></pre></div>
+<span class="co">#&gt;    model  count date_index estimate lower_ci upper_ci lower_pi upper_pi</span>
+<span class="co">#&gt;    &lt;list&gt; &lt;int&gt; &lt;yrwk&gt;        &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 &lt;glm&gt;      1 2014-W15       4.09     3.20     5.23        0       10</span>
+<span class="co">#&gt;  2 &lt;glm&gt;      1 2014-W16       4.92     3.91     6.19        1       11</span>
+<span class="co">#&gt;  3 &lt;glm&gt;      5 2014-W17       5.92     4.77     7.33        1       13</span>
+<span class="co">#&gt;  4 &lt;glm&gt;      4 2014-W18       7.11     5.82     8.68        2       15</span>
+<span class="co">#&gt;  5 &lt;glm&gt;     12 2014-W19       8.55     7.11    10.3         2       17</span>
+<span class="co">#&gt;  6 &lt;glm&gt;     17 2014-W20      10.3      8.67    12.2         3       19</span>
+<span class="co">#&gt;  7 &lt;glm&gt;     15 2014-W21      12.3     10.6     14.4         5       22</span>
+<span class="co">#&gt;  8 &lt;glm&gt;     19 2014-W22      14.8     12.9     17.1         6       26</span>
+<span class="co">#&gt;  9 &lt;glm&gt;     23 2014-W23      17.8     15.7     20.3         8       30</span>
+<span class="co">#&gt; 10 &lt;glm&gt;     21 2014-W24      21.4     19.1     24.0        11       34</span>
+<span class="co">#&gt; 11 &lt;glm&gt;     30 2014-W25      25.8     23.3     28.5        14       39</span>
+<span class="co">#&gt; 12 &lt;glm&gt;     22 2014-W26      31.0     28.3     33.9        18       46</span>
+<span class="co">#&gt; 13 &lt;glm&gt;     34 2014-W27      37.2     34.3     40.4        23       53</span>
+<span class="co">#&gt; 14 &lt;glm&gt;     38 2014-W28      44.8     41.5     48.2        29       62</span>
+<span class="co">#&gt; 15 &lt;glm&gt;     61 2014-W29      53.8     50.1     57.7        37       73</span>
+<span class="co">#&gt; 16 &lt;glm&gt;     59 2014-W30      64.7     60.3     69.4        46       86</span>
+<span class="co">#&gt; 17 &lt;glm&gt;     80 2014-W31      77.7     72.2     83.7        56      102</span>
+<span class="co">#&gt; 18 &lt;glm&gt;     86 2014-W32      93.4     86.2    101.         69      121</span>
+<span class="co">#&gt; 19 &lt;glm&gt;    116 2014-W33     112.     103.     123.         83      145</span>
+<span class="co">#&gt; 20 &lt;glm&gt;    139 2014-W34     135.     122.     149.        101      174</span></code></pre></div>
 <p><code><a href="../reference/fit_curve.html">fit_curve()</a></code> also works nicely with grouped <code>incidence2</code> objects. In this situation, we return a nested tibble with some additional columns that indicate whether there has been a warning or error during the fitting or prediction stages.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">grouped_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html">incidence</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">grouped_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span>
     <span class="va">raw_dat</span>, 
     date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
-    interval <span class="op">=</span> <span class="fl">7</span>,
+    interval <span class="op">=</span> <span class="st">"week"</span>,
     groups <span class="op">=</span> <span class="va">hospital</span>
 <span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">120</span>, <span class="op">]</span>
 <span class="va">grouped_dat</span>
 <span class="co">#&gt; An incidence2 object: 120 x 3</span>
-<span class="co">#&gt; [783 cases from days 2014-04-07 to 2014-08-18]</span>
-<span class="co">#&gt; [interval: 7 days]</span>
-<span class="co">#&gt; [cumulative: FALSE]</span>
+<span class="co">#&gt; 1621 cases from 2014-W15 to 2014-W38</span>
+<span class="co">#&gt; interval: 1 monday week</span>
+<span class="co">#&gt; cumulative: FALSE</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt;    bin_date   hospital                                     count</span>
-<span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;                                        &lt;int&gt;</span>
-<span class="co">#&gt;  1 2014-04-07 Military Hospital                                1</span>
-<span class="co">#&gt;  2 2014-04-07 Connaught Hospital                               0</span>
-<span class="co">#&gt;  3 2014-04-07 other                                            0</span>
-<span class="co">#&gt;  4 2014-04-07 &lt;NA&gt;                                             0</span>
-<span class="co">#&gt;  5 2014-04-07 Princess Christian Maternity Hospital (PCMH)     0</span>
-<span class="co">#&gt;  6 2014-04-07 Rokupa Hospital                                  0</span>
-<span class="co">#&gt;  7 2014-04-14 Military Hospital                                0</span>
-<span class="co">#&gt;  8 2014-04-14 Connaught Hospital                               1</span>
-<span class="co">#&gt;  9 2014-04-14 other                                            0</span>
-<span class="co">#&gt; 10 2014-04-14 &lt;NA&gt;                                             0</span>
+<span class="co">#&gt;    date_index hospital                                     count</span>
+<span class="co">#&gt;    &lt;yrwk&gt;     &lt;fct&gt;                                        &lt;int&gt;</span>
+<span class="co">#&gt;  1 2014-W15   Military Hospital                                1</span>
+<span class="co">#&gt;  2 2014-W16   Connaught Hospital                               1</span>
+<span class="co">#&gt;  3 2014-W17   &lt;NA&gt;                                             2</span>
+<span class="co">#&gt;  4 2014-W17   other                                            3</span>
+<span class="co">#&gt;  5 2014-W18   &lt;NA&gt;                                             1</span>
+<span class="co">#&gt;  6 2014-W18   Connaught Hospital                               1</span>
+<span class="co">#&gt;  7 2014-W18   Princess Christian Maternity Hospital (PCMH)     1</span>
+<span class="co">#&gt;  8 2014-W18   Rokupa Hospital                                  1</span>
+<span class="co">#&gt;  9 2014-W19   &lt;NA&gt;                                             1</span>
+<span class="co">#&gt; 10 2014-W19   Connaught Hospital                               3</span>
 <span class="co">#&gt; # … with 110 more rows</span>
 
 <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"poisson"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
@@ -234,82 +234,80 @@
 <span class="co">#&gt; # … with 1 more variable: prediction_error &lt;list&gt;</span>
 
 <span class="co"># plot with a prediction interval but not a confidence interval</span>
-<span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>ci <span class="op">=</span> <span class="cn">FALSE</span>, pi<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">out</span>, ci <span class="op">=</span> <span class="cn">FALSE</span>, pi<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="fitting_epicurves_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
 <span class="co">#&gt; Note: incidence2_fit class dropped in returned object</span>
 <span class="co">#&gt; # A tibble: 6 x 9</span>
-<span class="co">#&gt;   hospital         model      r r_lower r_upper growth_or_decay  time time_lower</span>
-<span class="co">#&gt;   &lt;fct&gt;            &lt;lis&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 Connaught Hospi… &lt;glm&gt; 0.0281  0.0238  0.0327 doubling         24.6       21.2</span>
-<span class="co">#&gt; 2 Military Hospit… &lt;glm&gt; 0.0256  0.0201  0.0315 doubling         27.0       22.0</span>
-<span class="co">#&gt; 3 other            &lt;glm&gt; 0.0245  0.0190  0.0303 doubling         28.3       22.8</span>
-<span class="co">#&gt; 4 Princess Christ… &lt;glm&gt; 0.0237  0.0159  0.0323 doubling         29.2       21.5</span>
-<span class="co">#&gt; 5 Rokupa Hospital  &lt;glm&gt; 0.0283  0.0195  0.0382 doubling         24.5       18.1</span>
-<span class="co">#&gt; 6 &lt;NA&gt;             &lt;glm&gt; 0.0261  0.0217  0.0307 doubling         26.6       22.6</span>
+<span class="co">#&gt;   hospital          model     r r_lower r_upper growth_or_decay  time time_lower</span>
+<span class="co">#&gt;   &lt;fct&gt;             &lt;lis&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;</span>
+<span class="co">#&gt; 1 Connaught Hospit… &lt;glm&gt; 0.197   0.177   0.217 doubling         3.53       3.20</span>
+<span class="co">#&gt; 2 Military Hospital &lt;glm&gt; 0.173   0.147   0.200 doubling         4.00       3.46</span>
+<span class="co">#&gt; 3 other             &lt;glm&gt; 0.170   0.141   0.200 doubling         4.09       3.46</span>
+<span class="co">#&gt; 4 Princess Christi… &lt;glm&gt; 0.142   0.101   0.188 doubling         4.87       3.70</span>
+<span class="co">#&gt; 5 Rokupa Hospital   &lt;glm&gt; 0.178   0.133   0.228 doubling         3.89       3.04</span>
+<span class="co">#&gt; 6 &lt;NA&gt;              &lt;glm&gt; 0.184   0.164   0.205 doubling         3.77       3.39</span>
 <span class="co">#&gt; # … with 1 more variable: time_upper &lt;dbl&gt;</span></code></pre></div>
 <p>We provide helper functions, <code><a href="../reference/is_okerr.html">is_ok()</a></code>, <code><a href="../reference/is_okerr.html">is_warning()</a></code> and <code><a href="../reference/is_okerr.html">is_error()</a></code> to help filter the output as necessary.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"negbin"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
-<span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="op">)</span>
+<span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
 <span class="co">#&gt; Note: incidence2_fit class dropped in returned object</span>
 <span class="co">#&gt; # A tibble: 5 x 5</span>
 <span class="co">#&gt;   hospital                 model   estimates    fitting_warning prediction_warn…</span>
 <span class="co">#&gt;   &lt;fct&gt;                    &lt;list&gt;  &lt;list&gt;       &lt;list&gt;          &lt;list&gt;          </span>
-<span class="co">#&gt; 1 Connaught Hospital       &lt;negbi… &lt;df[,7] [20… &lt;chr [2]&gt;       &lt;NULL&gt;          </span>
+<span class="co">#&gt; 1 Connaught Hospital       &lt;negbi… &lt;df[,7] [22… &lt;chr [2]&gt;       &lt;NULL&gt;          </span>
 <span class="co">#&gt; 2 other                    &lt;negbi… &lt;df[,7] [20… &lt;chr [2]&gt;       &lt;NULL&gt;          </span>
-<span class="co">#&gt; 3 Princess Christian Mate… &lt;negbi… &lt;df[,7] [20… &lt;chr [2]&gt;       &lt;NULL&gt;          </span>
-<span class="co">#&gt; 4 Rokupa Hospital          &lt;negbi… &lt;df[,7] [20… &lt;chr [2]&gt;       &lt;NULL&gt;          </span>
-<span class="co">#&gt; 5 &lt;NA&gt;                     &lt;negbi… &lt;df[,7] [20… &lt;chr [2]&gt;       &lt;NULL&gt;</span>
-<span class="va">out</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">fitting_warning</span><span class="op">)</span>
+<span class="co">#&gt; 3 Princess Christian Mate… &lt;negbi… &lt;df[,7] [17… &lt;chr [2]&gt;       &lt;NULL&gt;          </span>
+<span class="co">#&gt; 4 Rokupa Hospital          &lt;negbi… &lt;df[,7] [18… &lt;chr [2]&gt;       &lt;NULL&gt;          </span>
+<span class="co">#&gt; 5 &lt;NA&gt;                     &lt;negbi… &lt;df[,7] [22… &lt;chr [2]&gt;       &lt;NULL&gt;</span>
+<span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>, <span class="va">fitting_warning</span><span class="op">)</span>
 <span class="co">#&gt; Note: incidence2_fit class dropped in returned object</span>
 <span class="co">#&gt; # A tibble: 10 x 5</span>
 <span class="co">#&gt;    hospital              model   estimates    fitting_warning   prediction_warn…</span>
 <span class="co">#&gt;    &lt;fct&gt;                 &lt;list&gt;  &lt;list&gt;       &lt;chr&gt;             &lt;list&gt;          </span>
-<span class="co">#&gt;  1 Connaught Hospital    &lt;negbi… &lt;df[,7] [20… iteration limit … &lt;NULL&gt;          </span>
-<span class="co">#&gt;  2 Connaught Hospital    &lt;negbi… &lt;df[,7] [20… iteration limit … &lt;NULL&gt;          </span>
+<span class="co">#&gt;  1 Connaught Hospital    &lt;negbi… &lt;df[,7] [22… iteration limit … &lt;NULL&gt;          </span>
+<span class="co">#&gt;  2 Connaught Hospital    &lt;negbi… &lt;df[,7] [22… iteration limit … &lt;NULL&gt;          </span>
 <span class="co">#&gt;  3 other                 &lt;negbi… &lt;df[,7] [20… iteration limit … &lt;NULL&gt;          </span>
 <span class="co">#&gt;  4 other                 &lt;negbi… &lt;df[,7] [20… iteration limit … &lt;NULL&gt;          </span>
-<span class="co">#&gt;  5 Princess Christian M… &lt;negbi… &lt;df[,7] [20… iteration limit … &lt;NULL&gt;          </span>
-<span class="co">#&gt;  6 Princess Christian M… &lt;negbi… &lt;df[,7] [20… iteration limit … &lt;NULL&gt;          </span>
-<span class="co">#&gt;  7 Rokupa Hospital       &lt;negbi… &lt;df[,7] [20… iteration limit … &lt;NULL&gt;          </span>
-<span class="co">#&gt;  8 Rokupa Hospital       &lt;negbi… &lt;df[,7] [20… iteration limit … &lt;NULL&gt;          </span>
-<span class="co">#&gt;  9 &lt;NA&gt;                  &lt;negbi… &lt;df[,7] [20… iteration limit … &lt;NULL&gt;          </span>
-<span class="co">#&gt; 10 &lt;NA&gt;                  &lt;negbi… &lt;df[,7] [20… iteration limit … &lt;NULL&gt;</span></code></pre></div>
+<span class="co">#&gt;  5 Princess Christian M… &lt;negbi… &lt;df[,7] [17… iteration limit … &lt;NULL&gt;          </span>
+<span class="co">#&gt;  6 Princess Christian M… &lt;negbi… &lt;df[,7] [17… iteration limit … &lt;NULL&gt;          </span>
+<span class="co">#&gt;  7 Rokupa Hospital       &lt;negbi… &lt;df[,7] [18… iteration limit … &lt;NULL&gt;          </span>
+<span class="co">#&gt;  8 Rokupa Hospital       &lt;negbi… &lt;df[,7] [18… iteration limit … &lt;NULL&gt;          </span>
+<span class="co">#&gt;  9 &lt;NA&gt;                  &lt;negbi… &lt;df[,7] [22… iteration limit … &lt;NULL&gt;          </span>
+<span class="co">#&gt; 10 &lt;NA&gt;                  &lt;negbi… &lt;df[,7] [22… iteration limit … &lt;NULL&gt;</span></code></pre></div>
 </div>
 <div id="rolling-average" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rolling-average" class="anchor"></a>Rolling average</h2>
 <p>We can add a rolling average, across current and previous intervals, to an <code>incidence2</code> object with the <code><a href="../reference/add_rolling_average.html">add_rolling_average()</a></code> function:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ra</span> <span class="op">&lt;-</span> 
-  <span class="va">grouped_dat</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/add_rolling_average.html">add_rolling_average</a></span><span class="op">(</span>before <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># group observations with the 2 prior</span>
+<code class="sourceCode R"><span class="va">ra</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_rolling_average.html">add_rolling_average</a></span><span class="op">(</span><span class="va">grouped_dat</span>, before <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># group observations with the 2 prior</span>
 <span class="va">ra</span>
 <span class="co">#&gt; # A tibble: 6 x 2</span>
 <span class="co">#&gt;   hospital                                     rolling_average  </span>
 <span class="co">#&gt;   &lt;fct&gt;                                        &lt;list&gt;           </span>
-<span class="co">#&gt; 1 Connaught Hospital                           &lt;tibble [20 × 3]&gt;</span>
-<span class="co">#&gt; 2 Military Hospital                            &lt;tibble [20 × 3]&gt;</span>
+<span class="co">#&gt; 1 Connaught Hospital                           &lt;tibble [22 × 3]&gt;</span>
+<span class="co">#&gt; 2 Military Hospital                            &lt;tibble [21 × 3]&gt;</span>
 <span class="co">#&gt; 3 other                                        &lt;tibble [20 × 3]&gt;</span>
-<span class="co">#&gt; 4 Princess Christian Maternity Hospital (PCMH) &lt;tibble [20 × 3]&gt;</span>
-<span class="co">#&gt; 5 Rokupa Hospital                              &lt;tibble [20 × 3]&gt;</span>
-<span class="co">#&gt; 6 &lt;NA&gt;                                         &lt;tibble [20 × 3]&gt;</span>
-<span class="va">ra</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">rolling_average</span><span class="op">)</span>
+<span class="co">#&gt; 4 Princess Christian Maternity Hospital (PCMH) &lt;tibble [17 × 3]&gt;</span>
+<span class="co">#&gt; 5 Rokupa Hospital                              &lt;tibble [18 × 3]&gt;</span>
+<span class="co">#&gt; 6 &lt;NA&gt;                                         &lt;tibble [22 × 3]&gt;</span>
+<span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">ra</span>, <span class="va">rolling_average</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 120 x 4</span>
-<span class="co">#&gt;    hospital           bin_date   count rolling_average</span>
-<span class="co">#&gt;    &lt;fct&gt;              &lt;date&gt;     &lt;int&gt;           &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 Connaught Hospital 2014-04-07     0          NA    </span>
-<span class="co">#&gt;  2 Connaught Hospital 2014-04-14     1          NA    </span>
-<span class="co">#&gt;  3 Connaught Hospital 2014-04-21     0           0.333</span>
-<span class="co">#&gt;  4 Connaught Hospital 2014-04-28     1           0.667</span>
-<span class="co">#&gt;  5 Connaught Hospital 2014-05-05     3           1.33 </span>
-<span class="co">#&gt;  6 Connaught Hospital 2014-05-12     2           2.00 </span>
-<span class="co">#&gt;  7 Connaught Hospital 2014-05-19     5           3.33 </span>
-<span class="co">#&gt;  8 Connaught Hospital 2014-05-26     4           3.67 </span>
-<span class="co">#&gt;  9 Connaught Hospital 2014-06-02     6           5    </span>
-<span class="co">#&gt; 10 Connaught Hospital 2014-06-09     6           5.33 </span>
+<span class="co">#&gt;    hospital           date_index count rolling_average</span>
+<span class="co">#&gt;    &lt;fct&gt;              &lt;yrwk&gt;     &lt;int&gt;           &lt;dbl&gt;</span>
+<span class="co">#&gt;  1 Connaught Hospital 2014-W16       1           NA   </span>
+<span class="co">#&gt;  2 Connaught Hospital 2014-W18       1           NA   </span>
+<span class="co">#&gt;  3 Connaught Hospital 2014-W19       3            1.67</span>
+<span class="co">#&gt;  4 Connaught Hospital 2014-W20       2            2.00</span>
+<span class="co">#&gt;  5 Connaught Hospital 2014-W21       5            3.33</span>
+<span class="co">#&gt;  6 Connaught Hospital 2014-W22       4            3.67</span>
+<span class="co">#&gt;  7 Connaught Hospital 2014-W23       6            5   </span>
+<span class="co">#&gt;  8 Connaught Hospital 2014-W24       6            5.33</span>
+<span class="co">#&gt;  9 Connaught Hospital 2014-W25      12            8   </span>
+<span class="co">#&gt; 10 Connaught Hospital 2014-W26       8            8.67</span>
 <span class="co">#&gt; # … with 110 more rows</span>
 
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ra</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>
