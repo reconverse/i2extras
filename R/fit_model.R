@@ -19,7 +19,6 @@
 #'
 #' @importFrom dplyr grouped_df nest_by full_join bind_rows
 #'
-#' @export
 fit_model <- function(x, model, ...) {
     UseMethod("fit_model", model)
 }
@@ -27,7 +26,6 @@ fit_model <- function(x, model, ...) {
 
 #' @rdname fit_model
 #' @aliases fit_model.default
-#' @export
 fit_model.default <- function(x, model, ...) {
     stop("`model` input must be a trending model object or a list of these.")
 }
@@ -35,7 +33,6 @@ fit_model.default <- function(x, model, ...) {
 
 #' @rdname fit_model
 #' @aliases fit_model.trending_model
-#' @export
 fit_model.trending_model <- function(x, model, ...) {
 
     if (!inherits(x, "incidence2")) {
@@ -65,4 +62,29 @@ fit_model.trending_model <- function(x, model, ...) {
         dat$.fitting_error <- res[[3]]
         res <- dat
     }
+    res
+}
+
+
+#' @rdname fit_model
+#' @aliases fit_model.trending_model_list
+fit_model.list <- function(x, model, ...) {
+
+    if (!inherits(x, "incidence2")) {
+        stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
+    }
+
+    group_vars <- incidence2::get_group_names(x)
+
+    if(is.null(group_vars)) {
+        res <- lapply(model, function(m) safely(fit_model)(x, m))
+        res <- base_transpose(res)
+        out <- bind_rows(res[[1]])
+        out$.fitting_warning <- res[[2]]
+        out$.fitting_error <- res[[3]]
+    } else {
+        res <- lapply(model, function(m) fit_model(x, m))
+        out <- bind_rows(res)
+    }
+    out
 }
