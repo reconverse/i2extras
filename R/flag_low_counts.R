@@ -16,8 +16,8 @@
 #' @param counts A tidyselect compliant indication of the counts to be used.
 #'
 #' @param threshold A numeric multiplier of the median count to be used as
-#'   threshold. Defaults to 0.01, in which case any count lower than 1% of the
-#'   median count is flagged as low count.
+#'   threshold. Defaults to 0.001, in which case any count strictly lower than
+#'   0.1% of the mean count is flagged as low count.
 #'
 #' @param set_missing A `logical` indicating if the low counts identified should
 #'   be replaced with NAs (`TRUE`, default). If `FALSE`, new logical columns
@@ -42,14 +42,13 @@
 #' }
 
 
-flag_low_counts <- function(x, counts = NULL, threshold = 0.01, set_missing = TRUE) {
+flag_low_counts <- function(x, counts = NULL, threshold = 0.001, set_missing = TRUE) {
   
   ## checks
   if (!inherits(x, "incidence2")) {
     stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
   }
 
-  ##browser()
   ## snapshot original attributes
   original_attributes <- attributes(x)
 
@@ -74,7 +73,7 @@ flag_low_counts <- function(x, counts = NULL, threshold = 0.01, set_missing = TR
   ## suffix are generated, with TRUE wherever values are below the threshold
  
   below_thres <- function(x) {
-    x < threshold * median(x, na.rm = TRUE)
+    x < round(threshold * mean(x, na.rm = TRUE))
   }
 
   out <- x
