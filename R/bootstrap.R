@@ -30,6 +30,7 @@
 #' }
 #'
 #' @import data.table
+#' @importFrom stats na.omit rmultinom
 #' @export
 bootstrap <- function(x, randomise_groups = FALSE) {
 
@@ -60,17 +61,16 @@ bootstrap <- function(x, randomise_groups = FALSE) {
     }
   }
 
-  # TODO - this should really be a function exported from incidence2
-  # create incidence2 object
-  tbl <- tibble::new_tibble(out,
-                            groups = group_vars,
-                            date = date_var,
-                            counts = count_vars,
-                            interval = incidence2::get_interval(x),
-                            cumulative = attr(x, "cumulative"),
-                            nrow = nrow(out),
-                            class = "incidence2"
+  # return incidence object
+  tbl <- minimal_incidence(
+    new_bare_tibble(out),
+    groups = group_vars,
+    date = date_var,
+    counts = count_vars,
+    interval = incidence2::get_interval(x),
+    cumulative = attr(x, "cumulative")
   )
+
   tibble::validate_tibble(tbl)
 }
 

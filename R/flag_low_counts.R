@@ -12,7 +12,7 @@
 #' @md
 #'
 #' @param x An [incidence2::incidence] object.
-#' 
+#'
 #' @param counts A tidyselect compliant indication of the counts to be used.
 #'
 #' @param threshold A numeric multiplier of the median count to be used as
@@ -23,14 +23,14 @@
 #'   be replaced with NAs (`TRUE`, default). If `FALSE`, new logical columns
 #'   with the `flag_low` suffix will be added, indicating which entries are
 #'   below the threshold.
-#' 
+#'
 #' @return An [incidence2::incidence] object.
 #'
 #' @export
 #' @importFrom dplyr grouped_df mutate across if_else
 #'
 #' @examples
-#' 
+#'
 #' if (requireNamespace("outbreaks", quietly = TRUE) &&
 #'     requireNamespace("incidence2", quietly = TRUE)) {
 #'   data(covid19_england_nhscalls_2020, package = "outbreaks")
@@ -43,7 +43,7 @@
 
 
 flag_low_counts <- function(x, counts = NULL, threshold = 0.001, set_missing = TRUE) {
-  
+
   ## checks
   if (!inherits(x, "incidence2")) {
     stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
@@ -61,17 +61,17 @@ flag_low_counts <- function(x, counts = NULL, threshold = 0.001, set_missing = T
     counts <- NULL
   }
   if (is.null(counts)) {
-    counts <- get_count_names(x)
+    counts <- incidence2::get_count_names(x)
   }
-  
+
   ## get group and date names
-  group_names <- get_group_names(x)
+  group_names <- incidence2::get_group_names(x)
 
   ## The output can take two forms depending on `set_missing`:
   ## * TRUE: counts are modified so that values below the threshold are set to NA
   ## * FALSE: counts are not modified, but new logical variables with a "flag_low"
   ## suffix are generated, with TRUE wherever values are below the threshold
- 
+
   below_thres <- function(x) {
     x < round(threshold * mean(x, na.rm = TRUE))
   }
@@ -109,6 +109,6 @@ flag_low_counts <- function(x, counts = NULL, threshold = 0.001, set_missing = T
   new_names <- names(out)
   attributes(out) <- original_attributes
   names(out) <- new_names
- 
+
   out
 }

@@ -38,7 +38,7 @@ For this example we will restrict ourselves to the first 20 weeks of data:
 dat <- incidence(
     raw_dat, 
     date_index = date_of_onset,
-    interval = 7
+    interval = "week"
 )[1:20, ]
 dat
 plot(dat)
@@ -54,15 +54,15 @@ automatic plotting and the calculation of growth (decay) rates and doubling
 ```{r}
 out <- fit_curve(dat, model = "poisson", alpha = 0.05)
 out
-out %>% plot()
-out %>% growth_rate()
+plot(out)
+growth_rate(out)
 ```
 
 To unnest the data we can use `unnest()` (a function that has been reexported
 from the [tidyr](https://cran.r-project.org/package=tidyr) package.
 
 ```{r}
-out %>% unnest(estimates)
+unnest(out, estimates)
 ```
 
 `fit_curve()` also works nicely with grouped `incidence2` objects.  In this
@@ -74,7 +74,7 @@ or prediction stages.
 grouped_dat <- incidence(
     raw_dat, 
     date_index = date_of_onset,
-    interval = 7,
+    interval = "week",
     groups = hospital
 )[1:120, ]
 grouped_dat
@@ -83,8 +83,8 @@ out <- fit_curve(grouped_dat, model = "poisson", alpha = 0.05)
 out
 
 # plot with a prediction interval but not a confidence interval
-out %>% plot(ci = FALSE, pi=TRUE)
-out %>% growth_rate()
+plot(out, ci = FALSE, pi=TRUE)
+growth_rate(out)
 ```
 
 We provide helper functions, `is_ok()`, `is_warning()` and `is_error()` to
@@ -92,8 +92,8 @@ help filter the output as necessary.
 
 ```{r}
 out <- fit_curve(grouped_dat, model = "negbin", alpha = 0.05)
-out %>% is_warning()
-out %>% is_warning() %>% unnest(fitting_warning)
+is_warning(out)
+unnest(is_warning(out), fitting_warning)
 ```
 
 
@@ -102,11 +102,9 @@ We can add a rolling average, across current and previous intervals, to
 an `incidence2` object with the `add_rolling_average()` function:
 
 ```{r rolling_average}
-ra <- 
-  grouped_dat %>% 
-  add_rolling_average(before = 2) # group observations with the 2 prior
+ra <- add_rolling_average(grouped_dat, before = 2) # group observations with the 2 prior
 ra
-ra %>% unnest(rolling_average)
+unnest(ra, rolling_average)
 
 plot(ra, color = "white")
 ```

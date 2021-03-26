@@ -4,10 +4,13 @@
 \alias{plot.incidence2_rolling}
 \title{Plot a rolling average incidence object}
 \usage{
-\method{plot}{incidence2_rolling}(x, ...)
+\method{plot}{incidence2_rolling}(x, cnt = NULL, ...)
 }
 \arguments{
 \item{x}{An \code{incidence2_ra} object created by \code{\link[=add_rolling_average]{add_rolling_average()}}.}
+
+\item{cnt}{The count variable to print.  If \code{NULL} defaults to the first
+value from \code{attr(x, "counts")}.}
 
 \item{...}{Additional arguments to be passed to
 \code{\link[incidence2:plot.incidence2]{incidence2::plot.incidence2()}} or \code{\link[incidence2:plot.incidence2]{incidence2::facet_plot()}}.}

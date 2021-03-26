@@ -4,10 +4,13 @@
 \alias{plot.incidence2_fit}
 \title{Plot a fitted epicurve}
 \usage{
-\method{plot}{incidence2_fit}(x, include_warnings = FALSE, ci = TRUE, pi = FALSE, ...)
+\method{plot}{incidence2_fit}(x, cnt = NULL, include_warnings = FALSE, ci = TRUE, pi = FALSE, ...)
 }
 \arguments{
-\item{x}{An \code{incidence2_fit} object created by \code{\link[=fit]{fit()}}.}
+\item{x}{An \code{incidence2_fit} object created by \code{\link[=fit_curve]{fit_curve()}}.}
+
+\item{cnt}{The count variable to print.  If \code{NULL} defaults to the first
+value from \code{attr(x, "counts")}.}
 
 \item{include_warnings}{Include results in plot that triggered warnings but
 not errors.  Defaults to \code{FALSE}.}

@@ -33,7 +33,8 @@ Imports:
     vctrs,
     ellipsis,
     ggplot2,
-    data.table
+    data.table,
+    tidyselect
 Suggests: 
     testthat,
     outbreaks,
@@ -41,3 +42,5 @@ Suggests:
     rmarkdown,
     covr
 VignetteBuilder: knitr
+Remotes:
+    reconhub/incidence2

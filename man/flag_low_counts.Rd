@@ -4,7 +4,7 @@
 \alias{flag_low_counts}
 \title{Flag low counts and set them to NAs}
 \usage{
-flag_low_counts(x, counts = NULL, threshold = 0.01, set_missing = TRUE)
+flag_low_counts(x, counts = NULL, threshold = 0.001, set_missing = TRUE)
 }
 \arguments{
 \item{x}{An \link[incidence2:incidence]{incidence2::incidence} object.}
@@ -12,8 +12,8 @@ flag_low_counts(x, counts = NULL, threshold = 0.01, set_missing = TRUE)
 \item{counts}{A tidyselect compliant indication of the counts to be used.}
 
 \item{threshold}{A numeric multiplier of the median count to be used as
-threshold. Defaults to 0.01, in which case any count lower than 1\% of the
-median count is flagged as low count.}
+threshold. Defaults to 0.001, in which case any count strictly lower than
+0.1\% of the mean count is flagged as low count.}
 
 \item{set_missing}{A \code{logical} indicating if the low counts identified should
 be replaced with NAs (\code{TRUE}, default). If \code{FALSE}, new logical columns

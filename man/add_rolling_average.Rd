@@ -35,19 +35,18 @@ grouping, therefore care is required when plotting.
 \examples{
 if (requireNamespace("outbreaks", quietly = TRUE) &&
     requireNamespace("incidence2", quietly = TRUE)) {
+
   data(ebola_sim_clean, package = "outbreaks")
   dat <- ebola_sim_clean$linelist
+  dat <- subset(dat, date_of_onset <= as.Date("2014-10-05"))
 
   inci <- incidence2::incidence(dat,
                     date_index = date_of_onset,
                     interval = "week",
-                    last_date = "2014-10-05",
                     groups = gender)
 
   ra <- add_rolling_average(inci, before = 2)
   plot(ra, color = "white")
-
-
 
   inci2 <- incidence2::regroup(inci)
   ra2 <- add_rolling_average(inci2, before = 2)

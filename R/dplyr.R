@@ -112,7 +112,6 @@ incidence2_fit_reconstruct <- function(x, to) {
   if (incidence2_fit_can_reconstruct(x, to)) {
     df_reconstruct(x, to)
   } else {
-    message("Note: incidence2_fit class dropped in returned object\n")
     new_bare_tibble(x)
   }
 }

@@ -1,6 +1,6 @@
 #' Fit an epi curve
 #'
-#' @param dat An [incidence2::incidence] object.
+#' @param x An [incidence2::incidence] object.
 #' @param model The regression model to fit (can be "poisson" or "negbin").
 #' @param alpha Value of alpha used to calculate confidence intervals; defaults
 #'   to 0.05 which corresponds to a 95% confidence interval.
@@ -9,88 +9,117 @@
 #'
 #' @return An object of class `incidence2_fit`.
 #'
+#' @importFrom dplyr nest_by
+#' @importFrom tidyr pivot_longer
 #' @export
-fit_curve <- function(dat, model, ...) {
+fit_curve <- function(x, model, ...) {
   UseMethod("fit_curve")
 }
 
 #' @rdname fit_curve
 #' @aliases fit_curve.default
 #' @export
-fit_curve.default <- function(dat, model, ...) {
+fit_curve.default <- function(x, model, ...) {
   stop(sprintf("Not implemented for class %s",
-               paste(class(dat), collapse = ", ")))
+               paste(class(x), collapse = ", ")))
 }
 
 
 #' @rdname fit_curve
 #' @aliases fit_curve.incidence2 incidence2_fit
 #' @export
-fit_curve.incidence2 <- function(dat,
-                                 model = c("poisson", "negbin"),
+fit_curve.incidence2 <- function(x,
+                                 model = "poisson",
                                  alpha = 0.05,
                                  ...) {
-  model <- match.arg(model)
-  groups <- incidence2::get_group_names(dat)
-  dates <- incidence2::get_dates_name(dat)
-  date_group <- incidence2::get_date_group_names(dat)
-  count <- incidence2::get_counts_name(dat)
-  
-  fmla <- stats::as.formula(paste(count, "~", dates))
-  trending_model <- switch(
-    model,
-    negbin = trending::glm_nb_model(fmla, ...),
-    poisson = trending::glm_model(fmla, family = "poisson", ...),
-    stop('Invalid model. Please use one of "negbin" or "poisson".')
-  )
 
-  if (!is.null(groups)) {
-    out <- dplyr::nest_by(grouped_df(dat, groups))
-    fiterr <- lapply(
-      out$data,
-      function(x) safely(trending::fit)(trending_model, x)
-    )
-    fiterr <- base_transpose(fiterr)
-    prederr <- lapply(
-      fiterr[[1]],
-      function(x) safely(stats::predict)(x)
-    )
-    prederr <- base_transpose(prederr)
-    model <- lapply(
-      fiterr[[1]],
-      function(x) safely(trending::get_model)(x)
-    )
-    model <- base_transpose(model)
-    out$model <- model[[1]]
-    out$estimates <-prederr[[1]] 
-    out$fitting_warning <- fiterr[[2]]
-    out$fitting_error <- fiterr[[3]]
-    out$prediction_warning <-prederr[[3]]
-    out$prediction_error <-prederr[[3]]
-    out$data <- NULL
-    warning_vars <- c("fitting_warning", "prediction_warning")
-    error_vars <- c("fitting_error", "prediction_error")
+  # fix for global variable warning
+  dat <- NULL
 
-  } else {
-    fitted_model <- trending::fit(trending_model, data = dat)
-    model <- trending::get_model(fitted_model)
-    estimates <- stats::predict(fitted_model)
-    out <- tibble::tibble(
-      model = list(model),
-      estimates = list(estimates)
-    )
-    warning_vars <- NULL
-    error_vars <- NULL
+  # get variable names
+  group_vars <- incidence2::get_group_names(x)
+  date_var <- incidence2::get_dates_name(x)
+  count_vars <- incidence2::get_counts_name(x)
 
+  # ensure model is poisson or negbin
+  if (!all(model %in% c("poisson", "negbin"))) {
+    stop('model values must be "poisson" and/or "negbin')
   }
 
-  # create subclass of tibble
+  # ensure model is of length one or the same length as counts_var
+  if (length(model) == 1) {
+    model <- rep(model, length(count_vars))
+  }
+  if (length(model) != length(count_vars)) {
+    stop("model must be of length 1 or the same length as `count_var`")
+  }
+  model <- setNames(model, count_vars)
+
+  # melt data for convenience
+  out <- tidyr::pivot_longer(
+    x,
+    cols = count_vars,
+    values_drop_na = TRUE,
+    names_to = "count_variable",
+    values_to = "count"
+  )
+
+  # nest by count_variable and group_vars
+  grouping_variables <- c("count_variable", group_vars)
+  out <- dplyr::nest_by(grouped_df(out, grouping_variables), .key = "data")
+
+  # perform fitting and capture any warnings / errors
+  fiterr <- mapply(
+    function(dat, cnt) {
+      mdl <- model[[cnt]]
+      fmla <- stats::as.formula(paste("count", "~", date_var))
+      trending_model <- switch(
+        mdl,
+        negbin = trending::glm_nb_model(fmla, ...),
+        poisson = trending::glm_model(fmla, family = "poisson", ...),
+        stop('Invalid model. Please use one of "negbin" or "poisson".')
+      )
+      safely(trending::fit)(trending_model, dat)
+    },
+    out$data,
+    count_vars,
+    SIMPLIFY = FALSE
+  )
+  fiterr <- base_transpose(fiterr)
+
+  # perform prediction and capture any warnings / errors
+  prederr <- lapply(
+    fiterr[[1]],
+    function(x) safely(stats::predict)(x)
+  )
+  prederr <- base_transpose(prederr)
+
+  # get model to put as row in output
+  model <- lapply(
+    fiterr[[1]],
+    function(x) safely(trending::get_model)(x)
+  )
+  model <- base_transpose(model)
+
+  # add columns to output
+  out$model <- model[[1]]
+  out$estimates <-prederr[[1]]
+  out$fitting_warning <- fiterr[[2]]
+  out$fitting_error <- fiterr[[3]]
+  out$prediction_warning <-prederr[[3]]
+  out$prediction_error <-prederr[[3]]
+  warning_vars <- c("fitting_warning", "prediction_warning")
+  error_vars <- c("fitting_error", "prediction_error")
+
+  # TODO - review which attributes are actually necessary
+  # output a subclass of tibble
   out <- tibble::new_tibble(out,
-                            groups = groups,
-                            date = dates,
-                            date_group = date_group,
-                            count = count,
-                            interval = incidence2::get_interval(dat),
+                            groups = group_vars,
+                            date = date_var,
+                            count_variable = "count_variable",
+                            counts = count_vars,
+                            data = "data",
+                            interval = incidence2::get_interval(x),
                             cumulative = attr(dat, "cumulative"),
                             model = "model",
                             fitted = "estimates",
@@ -98,8 +127,5 @@ fit_curve.incidence2 <- function(dat,
                             error_vars = error_vars,
                             nrow = nrow(out),
                             class = "incidence2_fit")
-
   tibble::validate_tibble(out)
 }
-
-

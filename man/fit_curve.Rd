@@ -7,14 +7,14 @@
 \alias{incidence2_fit}
 \title{Fit an epi curve}
 \usage{
-fit_curve(dat, model, ...)
+fit_curve(x, model, ...)
 
-\method{fit_curve}{default}(dat, model, ...)
+\method{fit_curve}{default}(x, model, ...)
 
-\method{fit_curve}{incidence2}(dat, model = c("poisson", "negbin"), alpha = 0.05, ...)
+\method{fit_curve}{incidence2}(x, model = "poisson", alpha = 0.05, ...)
 }
 \arguments{
-\item{dat}{An \link[incidence2:incidence]{incidence2::incidence} object.}
+\item{x}{An \link[incidence2:incidence]{incidence2::incidence} object.}
 
 \item{model}{The regression model to fit (can be "poisson" or "negbin").}
 
