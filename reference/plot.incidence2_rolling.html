@@ -136,7 +136,7 @@
     </div>
 
     <pre class="usage"><span class='co'># S3 method for incidence2_rolling</span>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, cnt <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -144,6 +144,11 @@
     <tr>
       <th>x</th>
       <td><p>An <code>incidence2_ra</code> object created by <code><a href='add_rolling_average.html'>add_rolling_average()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>cnt</th>
+      <td><p>The count variable to print.  If <code>NULL</code> defaults to the first
+value from <code><a href='https://rdrr.io/r/base/attr.html'>attr(x, "counts")</a></code>.</p></td>
     </tr>
     <tr>
       <th>...</th>
