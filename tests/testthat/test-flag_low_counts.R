@@ -3,8 +3,7 @@ library(outbreaks)
 
 context("flag_low_counts")
 
-test_that("flag_low_counts works as expected", {
-  skip("needs fixing for recent changes")
+test_that("flag_low_counts: true positives", {
   skip_on_cran()
 
   dat <- dplyr::filter(ebola_sim_clean$linelist,
@@ -19,15 +18,16 @@ test_that("flag_low_counts works as expected", {
                  interval = 7,
                  group = "hospital",
                  na_as_group = FALSE)
-  i <- dplyr::mutate(i, count = dplyr::if_else(
-                                           as.Date(date_index) ==  target_date &
-                                           hospital %in% target_hosp,
-                                           0L,
-                                           count))
+  i <- dplyr::mutate(i, count =
+                          dplyr::if_else(
+                            as.Date(date_index) ==  target_date &
+                              hospital %in% target_hosp,
+                            0L,
+                            count))
 
 
   ## check with set_missing TRUE
-  res <- flag_low_counts(i, set_missing = TRUE)
+  res <- flag_low_counts(i, set_missing = TRUE, threshold = 0.05)
   expect_equal(sum(is.na(res$count)), length(target_hosp))
   expect_true(all(as.Date(i$date_index[is.na(res$count)]) == target_date))
   expect_true(all(i$hospital[is.na(res$count)] %in% target_hosp))
@@ -39,6 +39,24 @@ test_that("flag_low_counts works as expected", {
   )
 
 })
+
+
+
+## test_that("flag_low_counts: true negatives ", {
+##   skip_on_cran()
+
+##   df <- data.frame(
+##     dates = 1:100,
+##     counts = round(rnorm(100, 1000, 200))
+##   )
+
+##   x <- incidence(df, date_index = dates, counts = counts)
+
+##  'x' currently poses a problem as input, but it seems more like an incidence2
+##  issue; will resume this example once the problem is fixed.
+  
+## })
+
 
 
 test_that("flag_low_counts errors as it should", {
