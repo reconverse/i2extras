@@ -6,6 +6,98 @@
 # class incidence). Where an operation breaks these invariants a tibble is
 # returned instead of an incidence object.
 
+
+#' Check whether incidence2_fit object invariants hold
+#'
+#' @param x data.frame to have it's invariants checked
+#' @param to [incidence2_fit] object we want
+#'
+#' @return TRUE or FALSE
+#'
+#' @noRd
+incidence2_fit_can_reconstruct <- function(x, to) {
+
+  x_names <- names(x)
+
+  # check groups are present
+  groups <- attr(to, "groups")
+  if (!is.null(groups)) {
+    if (!(all(groups %in% x_names))) {
+      return(FALSE)
+    }
+  }
+
+  # check count_variable is present
+  count_variable <- attr(to, "count_variable")
+  if (!(count_variable %in% x_names)) {
+    return(FALSE)
+  }
+
+  # check data is present
+  data_variable <- attr(to, "data")
+  if (!(data_variable %in% x_names)) {
+    return(FALSE)
+  }
+
+  # check model is present
+  model <- attr(to, "model")
+  if (!(model %in% x_names)) {
+    return(FALSE)
+  }
+
+  # check fitted is present
+  fitted_var <- attr(to, "fitted")
+  if (!all(fitted_var %in% x_names)) {
+    return(FALSE)
+  }
+
+  # check error_vars are present
+  error_vars <- attr(to, "error_vars")
+  if (!is.null(error_vars)) {
+    if (!(all(error_vars %in% x_names))) {
+      return(FALSE)
+    }
+  }
+
+  # check error_vars are present
+  warning_vars <- attr(to, "warning_vars")
+  if (!is.null(warning_vars)) {
+    if (!(all(warning_vars %in% x_names))) {
+      return(FALSE)
+    }
+  }
+
+  # ensure no rows are duplicated within x
+  if (anyDuplicated((x))) {
+    return(FALSE)
+  }
+
+  TRUE
+}
+# -------------------------------------------------------------------------
+
+
+# -------------------------------------------------------------------------
+#' Function to reconstruct object of incidence2_fit class
+#'
+#' Once you have encoded the invariant logic into incidence2_fit_can_reconstruct,
+#' we need a second function that applies that check and either performs the
+#' actual reconstruction, or falls back to a bare tibble.
+#'
+#' @param x x data.frame to have it's invariants checked
+#' @param to object we want
+#'
+#' @noRd
+incidence2_fit_reconstruct <- function(x, to) {
+  if (incidence2_fit_can_reconstruct(x, to)) {
+    df_reconstruct(x, to)
+  } else {
+    new_bare_tibble(x)
+  }
+}
+# -------------------------------------------------------------------------
+
+
 # -------------------------------------------------------------------------
 # This function is a data frame specific helper.  Currently we are recommended
 # to copy in to our own package but it may evenutally find it's way in to one of
@@ -35,85 +127,6 @@ new_bare_tibble <- function(x) {
   # Strips all attributes off `x` since `new_tibble()` currently doesn't
   x <- vctrs::new_data_frame(x)
   tibble::new_tibble(x, nrow = nrow(x))
-}
-# -------------------------------------------------------------------------
-
-
-#' Check whether incidence2_fit object invariants hold
-#'
-#' @param x data.frame to have it's invariants checked
-#' @param to [incidence2_fit] object we want
-#'
-#' @return TRUE or FALSE
-#'
-#' @noRd
-incidence2_fit_can_reconstruct <- function(x, to) {
-
-  x_names <- names(x)
-
-  ## check groups are present
-  groups <- attr(to, "groups")
-  if (!is.null(groups)) {
-    if (!(all(groups %in% x_names))) {
-      return(FALSE)
-    }
-  }
-
-  ## check error_vars are present
-  error_vars <- attr(to, "error_vars")
-  if (!is.null(error_vars)) {
-    if (!(all(error_vars %in% x_names))) {
-      return(FALSE)
-    }
-  }
-
-  ## check error_vars are present
-  warning_vars <- attr(to, "warning_vars")
-  if (!is.null(warning_vars)) {
-    if (!(all(warning_vars %in% x_names))) {
-      return(FALSE)
-    }
-  }
-
-  ## check model is present
-  model <- attr(to, "model")
-  if (!(model %in% x_names)) {
-    return(FALSE)
-  }
-
-  ## check fitted is present
-  fitted_var <- attr(to, "fitted")
-  if (!all(fitted_var %in% x_names)) {
-    return(FALSE)
-  }
-
-  ## ensure no rows are duplicated within x
-  if (anyDuplicated((x))) {
-    return(FALSE)
-  }
-  TRUE
-
-}
-# -------------------------------------------------------------------------
-
-
-# -------------------------------------------------------------------------
-#' Function to reconstruct object of incidence2_fit class
-#'
-#' Once you have encoded the invariant logic into incidence2_fit_can_reconstruct,
-#' we need a second function that applies that check and either performs the
-#' actual reconstruction, or falls back to a bare tibble.
-#'
-#' @param x x data.frame to have it's invariants checked
-#' @param to object we want
-#'
-#' @noRd
-incidence2_fit_reconstruct <- function(x, to) {
-  if (incidence2_fit_can_reconstruct(x, to)) {
-    df_reconstruct(x, to)
-  } else {
-    new_bare_tibble(x)
-  }
 }
 # -------------------------------------------------------------------------
 
@@ -151,6 +164,14 @@ incidence2_fit_reconstruct <- function(x, to) {
     attr(x, "groups") <- value[group_index]
   }
 
+  count_variable_var <- attr(x, "count_variable")
+  count_index <- which(current_names %in% count_variable_var)
+  attr(x, "count_variable") <- value[count_variable_var]
+
+  data_var <- attr(x, "data")
+  data_index <- which(current_names %in% data_var)
+  attr(x, "data") <- value[data_index]
+
   error_vars <- attr(x, "error_vars")
   if (!is.null(error_vars)) {
     error_index <- which(current_names %in% error_vars)
@@ -162,8 +183,6 @@ incidence2_fit_reconstruct <- function(x, to) {
     warning_index <- which(current_names %in% warning_vars)
     attr(x, "warning_vars") <- value[warning_index]
   }
-
-
 
   out <- NextMethod()
   incidence2_fit_reconstruct(out, x)
