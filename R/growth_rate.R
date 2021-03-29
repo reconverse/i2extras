@@ -62,6 +62,10 @@ growth_rate.incidence2_fit <- function(x, alpha = 0.05,
   groups <- attr(dat, "groups")
   if (!is.null(groups)) res <- dplyr::bind_cols(dat[groups], res)
 
+  count_variable <- attr(dat, "count_variable")
+  res <- dplyr::bind_cols(dat[count_variable], res)
+
+
   if (growth_decay_time) add_two_time(res) else res
 
 }
