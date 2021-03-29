@@ -3,6 +3,8 @@
 #' [add_rolling_average()] adds a rolling average to an [incidence2::incidence()]
 #'   object.  If `x` is a grouped this will be a [dplyr::rowwise()] type object.
 #'   If x is not grouped this will be a subclass of tibble.
+
+#' @author Tim Taylor
 #'
 #' @param x An [incidence2::incidence] object.
 #' @param before how many prior dates to group the current observation with.

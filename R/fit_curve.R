@@ -1,5 +1,7 @@
 #' Fit an epi curve
 #'
+#' @author Tim Taylor
+#'
 #' @param x An [incidence2::incidence] object.
 #' @param model The regression model to fit (can be "poisson" or "negbin").
 #' @param alpha Value of alpha used to calculate confidence intervals; defaults
