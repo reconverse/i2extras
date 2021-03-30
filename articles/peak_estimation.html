@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">i2extras</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.0</span>
       </span>
     </div>
 
@@ -67,7 +67,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/reconhub/i2extras/">
+  <a href="https://github.com/reconverse/i2extras/">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -89,7 +89,7 @@
                         <h4 class="author">Tim Taylor</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/reconhub/i2extras/blob/master/vignettes/peak_estimation.Rmd"><code>vignettes/peak_estimation.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/reconverse/i2extras/blob/master/vignettes/peak_estimation.Rmd"><code>vignettes/peak_estimation.Rmd</code></a></small>
       <div class="hidden name"><code>peak_estimation.Rmd</code></div>
 
     </div>
@@ -98,8 +98,8 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/incidence2">incidence2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.repidemicsconsortium.org/i2extras/">i2extras</a></span><span class="op">)</span> </code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconverse/incidence2">incidence2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.reconverse.org/i2extras/">i2extras</a></span><span class="op">)</span> </code></pre></div>
 <div id="bootstrapping-and-finding-peaks" class="section level1">
 <h1 class="hasAnchor">
 <a href="#bootstrapping-and-finding-peaks" class="anchor"></a>Bootstrapping and finding peaks</h1>
@@ -121,15 +121,15 @@
 <span class="co">#&gt;    date_index gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
 <span class="co">#&gt;  1 2013-02-19 m          1</span>
-<span class="co">#&gt;  2 2013-02-27 m          1</span>
-<span class="co">#&gt;  3 2013-03-07 m          2</span>
-<span class="co">#&gt;  4 2013-03-08 m          0</span>
+<span class="co">#&gt;  2 2013-02-27 m          0</span>
+<span class="co">#&gt;  3 2013-03-07 m          0</span>
+<span class="co">#&gt;  4 2013-03-08 m          1</span>
 <span class="co">#&gt;  5 2013-03-09 f          2</span>
-<span class="co">#&gt;  6 2013-03-13 f          2</span>
+<span class="co">#&gt;  6 2013-03-13 f          0</span>
 <span class="co">#&gt;  7 2013-03-17 m          0</span>
-<span class="co">#&gt;  8 2013-03-19 f          3</span>
-<span class="co">#&gt;  9 2013-03-20 f          1</span>
-<span class="co">#&gt; 10 2013-03-20 m          0</span>
+<span class="co">#&gt;  8 2013-03-19 f          5</span>
+<span class="co">#&gt;  9 2013-03-20 f          2</span>
+<span class="co">#&gt; 10 2013-03-20 m          4</span>
 <span class="co">#&gt; # … with 57 more rows</span></code></pre></div>
 </div>
 <div id="find_peak" class="section level2">
@@ -379,7 +379,7 @@
 <span id="cb4-211"><a href="#cb4-211"></a><span class="co">#&gt; # A tibble: 1 x 6</span></span>
 <span id="cb4-212"><a href="#cb4-212"></a><span class="co">#&gt;   observed_peak observed_count bootstrap_peaks  lower_ci   median     upper_ci  </span></span>
 <span id="cb4-213"><a href="#cb4-213"></a><span class="co">#&gt;   &lt;date&gt;                 &lt;int&gt; &lt;list&gt;           &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    </span></span>
-<span id="cb4-214"><a href="#cb4-214"></a><span class="co">#&gt; 1 2013-04-03                 7 &lt;tibble[,2] [10… 2013-03-29 2013-04-06 2013-04-14</span></span>
+<span id="cb4-214"><a href="#cb4-214"></a><span class="co">#&gt; 1 2013-04-03                 7 &lt;tibble[,2] [10… 2013-03-28 2013-04-04 2013-04-17</span></span>
 <span id="cb4-215"><a href="#cb4-215"></a></span>
 <span id="cb4-216"><a href="#cb4-216"></a><span class="co"># across provinces and with progress bar suppressed</span></span>
 <span id="cb4-217"><a href="#cb4-217"></a><span class="kw">estimate_peak</span>(x, <span class="dt">progress =</span> <span class="ot">FALSE</span>)</span>
@@ -393,12 +393,12 @@
 <span id="cb4-225"><a href="#cb4-225"></a><span class="co">#&gt;  5 Hebei     2013-07-10                 1 &lt;tibble[,2] [10… 2013-07-10 2013-07-10</span></span>
 <span id="cb4-226"><a href="#cb4-226"></a><span class="co">#&gt;  6 Henan     2013-04-06                 1 &lt;tibble[,2] [10… 2013-04-06 2013-04-08</span></span>
 <span id="cb4-227"><a href="#cb4-227"></a><span class="co">#&gt;  7 Hunan     2013-04-14                 1 &lt;tibble[,2] [10… 2013-04-14 2013-04-14</span></span>
-<span id="cb4-228"><a href="#cb4-228"></a><span class="co">#&gt;  8 Jiangsu   2013-03-19                 2 &lt;tibble[,2] [10… 2013-03-08 2013-03-21</span></span>
-<span id="cb4-229"><a href="#cb4-229"></a><span class="co">#&gt;  9 Jiangxi   2013-04-15                 1 &lt;tibble[,2] [10… 2013-04-15 2013-04-17</span></span>
+<span id="cb4-228"><a href="#cb4-228"></a><span class="co">#&gt;  8 Jiangsu   2013-03-19                 2 &lt;tibble[,2] [10… 2013-03-19 2013-03-21</span></span>
+<span id="cb4-229"><a href="#cb4-229"></a><span class="co">#&gt;  9 Jiangxi   2013-04-15                 1 &lt;tibble[,2] [10… 2013-04-15 2013-04-19</span></span>
 <span id="cb4-230"><a href="#cb4-230"></a><span class="co">#&gt; 10 Shandong  2013-04-16                 1 &lt;tibble[,2] [10… 2013-04-16 2013-04-16</span></span>
 <span id="cb4-231"><a href="#cb4-231"></a><span class="co">#&gt; 11 Shanghai  2013-04-01                 4 &lt;tibble[,2] [10… 2013-03-17 2013-04-01</span></span>
 <span id="cb4-232"><a href="#cb4-232"></a><span class="co">#&gt; 12 Taiwan    2013-04-12                 1 &lt;tibble[,2] [10… 2013-04-12 2013-04-12</span></span>
-<span id="cb4-233"><a href="#cb4-233"></a><span class="co">#&gt; 13 Zhejiang  2013-04-06                 5 &lt;tibble[,2] [10… 2013-03-29 2013-04-08</span></span>
+<span id="cb4-233"><a href="#cb4-233"></a><span class="co">#&gt; 13 Zhejiang  2013-04-06                 5 &lt;tibble[,2] [10… 2013-03-29 2013-04-11</span></span>
 <span id="cb4-234"><a href="#cb4-234"></a><span class="co">#&gt; # … with 1 more variable: upper_ci &lt;date&gt;</span></span></code></pre></div>
 </div>
 </div>
