@@ -42,20 +42,19 @@ test_that("flag_low_counts: true positives", {
 
 
 
-## test_that("flag_low_counts: true negatives ", {
-##   skip_on_cran()
+test_that("flag_low_counts: true negatives ", {
+  skip_on_cran()
 
-##   df <- data.frame(
-##     dates = 1:100,
-##     counts = round(rnorm(100, 1000, 200))
-##   )
+  set.seed(1)
+  df <- data.frame(
+    dates = 1:100,
+    counts = round(rnorm(100, 1000, 200))
+  )
 
-##   x <- incidence(df, date_index = dates, counts = counts)
-
-##  'x' currently poses a problem as input, but it seems more like an incidence2
-##  issue; will resume this example once the problem is fixed.
+  x <- incidence(df, date_index = dates, counts = counts)
+  expect_true(!any(is.na(flag_low_counts(x, set_missing = TRUE)$counts)))
   
-## })
+})
 
 
 
