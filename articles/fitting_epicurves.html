@@ -155,9 +155,9 @@
 <code class="sourceCode R"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">dat</span>, model <span class="op">=</span> <span class="st">"poisson"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
 <span class="va">out</span>
 <span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;   count_variable         data model  estimates     fitting_warning fitting_error</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;list&lt;tibbl&gt; &lt;list&gt; &lt;list&gt;        &lt;list&gt;          &lt;list&gt;       </span>
-<span class="co">#&gt; 1 count              [20 × 2] &lt;glm&gt;  &lt;df[,7] [20 … &lt;NULL&gt;          &lt;NULL&gt;       </span>
+<span class="co">#&gt;   count_variable          data model  estimates    fitting_warning fitting_error</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;list&lt;tibble&gt; &lt;list&gt; &lt;list&gt;       &lt;list&gt;          &lt;list&gt;       </span>
+<span class="co">#&gt; 1 count               [20 × 2] &lt;glm&gt;  &lt;df[,7] [20… &lt;NULL&gt;          &lt;NULL&gt;       </span>
 <span class="co">#&gt; # … with 2 more variables: prediction_warning &lt;list&gt;, prediction_error &lt;list&gt;</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></code></pre></div>
 <p><img src="fitting_epicurves_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
@@ -258,13 +258,13 @@
 <code class="sourceCode R"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"negbin"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
 <span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 5 x 7</span>
-<span class="co">#&gt;   count_variable hospital                 data model estimates   fitting_warning</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;              &lt;list&lt;tib&gt; &lt;lis&gt; &lt;list&gt;      &lt;list&gt;         </span>
-<span class="co">#&gt; 1 count          Connaught Hospital   [22 × 2] &lt;neg… &lt;df[,7] [2… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 2 count          other                [20 × 2] &lt;neg… &lt;df[,7] [2… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 3 count          Princess Christia…   [17 × 2] &lt;neg… &lt;df[,7] [1… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 4 count          Rokupa Hospital      [18 × 2] &lt;neg… &lt;df[,7] [1… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 5 count          &lt;NA&gt;                 [22 × 2] &lt;neg… &lt;df[,7] [2… &lt;chr [2]&gt;      </span>
+<span class="co">#&gt;   count_variable hospital                 data model  estimates  fitting_warning</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;             &lt;list&lt;tibb&gt; &lt;list&gt; &lt;list&gt;     &lt;list&gt;         </span>
+<span class="co">#&gt; 1 count          Connaught Hospit…    [22 × 2] &lt;negb… &lt;df[,7] [… &lt;chr [2]&gt;      </span>
+<span class="co">#&gt; 2 count          other                [20 × 2] &lt;negb… &lt;df[,7] [… &lt;chr [2]&gt;      </span>
+<span class="co">#&gt; 3 count          Princess Christi…    [17 × 2] &lt;negb… &lt;df[,7] [… &lt;chr [2]&gt;      </span>
+<span class="co">#&gt; 4 count          Rokupa Hospital      [18 × 2] &lt;negb… &lt;df[,7] [… &lt;chr [2]&gt;      </span>
+<span class="co">#&gt; 5 count          &lt;NA&gt;                 [22 × 2] &lt;negb… &lt;df[,7] [… &lt;chr [2]&gt;      </span>
 <span class="co">#&gt; # … with 1 more variable: prediction_warning &lt;list&gt;</span>
 <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>, <span class="va">fitting_warning</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 10 x 7</span>
@@ -290,14 +290,14 @@
 <code class="sourceCode R"><span class="va">ra</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_rolling_average.html">add_rolling_average</a></span><span class="op">(</span><span class="va">grouped_dat</span>, before <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># group observations with the 2 prior</span>
 <span class="va">ra</span>
 <span class="co">#&gt; # A tibble: 6 x 3</span>
-<span class="co">#&gt;   count_variable hospital                                     rolling_average  </span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;                                        &lt;list&gt;           </span>
-<span class="co">#&gt; 1 count          Connaught Hospital                           &lt;tibble [22 × 3]&gt;</span>
-<span class="co">#&gt; 2 count          Military Hospital                            &lt;tibble [21 × 3]&gt;</span>
-<span class="co">#&gt; 3 count          other                                        &lt;tibble [20 × 3]&gt;</span>
-<span class="co">#&gt; 4 count          Princess Christian Maternity Hospital (PCMH) &lt;tibble [17 × 3]&gt;</span>
-<span class="co">#&gt; 5 count          Rokupa Hospital                              &lt;tibble [18 × 3]&gt;</span>
-<span class="co">#&gt; 6 count          &lt;NA&gt;                                         &lt;tibble [22 × 3]&gt;</span>
+<span class="co">#&gt;   count_variable hospital                                   rolling_average     </span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;                                      &lt;list&gt;              </span>
+<span class="co">#&gt; 1 count          Connaught Hospital                         &lt;tibble[,3] [22 × 3…</span>
+<span class="co">#&gt; 2 count          Military Hospital                          &lt;tibble[,3] [21 × 3…</span>
+<span class="co">#&gt; 3 count          other                                      &lt;tibble[,3] [20 × 3…</span>
+<span class="co">#&gt; 4 count          Princess Christian Maternity Hospital (PC… &lt;tibble[,3] [17 × 3…</span>
+<span class="co">#&gt; 5 count          Rokupa Hospital                            &lt;tibble[,3] [18 × 3…</span>
+<span class="co">#&gt; 6 count          &lt;NA&gt;                                       &lt;tibble[,3] [22 × 3…</span>
 <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">ra</span>, <span class="va">rolling_average</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 120 x 5</span>
 <span class="co">#&gt;    count_variable hospital           date_index count rolling_average</span>
