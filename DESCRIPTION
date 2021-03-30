@@ -20,7 +20,6 @@ RoxygenNote: 7.1.1
 Imports:
     utils,
     stats,
-    MASS,
     incidence2 (>= 1.0.0),
     trending,
     dplyr,
