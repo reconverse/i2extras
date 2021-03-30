@@ -40,12 +40,7 @@ is_warning(x, ...)
 \item{include_warnings}{Include results in output that triggered warnings but
 not errors.  Defaults to \code{FALSE}.}
 }
-\description{
-These functions are used to filter succesful model fits from those that
-errored or gave warnings.
-}
-\details{
-The following accessors are available:
+\value{
 \itemize{
 \item \code{is_ok()}: returns rows from an \code{\link{incidence2_fit}} object that did not
 error (and optionally produce a warning).
@@ -53,4 +48,11 @@ error (and optionally produce a warning).
 \item \code{is_warning()}: returns rows from an \code{\link{incidence2_fit}} object that
 produced warnings.
 }
+}
+\description{
+These functions are used to filter succesful model fits from those that
+errored or gave warnings.
+}
+\author{
+Tim Taylor
 }

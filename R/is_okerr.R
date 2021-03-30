@@ -3,14 +3,14 @@
 #' These functions are used to filter succesful model fits from those that
 #' errored or gave warnings.
 #'
+#' @author Tim Taylor
+#'
 #' @param x The output of function [fit_curve.incidence2()].
-#'
 #' @param ... Not currently used.
-#'
 #' @param include_warnings Include results in output that triggered warnings but
 #'   not errors.  Defaults to `FALSE`.
 #'
-#' @details The following accessors are available:
+#' @return
 #'
 #' * `is_ok()`: returns rows from an [`incidence2_fit`] object that did not
 #'  error (and optionally produce a warning).

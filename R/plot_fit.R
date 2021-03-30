@@ -1,5 +1,7 @@
 #' Plot a fitted epicurve
 #'
+#' @author Tim Taylor
+#'
 #' @param x An `incidence2_fit` object created by [fit_curve()].
 #' @param cnt The count variable to print.  If `NULL` defaults to the first
 #'   value from `attr(x, "counts")`.

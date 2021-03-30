@@ -1,5 +1,7 @@
 #' Calculate growth/decay rate
 #'
+#' @author Tim Taylor
+#'
 #' @param x The output of function [fit_curve.incidence2()].
 #' @param alpha Value of alpha used to calculate confidence intervals; defaults
 #'   to 0.05 which corresponds to a 95% confidence interval.

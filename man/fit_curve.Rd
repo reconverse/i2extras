@@ -30,3 +30,6 @@ An object of class \code{incidence2_fit}.
 \description{
 Fit an epi curve
 }
+\author{
+Tim Taylor
+}

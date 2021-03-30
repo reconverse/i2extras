@@ -29,3 +29,6 @@ be facetted if the object is grouped.
 \description{
 Plot a fitted epicurve
 }
+\author{
+Tim Taylor
+}

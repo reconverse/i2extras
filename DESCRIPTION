@@ -1,7 +1,7 @@
 Package: i2extras
 Type: Package
 Title: Functions to Work with 'incidence2' Objects
-Version: 0.0.2.9000
+Version: 0.1.0
 Authors@R: c(
   person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
          comment = c(ORCID = "0000-0002-8587-7113")),
@@ -10,19 +10,18 @@ Authors@R: c(
 Description: Provides functions to work with 'incidence2' objects, including a
   simplified interface for trend fitting and peak estimation. This package is
   part of the RECON (<https://www.repidemicsconsortium.org/>) toolkit for 
-  outbreak analysis.
-URL: https://www.repidemicsconsortium.org/i2extras/
-BugReports: https://github.com/reconhub/i2extras/issues
+  outbreak analysis (<https://www.reconverse.org/).
+URL: https://www.reconverse.org/i2extras/
+BugReports: https://github.com/reconverse/i2extras/issues
 Encoding: UTF-8
 License: MIT + file LICENSE
-LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports:
     utils,
     stats,
     MASS,
-    incidence2,
+    incidence2 (>= 1.0.0),
     trending,
     dplyr,
     tibble,
@@ -40,5 +39,3 @@ Suggests:
     rmarkdown,
     covr
 VignetteBuilder: knitr
-Remotes:
-    reconhub/incidence2

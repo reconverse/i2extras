@@ -55,3 +55,6 @@ if (requireNamespace("outbreaks", quietly = TRUE) &&
 }
 
 }
+\author{
+Tim Taylor
+}

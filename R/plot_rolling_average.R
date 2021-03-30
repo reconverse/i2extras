@@ -1,5 +1,7 @@
 #' Plot a rolling average incidence object
 #'
+#' @author Tim Taylor
+#'
 #' @param x An `incidence2_ra` object created by [add_rolling_average()].
 #' @param cnt The count variable to print.  If `NULL` defaults to the first
 #'   value from `attr(x, "counts")`.

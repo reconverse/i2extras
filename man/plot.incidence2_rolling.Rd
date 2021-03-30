@@ -22,3 +22,6 @@ be facetted if the object is grouped.
 \description{
 Plot a rolling average incidence object
 }
+\author{
+Tim Taylor
+}

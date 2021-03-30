@@ -1,4 +1,4 @@
-# i2extras (development version)
+# i2extras 0.1.0
 
 * updated to work with the latest version (1.0.0) of
 [incidence2](https://CRAN.R-project.org/package=incidence2)

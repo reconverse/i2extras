@@ -34,4 +34,6 @@ Fit a model to an incidence object
 }
 \author{
 Tim Taylor
+
+Tim Taylor
 }

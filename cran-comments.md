@@ -1,10 +1,7 @@
 ## Test environments
-* Fedora 33, local R installation, R 4.0.2
-* Fedora 33, local R installation, R Under Development (2020-10-21 r79359)
-* win-builder (devel)
+* Fedora 34, local R installation, R version 4.0.4 (2021-02-15)
+* win-builder, R Under development (unstable) (2021-03-29 r80130)
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
-* This is a new release.
+0 errors | 0 warnings | 0 notes

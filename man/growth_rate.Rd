@@ -35,3 +35,6 @@ not errors.  Defaults to \code{FALSE}.}
 \description{
 Calculate growth/decay rate
 }
+\author{
+Tim Taylor
+}
