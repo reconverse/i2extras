@@ -37,4 +37,6 @@ Suggests:
     knitr,
     rmarkdown,
     covr
+Remotes:
+    reconverse/incidence2
 VignetteBuilder: knitr
