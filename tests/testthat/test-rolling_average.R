@@ -8,7 +8,7 @@ dat <- data.frame(dates, groups)
 x <- incidence(dat, date_index = "dates", groups = groups)
 
 test_that("add_rolling_average adds class", {
-  expected <- c("incidence2_rolling", class(x)[-1])
+  expected <- c("incidence2_rolling", class(x)[-c(1,2)])
   expect_identical(class(add_rolling_average(x)), expected)
 })
 
