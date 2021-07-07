@@ -1,7 +1,7 @@
 Package: i2extras
 Type: Package
 Title: Functions to Work with 'incidence2' Objects
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
   person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
          comment = c(ORCID = "0000-0002-8587-7113")),
@@ -20,7 +20,7 @@ RoxygenNote: 7.1.1
 Imports:
     utils,
     stats,
-    incidence2 (>= 1.0.0),
+    incidence2 (>= 1.2.0),
     trending,
     dplyr,
     tibble,
