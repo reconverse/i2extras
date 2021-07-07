@@ -1,7 +1,9 @@
+## Reason for update
+Changes to the upstream package incidence2
+
 ## Test environments
-* Fedora 34, local R installation, R version 4.0.4 (2021-02-15)
-* win-builder, R Under development (unstable) (2021-03-29 r80130)
+* Fedora 34, R Under development (unstable) (2021-07-07 r80604)
 
 ## R CMD check results
+Status: OK
 
-0 errors | 0 warnings | 0 notes

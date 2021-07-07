@@ -1,4 +1,6 @@
-# i2extras (development version)
+# i2extras 0.1.1
+
+* patch release due to changes in the upstream incidence2 package.
 
 # i2extras 0.1.0
 
