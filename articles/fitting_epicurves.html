@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">i2extras</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -154,16 +154,16 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">dat</span>, model <span class="op">=</span> <span class="st">"poisson"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
 <span class="va">out</span>
-<span class="co">#&gt; # A tibble: 1 x 8</span>
-<span class="co">#&gt;   count_variable           data model  estimates   fitting_warning fitting_error</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;list&lt;tibble[&gt; &lt;list&gt; &lt;list&gt;      &lt;list&gt;          &lt;list&gt;       </span>
-<span class="co">#&gt; 1 count                [20 × 2] &lt;glm&gt;  &lt;df [20 × … &lt;NULL&gt;          &lt;NULL&gt;       </span>
+<span class="co">#&gt; # A tibble: 1 × 8</span>
+<span class="co">#&gt;   count_variable               data model  estimates fitting_warning fitting_error</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;list&lt;tibble[,2]&gt;&gt; &lt;list&gt; &lt;list&gt;    &lt;list&gt;          &lt;list&gt;       </span>
+<span class="co">#&gt; 1 count                    [20 × 2] &lt;glm&gt;  &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
 <span class="co">#&gt; # … with 2 more variables: prediction_warning &lt;list&gt;, prediction_error &lt;list&gt;</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></code></pre></div>
 <p><img src="fitting_epicurves_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 9</span>
+<span class="co">#&gt; # A tibble: 1 × 9</span>
 <span class="co">#&gt;   count_variable model      r r_lower r_upper growth_or_decay  time time_lower</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;list&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 count          &lt;glm&gt;  0.184   0.168   0.200 doubling         3.77       3.46</span>
@@ -171,7 +171,7 @@
 <p>To unnest the data we can use <code><a href="../reference/unnest.html">unnest()</a></code> (a function that has been reexported from the <a href="https://cran.r-project.org/package=tidyr">tidyr</a> package.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">estimates</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 20 x 14</span>
+<span class="co">#&gt; # A tibble: 20 × 14</span>
 <span class="co">#&gt;    count_variable         data model count date_index estimate lower_ci upper_ci</span>
 <span class="co">#&gt;    &lt;chr&gt;          &lt;list&lt;tibbl&gt; &lt;lis&gt; &lt;int&gt;     &lt;yrwk&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 count              [20 × 2] &lt;glm&gt;     1   2014-W15     4.09     3.20     5.23</span>
@@ -194,7 +194,7 @@
 <span class="co">#&gt; 18 count              [20 × 2] &lt;glm&gt;    86   2014-W32    93.4     86.2    101.  </span>
 <span class="co">#&gt; 19 count              [20 × 2] &lt;glm&gt;   116   2014-W33   112.     103.     123.  </span>
 <span class="co">#&gt; 20 count              [20 × 2] &lt;glm&gt;   139   2014-W34   135.     122.     149.  </span>
-<span class="co">#&gt; # … with 6 more variables: lower_pi &lt;int&gt;, upper_pi &lt;int&gt;,</span>
+<span class="co">#&gt; # … with 6 more variables: lower_pi &lt;dbl&gt;, upper_pi &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   fitting_warning &lt;list&gt;, fitting_error &lt;list&gt;, prediction_warning &lt;list&gt;,</span>
 <span class="co">#&gt; #   prediction_error &lt;list&gt;</span></code></pre></div>
 <p><code><a href="../reference/fit_curve.html">fit_curve()</a></code> also works nicely with grouped <code>incidence2</code> objects. In this situation, we return a nested tibble with some additional columns that indicate whether there has been a warning or error during the fitting or prediction stages.</p>
@@ -227,15 +227,15 @@
 
 <span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"poisson"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
 <span class="va">out</span>
-<span class="co">#&gt; # A tibble: 6 x 9</span>
+<span class="co">#&gt; # A tibble: 6 × 9</span>
 <span class="co">#&gt;   count_variable hospital     data model estimates fitting_warning fitting_error</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;    &lt;list&lt;t&gt; &lt;lis&gt; &lt;list&gt;    &lt;list&gt;          &lt;list&gt;       </span>
-<span class="co">#&gt; 1 count          Connaug… [22 × 2] &lt;glm&gt; &lt;df [22 … &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; 2 count          Militar… [21 × 2] &lt;glm&gt; &lt;df [21 … &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; 3 count          other    [20 × 2] &lt;glm&gt; &lt;df [20 … &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; 4 count          Princes… [17 × 2] &lt;glm&gt; &lt;df [17 … &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; 5 count          Rokupa … [18 × 2] &lt;glm&gt; &lt;df [18 … &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; 6 count          &lt;NA&gt;     [22 × 2] &lt;glm&gt; &lt;df [22 … &lt;NULL&gt;          &lt;NULL&gt;       </span>
+<span class="co">#&gt; 1 count          Connaug… [22 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
+<span class="co">#&gt; 2 count          Militar… [21 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
+<span class="co">#&gt; 3 count          other    [20 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
+<span class="co">#&gt; 4 count          Princes… [17 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
+<span class="co">#&gt; 5 count          Rokupa … [18 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
+<span class="co">#&gt; 6 count          &lt;NA&gt;     [22 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
 <span class="co">#&gt; # … with 2 more variables: prediction_warning &lt;list&gt;, prediction_error &lt;list&gt;</span>
 
 <span class="co"># plot with a prediction interval but not a confidence interval</span>
@@ -243,7 +243,7 @@
 <p><img src="fitting_epicurves_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 x 10</span>
+<span class="co">#&gt; # A tibble: 6 × 10</span>
 <span class="co">#&gt;   count_variable hospital      model     r r_lower r_upper growth_or_decay  time</span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;         &lt;lis&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;</span>
 <span class="co">#&gt; 1 count          Connaught Ho… &lt;glm&gt; 0.197   0.177   0.217 doubling         3.53</span>
@@ -257,29 +257,29 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"negbin"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
 <span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 x 7</span>
-<span class="co">#&gt;   count_variable hospital                  data model estimates  fitting_warning</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;              &lt;list&lt;tibb&gt; &lt;lis&gt; &lt;list&gt;     &lt;list&gt;         </span>
-<span class="co">#&gt; 1 count          Connaught Hospital    [22 × 2] &lt;neg… &lt;df [22 ×… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 2 count          other                 [20 × 2] &lt;neg… &lt;df [20 ×… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 3 count          Princess Christia…    [17 × 2] &lt;neg… &lt;df [17 ×… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 4 count          Rokupa Hospital       [18 × 2] &lt;neg… &lt;df [18 ×… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 5 count          &lt;NA&gt;                  [22 × 2] &lt;neg… &lt;df [22 ×… &lt;chr [2]&gt;      </span>
+<span class="co">#&gt; # A tibble: 5 × 7</span>
+<span class="co">#&gt;   count_variable hospital               data model estimates     fitting_warning</span>
+<span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;            &lt;list&lt;tib&gt; &lt;lis&gt; &lt;list&gt;        &lt;list&gt;         </span>
+<span class="co">#&gt; 1 count          Connaught Hospi…   [22 × 2] &lt;neg… &lt;trending_pr… &lt;chr [2]&gt;      </span>
+<span class="co">#&gt; 2 count          other              [20 × 2] &lt;neg… &lt;trending_pr… &lt;chr [2]&gt;      </span>
+<span class="co">#&gt; 3 count          Princess Christ…   [17 × 2] &lt;neg… &lt;trending_pr… &lt;chr [2]&gt;      </span>
+<span class="co">#&gt; 4 count          Rokupa Hospital    [18 × 2] &lt;neg… &lt;trending_pr… &lt;chr [2]&gt;      </span>
+<span class="co">#&gt; 5 count          &lt;NA&gt;               [22 × 2] &lt;neg… &lt;trending_pr… &lt;chr [2]&gt;      </span>
 <span class="co">#&gt; # … with 1 more variable: prediction_warning &lt;list&gt;</span>
 <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>, <span class="va">fitting_warning</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 10 x 7</span>
-<span class="co">#&gt;    count_variable hospital                data model  estimates fitting_warning </span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;fct&gt;            &lt;list&lt;tibb&gt; &lt;list&gt; &lt;list&gt;    &lt;chr&gt;           </span>
-<span class="co">#&gt;  1 count          Connaught Hospi…    [22 × 2] &lt;negb… &lt;df [22 … iteration limit…</span>
-<span class="co">#&gt;  2 count          Connaught Hospi…    [22 × 2] &lt;negb… &lt;df [22 … iteration limit…</span>
-<span class="co">#&gt;  3 count          other               [20 × 2] &lt;negb… &lt;df [20 … iteration limit…</span>
-<span class="co">#&gt;  4 count          other               [20 × 2] &lt;negb… &lt;df [20 … iteration limit…</span>
-<span class="co">#&gt;  5 count          Princess Christ…    [17 × 2] &lt;negb… &lt;df [17 … iteration limit…</span>
-<span class="co">#&gt;  6 count          Princess Christ…    [17 × 2] &lt;negb… &lt;df [17 … iteration limit…</span>
-<span class="co">#&gt;  7 count          Rokupa Hospital     [18 × 2] &lt;negb… &lt;df [18 … iteration limit…</span>
-<span class="co">#&gt;  8 count          Rokupa Hospital     [18 × 2] &lt;negb… &lt;df [18 … iteration limit…</span>
-<span class="co">#&gt;  9 count          &lt;NA&gt;                [22 × 2] &lt;negb… &lt;df [22 … iteration limit…</span>
-<span class="co">#&gt; 10 count          &lt;NA&gt;                [22 × 2] &lt;negb… &lt;df [22 … iteration limit…</span>
+<span class="co">#&gt; # A tibble: 10 × 7</span>
+<span class="co">#&gt;    count_variable hospital             data model  estimates    fitting_warning </span>
+<span class="co">#&gt;    &lt;chr&gt;          &lt;fct&gt;          &lt;list&lt;tib&gt; &lt;list&gt; &lt;list&gt;       &lt;chr&gt;           </span>
+<span class="co">#&gt;  1 count          Connaught Hos…   [22 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
+<span class="co">#&gt;  2 count          Connaught Hos…   [22 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
+<span class="co">#&gt;  3 count          other            [20 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
+<span class="co">#&gt;  4 count          other            [20 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
+<span class="co">#&gt;  5 count          Princess Chri…   [17 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
+<span class="co">#&gt;  6 count          Princess Chri…   [17 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
+<span class="co">#&gt;  7 count          Rokupa Hospit…   [18 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
+<span class="co">#&gt;  8 count          Rokupa Hospit…   [18 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
+<span class="co">#&gt;  9 count          &lt;NA&gt;             [22 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
+<span class="co">#&gt; 10 count          &lt;NA&gt;             [22 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
 <span class="co">#&gt; # … with 1 more variable: prediction_warning &lt;list&gt;</span></code></pre></div>
 </div>
 <div id="rolling-average" class="section level2">
@@ -289,7 +289,7 @@
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">ra</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_rolling_average.html">add_rolling_average</a></span><span class="op">(</span><span class="va">grouped_dat</span>, before <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># group observations with the 2 prior</span>
 <span class="va">ra</span>
-<span class="co">#&gt; # A tibble: 6 x 3</span>
+<span class="co">#&gt; # A tibble: 6 × 3</span>
 <span class="co">#&gt;   count_variable hospital                                     rolling_average  </span>
 <span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;                                        &lt;list&gt;           </span>
 <span class="co">#&gt; 1 count          Connaught Hospital                           &lt;tibble [22 × 3]&gt;</span>
@@ -299,7 +299,7 @@
 <span class="co">#&gt; 5 count          Rokupa Hospital                              &lt;tibble [18 × 3]&gt;</span>
 <span class="co">#&gt; 6 count          &lt;NA&gt;                                         &lt;tibble [22 × 3]&gt;</span>
 <span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">ra</span>, <span class="va">rolling_average</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 120 x 5</span>
+<span class="co">#&gt; # A tibble: 120 × 5</span>
 <span class="co">#&gt;    count_variable hospital           date_index count rolling_average</span>
 <span class="co">#&gt;    &lt;chr&gt;          &lt;fct&gt;                  &lt;yrwk&gt; &lt;int&gt;           &lt;dbl&gt;</span>
 <span class="co">#&gt;  1 count          Connaught Hospital   2014-W16     1           NA   </span>

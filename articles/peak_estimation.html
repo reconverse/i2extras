@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">i2extras</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
       </span>
     </div>
 
@@ -111,7 +111,6 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">fluH7N9_china_2013</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
-<span class="co">#&gt; 10 missing observations were removed.</span>
 <span class="fu"><a href="../reference/bootstrap.html">bootstrap</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
 <span class="co">#&gt; An incidence object: 67 x 3</span>
 <span class="co">#&gt; date range: [2013-02-19] to [2013-07-27]</span>
@@ -120,16 +119,16 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt;    date_index gender count</span>
 <span class="co">#&gt;    &lt;date&gt;     &lt;fct&gt;  &lt;int&gt;</span>
-<span class="co">#&gt;  1 2013-02-19 m          4</span>
-<span class="co">#&gt;  2 2013-02-27 m          0</span>
-<span class="co">#&gt;  3 2013-03-07 m          1</span>
-<span class="co">#&gt;  4 2013-03-08 m          3</span>
-<span class="co">#&gt;  5 2013-03-09 f          0</span>
-<span class="co">#&gt;  6 2013-03-13 f          1</span>
-<span class="co">#&gt;  7 2013-03-17 m          0</span>
-<span class="co">#&gt;  8 2013-03-19 f          2</span>
-<span class="co">#&gt;  9 2013-03-20 f          1</span>
-<span class="co">#&gt; 10 2013-03-20 m          2</span>
+<span class="co">#&gt;  1 2013-02-19 m          1</span>
+<span class="co">#&gt;  2 2013-02-27 m          1</span>
+<span class="co">#&gt;  3 2013-03-07 m          0</span>
+<span class="co">#&gt;  4 2013-03-08 m          1</span>
+<span class="co">#&gt;  5 2013-03-09 f          2</span>
+<span class="co">#&gt;  6 2013-03-13 f          3</span>
+<span class="co">#&gt;  7 2013-03-17 m          1</span>
+<span class="co">#&gt;  8 2013-03-19 f          1</span>
+<span class="co">#&gt;  9 2013-03-20 f          3</span>
+<span class="co">#&gt; 10 2013-03-20 m          1</span>
 <span class="co">#&gt; # … with 57 more rows</span></code></pre></div>
 </div>
 <div id="find_peak" class="section level2">
@@ -139,11 +138,10 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">fluH7N9_china_2013</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">gender</span><span class="op">)</span>
-<span class="co">#&gt; 10 missing observations were removed.</span>
 
 <span class="co"># peaks across each group</span>
 <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 x 3</span>
+<span class="co">#&gt; # A tibble: 2 × 3</span>
 <span class="co">#&gt;   gender date_index count</span>
 <span class="co">#&gt;   &lt;fct&gt;  &lt;date&gt;     &lt;int&gt;</span>
 <span class="co">#&gt; 1 f      2013-04-11     3</span>
@@ -151,7 +149,7 @@
 
 <span class="co"># peak without groupings</span>
 <span class="fu"><a href="../reference/find_peak.html">find_peak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/regroup.html">regroup</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 2</span>
+<span class="co">#&gt; # A tibble: 1 × 2</span>
 <span class="co">#&gt;   date_index count</span>
 <span class="co">#&gt;   &lt;date&gt;     &lt;int&gt;</span>
 <span class="co">#&gt; 1 2013-04-03     7</span></code></pre></div>
@@ -169,18 +167,17 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">fluH7N9_china_2013</span>
 <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span><span class="va">dat</span>, date_index <span class="op">=</span> <span class="va">date_of_onset</span>, groups <span class="op">=</span> <span class="va">province</span><span class="op">)</span>
-<span class="co">#&gt; 10 missing observations were removed.</span>
 
 <span class="co"># regrouping for overall peak (we suspend progress bar for markdown)</span>
 <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/regroup.html">regroup</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 x 6</span>
+<span class="co">#&gt; # A tibble: 1 × 6</span>
 <span class="co">#&gt;   observed_peak observed_count bootstrap_peaks  lower_ci   median     upper_ci  </span>
 <span class="co">#&gt;   &lt;date&gt;                 &lt;int&gt; &lt;list&gt;           &lt;date&gt;     &lt;date&gt;     &lt;date&gt;    </span>
-<span class="co">#&gt; 1 2013-04-03                 7 &lt;tibble [100 × … 2013-03-29 2013-04-06 2013-04-14</span>
+<span class="co">#&gt; 1 2013-04-03                 7 &lt;tibble [100 × … 2013-03-28 2013-04-06 2013-04-15</span>
 
 <span class="co"># across provinces</span>
 <span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span><span class="op">(</span><span class="va">x</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 13 x 7</span>
+<span class="co">#&gt; # A tibble: 13 × 7</span>
 <span class="co">#&gt;    province  observed_peak observed_count bootstrap_peaks  lower_ci   median    </span>
 <span class="co">#&gt;    &lt;fct&gt;     &lt;date&gt;                 &lt;int&gt; &lt;list&gt;           &lt;date&gt;     &lt;date&gt;    </span>
 <span class="co">#&gt;  1 Anhui     2013-03-09                 1 &lt;tibble [100 × … 2013-03-09 2013-03-28</span>
@@ -191,9 +188,9 @@
 <span class="co">#&gt;  6 Henan     2013-04-06                 1 &lt;tibble [100 × … 2013-04-06 2013-04-08</span>
 <span class="co">#&gt;  7 Hunan     2013-04-14                 1 &lt;tibble [100 × … 2013-04-14 2013-04-14</span>
 <span class="co">#&gt;  8 Jiangsu   2013-03-19                 2 &lt;tibble [100 × … 2013-03-08 2013-03-21</span>
-<span class="co">#&gt;  9 Jiangxi   2013-04-15                 1 &lt;tibble [100 × … 2013-04-15 2013-04-17</span>
+<span class="co">#&gt;  9 Jiangxi   2013-04-15                 1 &lt;tibble [100 × … 2013-04-15 2013-04-19</span>
 <span class="co">#&gt; 10 Shandong  2013-04-16                 1 &lt;tibble [100 × … 2013-04-16 2013-04-16</span>
-<span class="co">#&gt; 11 Shanghai  2013-04-01                 4 &lt;tibble [100 × … 2013-02-19 2013-04-01</span>
+<span class="co">#&gt; 11 Shanghai  2013-04-01                 4 &lt;tibble [100 × … 2013-03-17 2013-04-01</span>
 <span class="co">#&gt; 12 Taiwan    2013-04-12                 1 &lt;tibble [100 × … 2013-04-12 2013-04-12</span>
 <span class="co">#&gt; 13 Zhejiang  2013-04-06                 5 &lt;tibble [100 × … 2013-03-29 2013-04-08</span>
 <span class="co">#&gt; # … with 1 more variable: upper_ci &lt;date&gt;</span></code></pre></div>
