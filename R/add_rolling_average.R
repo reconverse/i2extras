@@ -48,8 +48,7 @@ add_rolling_average <- function(x, ...) {
 #' @aliases add_rolling_average.default
 #' @export
 add_rolling_average.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  not_implemented(x)
 }
 
 

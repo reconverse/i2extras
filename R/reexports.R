@@ -17,10 +17,10 @@ trending::glm_model
 trending::glm_nb_model
 
 #' @title Interface for model construction
-#' @importFrom trending brms_model
+#' @importFrom trending brm_model
 #' @export
-#' @name brms_model
-trending::brms_model
+#' @name brm_model
+trending::brm_model
 
 #' @title Compute the incidence of events
 #' @importFrom incidence2 incidence

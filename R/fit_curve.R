@@ -22,8 +22,7 @@ fit_curve <- function(x, model, ...) {
 #' @aliases fit_curve.default
 #' @export
 fit_curve.default <- function(x, model, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  not_implemented(x)
 }
 
 
@@ -31,27 +30,23 @@ fit_curve.default <- function(x, model, ...) {
 #' @aliases fit_curve.incidence2 incidence2_fit
 #' @export
 fit_curve.incidence2 <- function(x,
-                                 model = "poisson",
+                                 model = c("poisson", "negbin"),
                                  alpha = 0.05,
                                  ...) {
+
+  # ensure model is poisson or negbin
+  model <- match.arg(model, several.ok = TRUE)
+
+  # get other variable names
+  group_vars <- incidence2::get_group_names(x)
+  count_vars <- incidence2::get_counts_name(x)
+  date_var <- incidence2::get_dates_name(x)
 
   # fix for global variable warning
   dat <- NULL
 
-  # get variable names
-  group_vars <- incidence2::get_group_names(x)
-  date_var <- incidence2::get_dates_name(x)
-  count_vars <- incidence2::get_counts_name(x)
-
-  # ensure model is poisson or negbin
-  if (!all(model %in% c("poisson", "negbin"))) {
-    stop('model values must be "poisson" and/or "negbin')
-  }
-
   # ensure model is of length one or the same length as counts_var
-  if (length(model) == 1) {
-    model <- rep(model, length(count_vars))
-  }
+  if (length(model) == 1) model <- rep(model, length(count_vars))
   if (length(model) != length(count_vars)) {
     stop("model must be of length 1 or the same length as `count_var`")
   }
@@ -81,35 +76,25 @@ fit_curve.incidence2 <- function(x,
         poisson = trending::glm_model(fmla, family = "poisson", ...),
         stop('Invalid model. Please use one of "negbin" or "poisson".')
       )
-      safely(trending::fit)(trending_model, dat)
+      trending::fit(trending_model, dat, as_tibble = TRUE)
     },
     out$data,
     count_vars,
     SIMPLIFY = FALSE
   )
-  fiterr <- base_transpose(fiterr)
 
   # perform prediction and capture any warnings / errors
-  prederr <- lapply(
-    fiterr[[1]],
-    function(x) safely(stats::predict)(x)
-  )
-  prederr <- base_transpose(prederr)
-
-  # get model to put as row in output
-  model <- lapply(
-    fiterr[[1]],
-    function(x) safely(trending::get_model)(x)
-  )
-  model <- base_transpose(model)
+  prederr <- lapply(fiterr, stats::predict, as_tibble = TRUE)
+  prederr <- do.call(rbind, prederr)
+  fiterr <- do.call(rbind, fiterr)
 
   # add columns to output
-  out$model <- model[[1]]
-  out$estimates <-prederr[[1]]
+  out$model <- fiterr[[1]]
+  out$estimates <- prederr[[1]]
   out$fitting_warning <- fiterr[[2]]
   out$fitting_error <- fiterr[[3]]
-  out$prediction_warning <-prederr[[3]]
-  out$prediction_error <-prederr[[3]]
+  out$prediction_warning <- prederr[[2]]
+  out$prediction_error <- prederr[[3]]
   warning_vars <- c("fitting_warning", "prediction_warning")
   error_vars <- c("fitting_error", "prediction_error")
 

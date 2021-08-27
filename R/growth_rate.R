@@ -16,15 +16,12 @@ growth_rate <- function(x, ...) {
   UseMethod("growth_rate")
 }
 
-
 #' @rdname growth_rate
 #' @aliases growth_rate.default
 #' @export
 growth_rate.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+  not_implemented(x)
 }
-
 
 #' @rdname growth_rate
 #' @aliases growth_rate.incidence2_fit
@@ -66,7 +63,6 @@ growth_rate.incidence2_fit <- function(x, alpha = 0.05,
 
   count_variable <- attr(dat, "count_variable")
   res <- dplyr::bind_cols(dat[count_variable], res)
-
 
   if (growth_decay_time) add_two_time(res) else res
 

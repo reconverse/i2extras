@@ -11,7 +11,7 @@ fit_curve(x, model, ...)
 
 \method{fit_curve}{default}(x, model, ...)
 
-\method{fit_curve}{incidence2}(x, model = "poisson", alpha = 0.05, ...)
+\method{fit_curve}{incidence2}(x, model = c("poisson", "negbin"), alpha = 0.05, ...)
 }
 \arguments{
 \item{x}{An \link[incidence2:incidence]{incidence2::incidence} object.}
