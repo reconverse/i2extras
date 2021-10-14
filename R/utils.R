@@ -12,6 +12,7 @@ minimal_incidence <- function(x, groups, date, counts, interval,
 
   out <- incidence2::new_incidence(x, date = date, groups = groups, counts = counts, validate = FALSE)
   attr(out, "interval") <- interval
+  attr(out, "cumulative") <- cumulative
   class(out) <- c("incidence2", class(out))
   out
 }
