@@ -3,9 +3,9 @@ Type: Package
 Title: Functions to Work with 'incidence2' Objects
 Version: 0.1.2.9000
 Authors@R: c(
-  person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
+  person("Tim", "Taylor", role = "aut", email = "tim.taylor@hiddenelephants.co.uk",
          comment = c(ORCID = "0000-0002-8587-7113")),
-  person("Thibaut", "Jombart", role = c("aut"), email = "thibautjombart@gmail.com")
+  person("Thibaut", "Jombart", role = c("aut", "cre"), email = "thibautjombart@gmail.com")
   )
 Description: Provides functions to work with 'incidence2' objects, including a
   simplified interface for trend fitting and peak estimation. This package is
