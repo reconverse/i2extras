@@ -2,59 +2,71 @@
 % Please edit documentation in R/add_rolling_average.R
 \name{add_rolling_average}
 \alias{add_rolling_average}
-\alias{add_rolling_average.default}
-\alias{add_rolling_average.incidence2}
 \title{Add a rolling average}
 \usage{
-add_rolling_average(x, ...)
-
-\method{add_rolling_average}{default}(x, ...)
-
-\method{add_rolling_average}{incidence2}(x, before = 2, ...)
+add_rolling_average(
+  x,
+  n = 3L,
+  complete_dates = TRUE,
+  align = c("right", "center"),
+  colname = "rolling_average",
+  ...
+)
 }
 \arguments{
-\item{x}{An \link[incidence2:incidence]{incidence2::incidence} object.}
+\item{x}{\verb{[incidence2]} object}
 
-\item{...}{Not currently used.}
+\item{n}{\verb{[integer]}
 
-\item{before}{how many prior dates to group the current observation with.
-Default is 2 days.}
+How many date groupings to consider in each window?
+
+\code{double} vectors will be converted via \code{as.integer(n)}.}
+
+\item{complete_dates}{\verb{[bool]}
+
+Should \code{incidence2::complete_dates()} be called on the data prior to adding
+the rolling average.
+
+Defaults to TRUE.}
+
+\item{align}{ character, define if rolling window covers preceding rows
+    (\code{"right"}), following rows (\code{"left"}) or centered
+    (\code{"center"}). Defaults to \code{"right"}. }
+
+\item{colname}{\verb{[character]}
+
+The name of the column to contain the rolling average.}
+
+\item{...}{Other arguments passed to \code{incidence2::complete_dates()}}
 }
 \value{
-An object of class \code{incidence2_rolling}.
+The input object with an additional column for the rolling average.
 }
 \description{
-\code{\link[=add_rolling_average]{add_rolling_average()}} adds a rolling average to an \code{\link[incidence2:incidence]{incidence2::incidence()}}
-object.  If \code{x} is a grouped this will be a \code{\link[dplyr:rowwise]{dplyr::rowwise()}} type object.
-If x is not grouped this will be a subclass of tibble.
-}
-\note{
-If groups are present the average will be calculated across each
-grouping, therefore care is required when plotting.
+\code{add_rolling_average()} adds a rolling average to an \verb{[incidence2]} object.
+If multiple groupings or count variables are present then the average will be
+calculated for each.
 }
 \examples{
-if (requireNamespace("outbreaks", quietly = TRUE) &&
-    requireNamespace("incidence2", quietly = TRUE)) {
+
+if (requireNamespace("outbreaks", quietly = TRUE)) {
+\dontshow{withAutoprint(\{}
 
   data(ebola_sim_clean, package = "outbreaks")
   dat <- ebola_sim_clean$linelist
   dat <- subset(dat, date_of_onset <= as.Date("2014-10-05"))
 
-  inci <- incidence2::incidence(dat,
-                    date_index = date_of_onset,
-                    interval = "week",
-                    groups = gender)
+  inci <- incidence2::incidence(
+      dat,
+      date_index = "date_of_onset",
+      groups = "gender",
+      interval = "isoweek"
+  )
 
-  ra <- add_rolling_average(inci, before = 2)
-  plot(ra, color = "white")
-
+  add_rolling_average(inci, n = 3L)
   inci2 <- incidence2::regroup(inci)
-  ra2 <- add_rolling_average(inci2, before = 2)
-  plot(ra, color = "white")
-
+  add_rolling_average(inci2, n = 7L)
+\dontshow{\})}
 }
 
-}
-\author{
-Tim Taylor
 }

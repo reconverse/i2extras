@@ -1,6 +1,11 @@
 # i2extras (development version)
 
-* patch release due to changes in the upstream trending package.
+* `find_peak()` is now a wrapper around the `keep_peaks()` function from 
+  the underlying incidence2 package.
+
+* `add_rolling_average()` is no longer a generic function and will now error
+  if not called on an incidence2 object. Internally it now makes use of
+  `data.table::frollmean()`.
 
 # i2extras 0.1.2
 

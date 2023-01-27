@@ -5,4 +5,5 @@
 ## usethis namespace: end
 NULL
 
-
+#' @import data.table
+NULL
