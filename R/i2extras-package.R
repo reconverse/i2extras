@@ -6,4 +6,7 @@
 NULL
 
 #' @import data.table
+#' @importFrom dplyr nest_by
+#' @importFrom rlang sym
+#' @importFrom tidyr unnest
 NULL

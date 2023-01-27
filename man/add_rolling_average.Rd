@@ -69,4 +69,5 @@ if (requireNamespace("outbreaks", quietly = TRUE)) {
 \dontshow{\})}
 }
 
+
 }

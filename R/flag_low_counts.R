@@ -61,7 +61,7 @@ flag_low_counts <- function(x, counts = NULL, threshold = 0.001, set_missing = T
     counts <- NULL
   }
   if (is.null(counts)) {
-    counts <- incidence2::get_count_names(x)
+    counts <- incidence2::get_count_value_name(x)
   }
 
   ## get group and date names
@@ -71,6 +71,7 @@ flag_low_counts <- function(x, counts = NULL, threshold = 0.001, set_missing = T
   ## * TRUE: counts are modified so that values below the threshold are set to NA
   ## * FALSE: counts are not modified, but new logical variables with a "flag_low"
   ## suffix are generated, with TRUE wherever values are below the threshold
+
 
   below_thres <- function(x) {
     x < round(threshold * mean(x, na.rm = TRUE))

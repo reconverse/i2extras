@@ -11,8 +11,6 @@
 #'
 #' @return An object of class `incidence2_fit`.
 #'
-#' @importFrom dplyr nest_by
-#' @importFrom tidyr pivot_longer
 #' @export
 fit_curve <- function(x, model, ...) {
     UseMethod("fit_curve")

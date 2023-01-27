@@ -19,9 +19,9 @@ Defaults to TRUE.}
 \item{...}{Other arguments passed to \code{complete_dates()}.}
 }
 \value{
-An \verb{[incidence2]} object the date of the (first) highest incidence in
-the data along with the count. If \code{x} is grouped object then the output will
-have the peak calculated for each grouping.
+An \verb{[incidence2]} object the date of the (first) highest incidence in the
+data along with the count. If \code{x} is grouped object then the output will have
+the peak calculated for each grouping.
 }
 \description{
 This function can be used to find the peak of an epidemic curve stored as an
@@ -29,12 +29,10 @@ This function can be used to find the peak of an epidemic curve stored as an
 }
 \examples{
 if (requireNamespace("outbreaks", quietly = TRUE)) {
-
   # load data and create incidence
   data(fluH7N9_china_2013, package = "outbreaks")
   i <- incidence2::incidence(fluH7N9_china_2013, date_index = date_of_onset)
   find_peak(i)
-
 }
 
 }

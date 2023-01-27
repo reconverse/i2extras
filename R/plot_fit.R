@@ -28,8 +28,6 @@
 #'
 #' @return An incidence plot with the addition of a fitted curve.
 #'
-#' @importFrom rlang sym
-#' @importFrom tidyr pivot_wider unnest
 #' @export
 plot.incidence2_fit <- function(x, cnt = NULL, include_warnings = FALSE,
                                 ci = TRUE, pi = FALSE, ...) {

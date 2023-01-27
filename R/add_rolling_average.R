@@ -1,8 +1,10 @@
 #' Add a rolling average
 #'
+#'
 #' `add_rolling_average()` adds a rolling average to an `[incidence2]` object.
 #' If multiple groupings or count variables are present then the average will be
 #' calculated for each.
+#'
 #'
 #' @param x `[incidence2]` object
 #'
@@ -29,9 +31,11 @@
 #'
 #' @inheritParams data.table::rollmean
 #'
+#'
 #' @return
 #'
 #' The input object with an additional column for the rolling average.
+#'
 #'
 #' @examples
 #'
@@ -54,6 +58,7 @@
 #'   add_rolling_average(inci2, n = 7L)
 #' \dontshow{\})}
 #' }
+#'
 #'
 #' @export
 add_rolling_average <- function(

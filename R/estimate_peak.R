@@ -42,6 +42,7 @@
 #'
 #' Should a progress bar be displayed (default = TRUE)
 #'
+#'
 #' @return
 #'
 #' A tibble with the the following columns:
@@ -53,14 +54,17 @@
 #' - `bootstrap_peaks`: a nested tibble containing the the peak times of the
 #'   bootstrapped datasets.
 #'
+#'
 #' @seealso
 #'
 #' [`bootstrap()`] for the bootstrapping underlying this approach and
 #' [`keep_peaks()`] to find the peak in a single `[incidence2]` object.
 #'
+#'
 #' @author
 #'
 #' Thibaut Jombart and Tim Taylor, with inputs on caveats from Michael Höhle.
+#'
 #'
 #' @examples
 #'
