@@ -27,3 +27,9 @@ trending::brm_model
 #' @export
 #' @name incidence
 incidence2::incidence
+
+#' @title unnest
+#' @importFrom tidyr unnest
+#' @export
+#' @name unnest
+tidyr::unnest
