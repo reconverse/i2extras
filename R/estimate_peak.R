@@ -83,7 +83,7 @@ estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress
     i.bootstrap_peaks <- NULL
 
     if (!inherits(x, "incidence2"))
-        stopf("`%s` is not an incidence object", deparse(substitute(x)))
+        stopf("`%s` is not an 'incidence2' object", deparse(substitute(x)))
 
     # get relevant column names
     date_var <- incidence2::get_date_index_name(x)
@@ -113,6 +113,7 @@ estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress
         out <- lapply(seq_len(n), function(y) keep_peaks(bootstrap(y), first_only = first_only))
     }
     out <- rbindlist(out)
+    set(out, j = count_val, value = NULL)
 
     # TODO - check this with Thibaut
     # specify probabilities (lower_ci, median, upper_ci)
@@ -125,25 +126,26 @@ estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress
 
     quantiles_list <- function(x, probs) {
         res <- quantile(x, probs = probs, names = FALSE, type = 1)
-        res <- setNames(res, c("lower_ci", "median", "upper_ci"))
         as.list(res)
     }
 
-    quantiles <- out[, Reduce(c, lapply(.SD, quantiles_list, probs = probs))
+    quantiles <- out[,
+                     setNames(
+                         Reduce(c, lapply(.SD, quantiles_list, probs = probs)),
+                         c("lower_ci", "median", "upper_ci")
+                     )
                      , .SDcols = date_var
                      , keyby = grouping_variables]
 
     # join peaks on to quantiles and observed peak
     quantiles[peaks, on = grouping_variables, bootstrap_peaks := i.bootstrap_peaks]
 
-    quantiles[
-        observed_peak,
-        on = c(grouping_variables),
-        `:=`(
-            observed_peak = observed_peak[[date_var]],
-            observed_count = observed_peak[[count_val]]
-        )
-    ]
+
+    expr <- lapply(c(date_var, count_val), as.name)
+    names(expr) <- c("observed_peak", "observed_count")
+    expr <- as.call(c(quote(`:=`), expr))
+    quantiles[observed_peak, eval(expr), on = c(grouping_variables)]
+
 
     # reorder
     setcolorder(
@@ -152,7 +154,12 @@ estimate_peak <- function(x, n = 100L, alpha = 0.05, first_only = TRUE, progress
     )
 
     # convert nested data.tables to data frames
-    quantiles[, bootstrap_peaks := lapply(bootstrap_peaks, as.data.frame)]
+    if (nrow(quantiles) > 1L) {
+        quantiles[, bootstrap_peaks := lapply(bootstrap_peaks, as.data.frame)]
+    } else {
+        quantiles[, bootstrap_peaks := lapply(bootstrap_peaks, function(x) list(as.data.frame(x)))]
+    }
+
     setDF(quantiles)
 
     # add tbl class for printing and return
