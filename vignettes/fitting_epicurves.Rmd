@@ -37,8 +37,9 @@ For this example we will restrict ourselves to the first 20 weeks of data:
 ```{r}
 dat <- incidence(
     raw_dat, 
-    date_index = date_of_onset,
-    interval = "week"
+    date_index = "date_of_onset",
+    interval = "week",
+    groups = "gender"
 )[1:20, ]
 dat
 plot(dat)

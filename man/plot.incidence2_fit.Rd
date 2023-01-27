@@ -9,22 +9,22 @@
 \arguments{
 \item{x}{An \code{incidence2_fit} object created by \code{\link[=fit_curve]{fit_curve()}}.}
 
-\item{cnt}{The count variable to print.  If \code{NULL} defaults to the first
-value from \code{attr(x, "counts")}.}
+\item{include_warnings}{Include results in plot that triggered warnings but not errors.
 
-\item{include_warnings}{Include results in plot that triggered warnings but
-not errors.  Defaults to \code{FALSE}.}
+Defaults to \code{FALSE}.}
 
-\item{ci}{Plot confidence intervals (defaults to TRUE).}
+\item{ci}{Plot confidence intervals.
 
-\item{pi}{Plot prediction intervals (defaults to FALSE).}
+Defaults to TRUE.}
 
-\item{...}{Additional arguments to be passed to
-\code{\link[incidence2:plot.incidence2]{incidence2::plot.incidence2()}} or \code{\link[incidence2:incidence2-defunct]{incidence2::facet_plot()}}.}
+\item{pi}{Plot prediction intervals.
+
+Defaults to FALSE.}
+
+\item{...}{Additional arguments to be passed to \code{\link[incidence2:plot.incidence2]{incidence2::plot.incidence2()}} .}
 }
 \value{
-An incidence plot with the addition of a fitted curve.  This will
-be facetted if the object is grouped.
+An incidence plot with the addition of a fitted curve.
 }
 \description{
 Plot a fitted epicurve
