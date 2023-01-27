@@ -10,6 +10,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{tidyr}{\code{\link[tidyr:nest]{unnest}}}
+  \item{tidyr}{\code{\link[tidyr]{unnest}}}
 }}
 

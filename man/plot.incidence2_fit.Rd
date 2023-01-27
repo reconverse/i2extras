@@ -20,7 +20,7 @@ not errors.  Defaults to \code{FALSE}.}
 \item{pi}{Plot prediction intervals (defaults to FALSE).}
 
 \item{...}{Additional arguments to be passed to
-\code{\link[incidence2:plot.incidence2]{incidence2::plot.incidence2()}} or \code{\link[incidence2:plot.incidence2]{incidence2::facet_plot()}}.}
+\code{\link[incidence2:plot.incidence2]{incidence2::plot.incidence2()}} or \code{\link[incidence2:incidence2-defunct]{incidence2::facet_plot()}}.}
 }
 \value{
 An incidence plot with the addition of a fitted curve.  This will

@@ -13,7 +13,7 @@
 value from \code{attr(x, "counts")}.}
 
 \item{...}{Additional arguments to be passed to
-\code{\link[incidence2:plot.incidence2]{incidence2::plot.incidence2()}} or \code{\link[incidence2:plot.incidence2]{incidence2::facet_plot()}}.}
+\code{\link[incidence2:plot.incidence2]{incidence2::plot.incidence2()}} or \code{\link[incidence2:incidence2-defunct]{incidence2::facet_plot()}}.}
 }
 \value{
 An incidence plot with the addition of a rolling average.  This will
