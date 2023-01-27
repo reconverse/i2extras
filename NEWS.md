@@ -6,8 +6,13 @@
   the underlying incidence2 package.
 
 * `add_rolling_average()` is no longer a generic function and will now error
-  if not called on an incidence2 object. Internally it now makes use of
+  if not called on an incidence2 object. It now returns the original input with
+  additional rolling average columns but does not change the underlying objects
+  class. Internally the code has been refactored to make use of
   `data.table::frollmean()`.
+  
+* Due to the changes to `add_rolling_average()` the plot method for
+  incidence2_rolling objects has been removed.
   
 * `estimate_peak()` can now (optionally) return multiple peaks.
   
