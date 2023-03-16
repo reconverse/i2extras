@@ -38,5 +38,3 @@ Suggests:
     rmarkdown,
     covr
 VignetteBuilder: knitr
-Remotes:
-    reconverse/trending
