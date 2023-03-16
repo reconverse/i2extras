@@ -30,11 +30,13 @@ is_ok <- function(x, ...) {
   UseMethod("is_ok")
 }
 
+
 #' @rdname is_okerr
 #' @aliases is_ok.incidence2_fit
 #' @export
 is_ok.default <- function(x, ...) {
-  not_implemented(x)
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
 
@@ -88,7 +90,8 @@ is_error <- function(x, ...) {
 #' @aliases is_error.default
 #' @export
 is_error.default <- function(x, ...) {
-  not_implemented(x)
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
 
@@ -123,7 +126,8 @@ is_warning <- function(x, ...) {
 #' @aliases is_warning.default
 #' @export
 is_warning.default <- function(x, ...) {
-  not_implemented(x)
+  stop(sprintf("Not implemented for class %s",
+               paste(class(x), collapse = ", ")))
 }
 
 

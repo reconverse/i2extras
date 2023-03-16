@@ -1,12 +1,3 @@
-not_implemented <- function(x, call. = FALSE) {
-  stop(
-    sprintf("Not implemented for class %s", paste(class(x), collapse = ", ")),
-    call. = call.
-  )
-}
-
-# -------------------------------------------------------------------------
-
 minimal_incidence <- function(x, groups, date, counts, interval,
                               cumulative = FALSE) {
 
@@ -16,7 +7,32 @@ minimal_incidence <- function(x, groups, date, counts, interval,
   out
 }
 
-# -------------------------------------------------------------------------
+
+base_transpose <- function(l) {
+  lapply(seq_along(l[[1]]), function(x) lapply(l, "[[", x))
+}
+
+
+safely <- function(fun) {
+    function(...) {
+        warn <- err <- NULL
+        res <- withCallingHandlers(
+            tryCatch(
+                fun(...),
+                error = function(e) {
+                    err <<- conditionMessage(e)
+                    NULL
+                }
+            ),
+            warning = function(w) {
+                warn <<- append(warn, conditionMessage(w))
+                invokeRestart("muffleWarning")
+            }
+        )
+        list(res, warn = warn, err = err)
+    }
+}
+
 
 #' Generate NAs of the right type for counts
 #'

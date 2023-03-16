@@ -1,7 +1,3 @@
-# i2extras (development version)
-
-* patch release due to changes in the upstream trending package.
-
 # i2extras 0.1.2
 
 * patch release due to changes in the upstream incidence2 package.
