@@ -17,9 +17,9 @@ knitr::opts_chunk$set(
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/incidence2)](https://CRAN.R-project.org/package=i2extras)
+[![R build status](https://github.com/reconverse/i2extras/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/i2extras/actions)
 [![Codecov test coverage](https://codecov.io/gh/reconverse/i2extras/branch/master/graph/badge.svg)](https://codecov.io/gh/reconverse/i2extras?branch=master)
 [![](https://raw.githubusercontent.com/reconverse/reconverse.github.io/master/images/badge-maturing.svg)](https://www.reconverse.org/lifecycle.html#maturing)
-[![R-CMD-check](https://github.com/reconverse/i2extras/workflows/R-CMD-check/badge.svg)](https://github.com/reconverse/i2extras/actions)
 <!-- badges: end -->
 
 
