@@ -21,7 +21,7 @@ Imports:
     utils,
     stats,
     incidence2 (>= 1.2.0),
-    trending (> 0.0.3),
+    trending (>= 0.0.4),
     dplyr,
     tibble,
     rlang,
