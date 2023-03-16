@@ -37,7 +37,7 @@ if (requireNamespace("outbreaks", quietly = TRUE) &&
     requireNamespace("incidence2", quietly = TRUE)) {
   data(covid19_england_nhscalls_2020, package = "outbreaks")
   dat <- covid19_england_nhscalls_2020
-  i <- incidence(dat, date, interval = "monday week", count = count)
+  i <- incidence(dat, "date", interval = "isoweek", counts = "count")
   plot(i)
   plot(flag_low_counts(i, threshold = 0.1))
   plot(flag_low_counts(i, threshold = 1), title = "removing counts below the median")

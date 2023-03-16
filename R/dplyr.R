@@ -126,7 +126,7 @@ df_reconstruct <- function(x, to) {
 new_bare_tibble <- function(x) {
   # Strips all attributes off `x` since `new_tibble()` currently doesn't
   x <- vctrs::new_data_frame(x)
-  tibble::new_tibble(x, nrow = nrow(x))
+  new_tibble(x, nrow = nrow(x))
 }
 # -------------------------------------------------------------------------
 

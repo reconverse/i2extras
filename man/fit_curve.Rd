@@ -2,34 +2,28 @@
 % Please edit documentation in R/fit_curve.R
 \name{fit_curve}
 \alias{fit_curve}
-\alias{fit_curve.default}
-\alias{fit_curve.incidence2}
-\alias{incidence2_fit}
 \title{Fit an epi curve}
 \usage{
-fit_curve(x, model, ...)
-
-\method{fit_curve}{default}(x, model, ...)
-
-\method{fit_curve}{incidence2}(x, model = "poisson", alpha = 0.05, ...)
+fit_curve(x, model = c("poisson", "negbin"), alpha = 0.05, ...)
 }
 \arguments{
 \item{x}{An \link[incidence2:incidence]{incidence2::incidence} object.}
 
-\item{model}{The regression model to fit (can be "poisson" or "negbin").}
+\item{model}{\verb{[character]}
 
-\item{...}{Additional arguments to pass to \code{\link[stats:glm]{stats::glm()}} for
-\code{model = "poisson"} or \code{\link[MASS:glm.nb]{MASS::glm.nb()}} for \code{model = "negbin"}.}
+The regression model to fit (can be "poisson" or "negbin").}
 
-\item{alpha}{Value of alpha used to calculate confidence intervals; defaults
-to 0.05 which corresponds to a 95\% confidence interval.}
+\item{alpha}{\verb{[numeric]}
+
+Value of alpha used to calculate confidence intervals; defaults to 0.05 which
+corresponds to a 95\% confidence interval.}
+
+\item{...}{Additional arguments to pass to \code{\link[stats:glm]{stats::glm()}} for \code{model = "poisson"} or
+\code{\link[MASS:glm.nb]{MASS::glm.nb()}} for \code{model = "negbin"}.}
 }
 \value{
 An object of class \code{incidence2_fit}.
 }
 \description{
 Fit an epi curve
-}
-\author{
-Tim Taylor
 }

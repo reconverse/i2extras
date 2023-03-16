@@ -19,7 +19,7 @@ growth_rate(x, ...)
 )
 }
 \arguments{
-\item{x}{The output of function \code{\link[=fit_curve.incidence2]{fit_curve.incidence2()}}.}
+\item{x}{The output of \code{fit_curve()}.}
 
 \item{...}{Not currently used.}
 

@@ -1,7 +1,7 @@
 Package: i2extras
 Type: Package
 Title: Functions to Work with 'incidence2' Objects
-Version: 0.1.2
+Version: 0.2.0
 Authors@R: c(
   person("Tim", "Taylor", role = c("aut", "cre"), email = "tim.taylor@hiddenelephants.co.uk",
          comment = c(ORCID = "0000-0002-8587-7113")),
@@ -16,18 +16,19 @@ BugReports: https://github.com/reconverse/i2extras/issues
 Encoding: UTF-8
 License: MIT + file LICENSE
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
+Depends:
+    incidence2 (>= 2.0.0),
 Imports:
     utils,
     stats,
-    incidence2 (>= 1.2.0),
-    trending,
+    MASS,
+    ciTools,
     dplyr,
     tibble,
     rlang,
     tidyr,
     vctrs,
-    ellipsis,
     ggplot2,
     data.table,
     tidyselect

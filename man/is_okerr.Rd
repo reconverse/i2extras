@@ -33,7 +33,7 @@ is_warning(x, ...)
 \method{is_warning}{incidence2_fit}(x, ...)
 }
 \arguments{
-\item{x}{The output of function \code{\link[=fit_curve.incidence2]{fit_curve.incidence2()}}.}
+\item{x}{The output of function \code{fit_curve()}.}
 
 \item{...}{Not currently used.}
 
@@ -42,10 +42,10 @@ not errors.  Defaults to \code{FALSE}.}
 }
 \value{
 \itemize{
-\item \code{is_ok()}: returns rows from an \code{\link{incidence2_fit}} object that did not
+\item \code{is_ok()}: returns rows from an \verb{<incidence2_fit>} object that did not
 error (and optionally produce a warning).
-\item \code{is_error()}: returns rows from an \code{\link{incidence2_fit}} object that errored.
-\item \code{is_warning()}: returns rows from an \code{\link{incidence2_fit}} object that
+\item \code{is_error()}: returns rows from an \verb{<incidence2_fit>} object that errored.
+\item \code{is_warning()}: returns rows from an \verb{<incidence2_fit>} object that
 produced warnings.
 }
 }

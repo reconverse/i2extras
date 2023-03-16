@@ -1,0 +1,5 @@
+url: http://www.reconverse.org/i2extras
+template:
+  bootstrap: 5
+development:
+  mode: auto

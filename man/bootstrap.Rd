@@ -7,37 +7,39 @@
 bootstrap(x, randomise_groups = FALSE)
 }
 \arguments{
-\item{x}{An \link[incidence2:incidence]{incidence2::incidence} object.}
+\item{x}{An \verb{[incidence2]} object.}
 
-\item{randomise_groups}{A \code{logical} indicating whether groups should be
-randomised as well in the resampling procedure; respective group sizes will
-be preserved, but this can be used to remove any group-specific temporal
-dynamics. If \code{FALSE} (default), data are resampled within groups.}
+\item{randomise_groups}{\verb{[bool]}
+
+Should groups be randomised as well in the resampling procedure; respective
+group sizes will be preserved, but this can be used to remove any
+group-specific temporal dynamics.
+
+If \code{FALSE} (default), data are resampled within groups.}
 }
 \value{
-An \code{incidence2} object.
+An \verb{[incidence2]} object.
 }
 \description{
-This function can be used to bootstrap \link[incidence2:incidence]{incidence2::incidence} objects.
-Bootstrapping is done by sampling with replacement the original input dates.
-See \code{details} for more information on how this is implemented.
+This function can be used to bootstrap \verb{[incidence2]} objects. Bootstrapping
+is done by sampling with replacement the original input dates.
 }
 \details{
-As original data are not stored in \link[incidence2:incidence]{incidence2::incidence} objects,
-the bootstrapping is achieved by multinomial sampling of date bins weighted
-by their relative incidence.
+As original data are not stored in \link[incidence2:incidence]{incidence2::incidence} objects, the
+bootstrapping is achieved by multinomial sampling of date bins weighted by
+their relative incidence.
 }
 \examples{
 if (requireNamespace("outbreaks", quietly = TRUE)) {
-  data(fluH7N9_china_2013, package = "outbreaks")
-  i <- incidence2::incidence(fluH7N9_china_2013, date_index = date_of_onset)
-  bootstrap(i)
-  bootstrap(i, randomise_groups = TRUE)
+    data(fluH7N9_china_2013, package = "outbreaks")
+    i <- incidence(
+        fluH7N9_china_2013,
+        date_index = "date_of_onset",
+        groups = "gender"
+   )
+   bootstrap(i)
 }
 
-}
-\seealso{
-\code{\link[=find_peak]{find_peak()}} to use estimate peak date using bootstrap
 }
 \author{
 Thibaut Jombart, Tim Taylor

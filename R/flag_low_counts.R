@@ -27,7 +27,6 @@
 #' @return An [incidence2::incidence] object.
 #'
 #' @export
-#' @importFrom dplyr grouped_df mutate across if_else
 #'
 #' @examples
 #'
@@ -35,80 +34,79 @@
 #'     requireNamespace("incidence2", quietly = TRUE)) {
 #'   data(covid19_england_nhscalls_2020, package = "outbreaks")
 #'   dat <- covid19_england_nhscalls_2020
-#'   i <- incidence(dat, date, interval = "monday week", count = count)
+#'   i <- incidence(dat, "date", interval = "isoweek", counts = "count")
 #'   plot(i)
 #'   plot(flag_low_counts(i, threshold = 0.1))
 #'   plot(flag_low_counts(i, threshold = 1), title = "removing counts below the median")
 #' }
-
-
 flag_low_counts <- function(x, counts = NULL, threshold = 0.001, set_missing = TRUE) {
 
-  ## checks
-  if (!inherits(x, "incidence2")) {
-    stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
-  }
+    ## checks
+    if (!inherits(x, "incidence2")) {
+        stop(sprintf("`%s` is not an incidence object", deparse(substitute(x))))
+    }
 
-  ## snapshot original attributes
-  original_attributes <- attributes(x)
+    ## snapshot original attributes
+    original_attributes <- attributes(x)
 
-  ## if no count is given use the current counts
-  counts <- rlang::enquo(counts)
-  if (!rlang::quo_is_null(counts)) {
-    idx <- tidyselect::eval_select(counts, x, allow_rename = FALSE)
-    counts <- names(x)[idx]
-  } else {
-    counts <- NULL
-  }
-  if (is.null(counts)) {
-    counts <- incidence2::get_count_names(x)
-  }
+    ## if no count is given use the current counts
+    counts <- rlang::enquo(counts)
+    if (!rlang::quo_is_null(counts)) {
+        idx <- tidyselect::eval_select(counts, x, allow_rename = FALSE)
+        counts <- names(x)[idx]
+    } else {
+        counts <- NULL
+    }
+    if (is.null(counts)) {
+        counts <- get_count_value_name(x)
+    }
 
-  ## get group and date names
-  group_names <- incidence2::get_group_names(x)
+    ## get group and date names
+    group_names <- get_group_names(x)
 
-  ## The output can take two forms depending on `set_missing`:
-  ## * TRUE: counts are modified so that values below the threshold are set to NA
-  ## * FALSE: counts are not modified, but new logical variables with a "flag_low"
-  ## suffix are generated, with TRUE wherever values are below the threshold
+    ## The output can take two forms depending on `set_missing`:
+    ## * TRUE: counts are modified so that values below the threshold are set to NA
+    ## * FALSE: counts are not modified, but new logical variables with a "flag_low"
+    ## suffix are generated, with TRUE wherever values are below the threshold
 
-  below_thres <- function(x) {
-    x < round(threshold * mean(x, na.rm = TRUE))
-  }
 
-  out <- x
-  if (!is.null(group_names)) {
-    out <- grouped_df(out, group_names)
-  }
+    below_thres <- function(x) {
+        x < round(threshold * mean(x, na.rm = TRUE))
+    }
 
-  if (set_missing) {
-    out <- mutate(
-        out,
-        across(
-        {{counts}},
-        function(x) if_else(
-                        below_thres(x),
-                        NA_counts_(x),
-                        x
-                    )
+    out <- x
+    if (!is.null(group_names)) {
+        out <- grouped_df(out, group_names)
+    }
+
+    if (set_missing) {
+        out <- mutate(
+            out,
+            across(
+                {{counts}},
+                function(x) if_else(
+                    below_thres(x),
+                    NA_counts_(x),
+                    x
+                )
+            )
         )
-    )
-  } else {
-    new_var_names <- paste(counts, "flag_low", sep = "_")
-    out <- mutate(
-        out,
-        across(
-        {{counts}},
-        below_thres,
-        .names = new_var_names
+    } else {
+        new_var_names <- paste(counts, "flag_low", sep = "_")
+        out <- mutate(
+            out,
+            across(
+                {{counts}},
+                below_thres,
+                .names = new_var_names
+            )
         )
-    )
-  }
+    }
 
-  ## restore attributes
-  new_names <- names(out)
-  attributes(out) <- original_attributes
-  names(out) <- new_names
+    ## restore attributes
+    new_names <- names(out)
+    attributes(out) <- original_attributes
+    names(out) <- new_names
 
-  out
+    out
 }

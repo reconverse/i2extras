@@ -2,7 +2,7 @@
 #'
 #' @author Tim Taylor
 #'
-#' @param x The output of function [fit_curve.incidence2()].
+#' @param x The output of `fit_curve()`.
 #' @param alpha Value of alpha used to calculate confidence intervals; defaults
 #'   to 0.05 which corresponds to a 95% confidence interval.
 #' @param growth_decay_time Should a doubling/halving time and corresponding
@@ -13,18 +13,15 @@
 #'
 #' @export
 growth_rate <- function(x, ...) {
-  UseMethod("growth_rate")
+    UseMethod("growth_rate")
 }
-
 
 #' @rdname growth_rate
 #' @aliases growth_rate.default
 #' @export
 growth_rate.default <- function(x, ...) {
-  stop(sprintf("Not implemented for class %s",
-               paste(class(x), collapse = ", ")))
+    not_implemented(x)
 }
-
 
 #' @rdname growth_rate
 #' @aliases growth_rate.incidence2_fit
@@ -33,42 +30,41 @@ growth_rate.incidence2_fit <- function(x, alpha = 0.05,
                                        growth_decay_time = TRUE,
                                        include_warnings = FALSE, ...) {
 
-  dat <- is_ok(x, include_warnings = include_warnings)
-  model_var <- attr(dat, "model")
+    dat <- is_ok(x, include_warnings = include_warnings)
+    model_var <- attr(dat, "model")
 
-  r <- vapply(
-    dat[[model_var]],
-    function(x) x$coefficients[2],
-    double(1)
-  )
+    r <- vapply(
+        dat[[model_var]],
+        function(x) x$coefficients[2],
+        double(1)
+    )
 
-  r_lower <- vapply(
-    dat[[model_var]],
-    function(x) suppressMessages(stats::confint(x, 2, 1 - alpha)[1]),
-    double(1)
-  )
+    r_lower <- vapply(
+        dat[[model_var]],
+        function(x) suppressMessages(confint(x, 2, 1 - alpha)[1]),
+        double(1)
+    )
 
-  r_upper <- vapply(
-    dat[[model_var]],
-    function(x) suppressMessages(stats::confint(x, 2, 1 - alpha)[2]),
-    double(1)
-  )
+    r_upper <- vapply(
+        dat[[model_var]],
+        function(x) suppressMessages(confint(x, 2, 1 - alpha)[2]),
+        double(1)
+    )
 
-  res <- tibble::tibble(
-    model = dat[[model_var]],
-    r,
-    r_lower,
-    r_upper
-  )
+    res <- tibble(
+        model = dat[[model_var]],
+        r,
+        r_lower,
+        r_upper
+    )
 
-  groups <- attr(dat, "groups")
-  if (!is.null(groups)) res <- dplyr::bind_cols(dat[groups], res)
+    groups <- attr(dat, "groups")
+    if (!is.null(groups)) res <- bind_cols(dat[groups], res)
 
-  count_variable <- attr(dat, "count_variable")
-  res <- dplyr::bind_cols(dat[count_variable], res)
+    count_variable <- attr(dat, "count_variable")
+    res <- bind_cols(dat[count_variable], res)
 
-
-  if (growth_decay_time) add_two_time(res) else res
+    if (growth_decay_time) add_two_time(res) else res
 
 }
 
