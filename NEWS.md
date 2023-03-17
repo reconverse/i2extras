@@ -1,4 +1,8 @@
-# i2extras 0.2.0
+# i2extras 0.2.1
+
+* Version bump for CRAN resubmission. See 0.2.0 note below for updates.
+
+# i2extras 0.2.0 (not CRAN)
 
 * {i2extras} now explicitly 'Depends' on the upstream
   [{incidence2}](https://CRAN.R-project.org/package=incidence2) package and
