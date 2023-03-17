@@ -4,348 +4,309 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="i2extras">
 <title>Fitting epicurves • i2extras</title>
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
+<script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="../deps/bootstrap-5.2.2/bootstrap.min.css" rel="stylesheet">
+<script src="../deps/bootstrap-5.2.2/bootstrap.bundle.min.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Fitting epicurves">
+<!-- bootstrap-toc --><script src="https://cdn.jsdelivr.net/gh/afeld/bootstrap-toc@v1.0.1/dist/bootstrap-toc.min.js" integrity="sha256-4veVQbu7//Lk5TSmc7YV48MxtMy98e26cf5MrgZYnwo=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- search --><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Fitting epicurves">
 <meta property="og:description" content="i2extras">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body data-spy="scroll" data-target="#toc">
-    <div class="container template-article">
-      <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">i2extras</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.2.9000</span>
-      </span>
-    </div>
+<body>
+    <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
+    
 
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    
+    <a class="navbar-brand me-2" href="../index.html">i2extras</a>
+
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.2.1</small>
+
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div id="navbar" class="collapse navbar-collapse ms-3">
+      <ul class="navbar-nav me-auto">
+<li class="nav-item">
+  <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li>
-  <a href="../reference/index.html">Reference</a>
-</li>
-<li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-    Articles
-     
-    <span class="caret"></span>
-  </a>
-  <ul class="dropdown-menu" role="menu">
-<li>
-      <a href="../articles/fitting_epicurves.html">Fitting epicurves</a>
-    </li>
-    <li>
-      <a href="../articles/peak_estimation.html">Peak estimation</a>
-    </li>
-  </ul>
-</li>
-<li>
-  <a href="../news/index.html">Changelog</a>
-</li>
-      </ul>
-<ul class="nav navbar-nav navbar-right">
-<li>
-  <a href="https://github.com/reconverse/i2extras/">
-    <span class="fab fa-github fa-lg"></span>
-     
-  </a>
-</li>
-      </ul>
-</div>
-<!--/.nav-collapse -->
+<li class="active nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/fitting_epicurves.html">Fitting epicurves</a>
+    <a class="dropdown-item" href="../articles/peak_estimation.html">Peak estimation</a>
   </div>
-<!--/.container -->
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="../news/index.html">Changelog</a>
+</li>
+      </ul>
+<form class="form-inline my-2 my-lg-0" role="search">
+        <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off">
+</form>
+
+      <ul class="navbar-nav">
+<li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/reconverse/i2extras/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul>
 </div>
-<!--/.navbar -->
 
-      
+    
+  </div>
+</nav><div class="container template-article">
 
-      </header><script src="fitting_epicurves_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
-  <div class="col-md-9 contents">
-    <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Fitting epicurves</h1>
-                        <h4 class="author">Tim Taylor</h4>
+
+
+<script src="fitting_epicurves_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+  <main id="main" class="col-md-9"><div class="page-header">
+      <img src="" class="logo" alt=""><h1>Fitting epicurves</h1>
+                        <h4 data-toc-skip class="author">Tim Taylor</h4>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/reconverse/i2extras/blob/master/vignettes/fitting_epicurves.Rmd"><code>vignettes/fitting_epicurves.Rmd</code></a></small>
-      <div class="hidden name"><code>fitting_epicurves.Rmd</code></div>
-
+      <small class="dont-index">Source: <a href="https://github.com/reconverse/i2extras/blob/HEAD/vignettes/fitting_epicurves.Rmd" class="external-link"><code>vignettes/fitting_epicurves.Rmd</code></a></small>
+      <div class="d-none name"><code>fitting_epicurves.Rmd</code></div>
     </div>
 
     
     
-<div id="example" class="section level1">
-<h1 class="hasAnchor">
-<a href="#example" class="anchor"></a>Example</h1>
-<p>To illustrate the trend fitting functionality of <em>i2extras</em> we will use the simulated Ebola Virus Disease (EVD) outbreak data from the <a href="https://CRAN.R-project.org/package=outbreaks">outbreaks</a> package.</p>
-<div id="loading-relevant-packages-and-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#loading-relevant-packages-and-data" class="anchor"></a>Loading relevant packages and data</h2>
+<div class="section level2">
+<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+</h2>
+<p>To illustrate the trend fitting functionality of <em>i2extras</em> we will use the simulated Ebola Virus Disease (EVD) outbreak data from the <a href="https://CRAN.R-project.org/package=outbreaks" class="external-link">outbreaks</a> package.</p>
+<div class="section level3">
+<h3 id="loading-relevant-packages-and-data">Loading relevant packages and data<a class="anchor" aria-label="anchor" href="#loading-relevant-packages-and-data"></a>
+</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks">outbreaks</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconverse/incidence2">incidence2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://www.reconverse.org/i2extras/">i2extras</a></span><span class="op">)</span>
-
-<span class="va">raw_dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/reconhub/outbreaks" class="external-link">outbreaks</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://www.reconverse.org/i2extras/" class="external-link">i2extras</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: incidence2</span></span>
+<span><span class="co">#&gt; Loading required package: grates</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">raw_dat</span> <span class="op">&lt;-</span> <span class="va">ebola_sim_clean</span><span class="op">$</span><span class="va">linelist</span></span></code></pre></div>
 <p>For this example we will restrict ourselves to the first 20 weeks of data:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span>
-    <span class="va">raw_dat</span>, 
-    date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
-    interval <span class="op">=</span> <span class="st">"week"</span>
-<span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="op">]</span>
-<span class="va">dat</span>
-<span class="co">#&gt; An incidence object: 20 x 2</span>
-<span class="co">#&gt; date range: [2014-W15] to [2014-W34]</span>
-<span class="co">#&gt; cases: 783</span>
-<span class="co">#&gt; interval: 1 (Monday) week </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;    date_index count</span>
-<span class="co">#&gt;        &lt;yrwk&gt; &lt;int&gt;</span>
-<span class="co">#&gt;  1   2014-W15     1</span>
-<span class="co">#&gt;  2   2014-W16     1</span>
-<span class="co">#&gt;  3   2014-W17     5</span>
-<span class="co">#&gt;  4   2014-W18     4</span>
-<span class="co">#&gt;  5   2014-W19    12</span>
-<span class="co">#&gt;  6   2014-W20    17</span>
-<span class="co">#&gt;  7   2014-W21    15</span>
-<span class="co">#&gt;  8   2014-W22    19</span>
-<span class="co">#&gt;  9   2014-W23    23</span>
-<span class="co">#&gt; 10   2014-W24    21</span>
-<span class="co">#&gt; 11   2014-W25    30</span>
-<span class="co">#&gt; 12   2014-W26    22</span>
-<span class="co">#&gt; 13   2014-W27    34</span>
-<span class="co">#&gt; 14   2014-W28    38</span>
-<span class="co">#&gt; 15   2014-W29    61</span>
-<span class="co">#&gt; 16   2014-W30    59</span>
-<span class="co">#&gt; 17   2014-W31    80</span>
-<span class="co">#&gt; 18   2014-W32    86</span>
-<span class="co">#&gt; 19   2014-W33   116</span>
-<span class="co">#&gt; 20   2014-W34   139</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html" class="external-link">incidence</a></span><span class="op">(</span></span>
+<span>    <span class="va">raw_dat</span>, </span>
+<span>    date_index <span class="op">=</span> <span class="st">"date_of_onset"</span>,</span>
+<span>    interval <span class="op">=</span> <span class="st">"week"</span>,</span>
+<span>    groups <span class="op">=</span> <span class="st">"gender"</span></span>
+<span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">20</span>, <span class="op">]</span></span>
+<span><span class="va">dat</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># incidence:  20 x 4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># count vars: date_of_onset</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># groups:     gender</span></span></span>
+<span><span class="co">#&gt;    date_index gender count_variable count</span></span>
+<span><span class="co">#&gt;  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;isowk&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2014-W15   f      date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2014-W16   m      date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2014-W17   f      date_of_onset      4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2014-W17   m      date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2014-W18   f      date_of_onset      4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2014-W19   f      date_of_onset      9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2014-W19   m      date_of_onset      3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2014-W20   f      date_of_onset      7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2014-W20   m      date_of_onset     10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2014-W21   f      date_of_onset      8</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> 2014-W21   m      date_of_onset      7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> 2014-W22   f      date_of_onset      9</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> 2014-W22   m      date_of_onset     10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> 2014-W23   f      date_of_onset     13</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> 2014-W23   m      date_of_onset     10</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> 2014-W24   f      date_of_onset      7</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> 2014-W24   m      date_of_onset     14</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> 2014-W25   f      date_of_onset     15</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> 2014-W25   m      date_of_onset     15</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">20</span> 2014-W26   f      date_of_onset     12</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">dat</span>, angle <span class="op">=</span> <span class="fl">45</span>, border_colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="fitting_epicurves_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
-<div id="modeling-incidence" class="section level2">
-<h2 class="hasAnchor">
-<a href="#modeling-incidence" class="anchor"></a>Modeling incidence</h2>
+<div class="section level3">
+<h3 id="modeling-incidence">Modeling incidence<a class="anchor" aria-label="anchor" href="#modeling-incidence"></a>
+</h3>
 <p>We can use <code><a href="../reference/fit_curve.html">fit_curve()</a></code> to fit the data with either a poisson or negative binomial regression model. The output from this will be a nested object with class <code>incidence2_fit</code> which has methods available for both automatic plotting and the calculation of growth (decay) rates and doubling (halving) times.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">dat</span>, model <span class="op">=</span> <span class="st">"poisson"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
-<span class="va">out</span>
-<span class="co">#&gt; # A tibble: 1 × 8</span>
-<span class="co">#&gt;   count_variable               data model  estimates fitting_warning fitting_error</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;list&lt;tibble[,2]&gt;&gt; &lt;list&gt; &lt;list&gt;    &lt;list&gt;          &lt;list&gt;       </span>
-<span class="co">#&gt; 1 count                    [20 × 2] &lt;glm&gt;  &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; # … with 2 more variables: prediction_warning &lt;list&gt;, prediction_error &lt;list&gt;</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">dat</span>, model <span class="op">=</span> <span class="st">"poisson"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="va">out</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 9</span></span></span>
+<span><span class="co">#&gt;   count_varia…¹ gender     data model estimates  fitti…² fitti…³ predi…⁴ predi…⁵</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&lt;t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lis&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> date_of_onset f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span> &lt;trndng_p&gt; <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> date_of_onset m       <span style="color: #949494;">[9 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span> &lt;trndng_p&gt; <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​count_variable, ²​fitting_warning,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ³​fitting_error, ⁴​prediction_warning, ⁵​prediction_error</span></span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">out</span>, angle <span class="op">=</span> <span class="fl">45</span>, border_colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="fitting_epicurves_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 1 × 9</span>
-<span class="co">#&gt;   count_variable model      r r_lower r_upper growth_or_decay  time time_lower</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;list&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;      &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 count          &lt;glm&gt;  0.184   0.168   0.200 doubling         3.77       3.46</span>
-<span class="co">#&gt; # … with 1 more variable: time_upper &lt;dbl&gt;</span></code></pre></div>
-<p>To unnest the data we can use <code><a href="../reference/unnest.html">unnest()</a></code> (a function that has been reexported from the <a href="https://cran.r-project.org/package=tidyr">tidyr</a> package.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 10</span></span></span>
+<span><span class="co">#&gt;   count_varia…¹ gender model     r r_lower r_upper growt…²  time time_…³ time_…⁴</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;lis&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> date_of_onset f      <span style="color: #949494;">&lt;glm&gt;</span> 0.137  0.069<span style="text-decoration: underline;">8</span>   0.206 doubli…  5.07    3.36    9.93</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> date_of_onset m      <span style="color: #949494;">&lt;glm&gt;</span> 0.240  0.146    0.341 doubli…  2.89    2.03    4.75</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​count_variable, ²​growth_or_decay,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ³​time_lower, ⁴​time_upper</span></span></span></code></pre></div>
+<p>To unnest the data we can use <code><a href="../reference/unnest.html">unnest()</a></code> (a function that has been reexported from the <a href="https://cran.r-project.org/package=tidyr" class="external-link">tidyr</a> package.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">estimates</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 20 × 14</span>
-<span class="co">#&gt;    count_variable         data model count date_index estimate lower_ci upper_ci</span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;list&lt;tibbl&gt; &lt;lis&gt; &lt;int&gt;     &lt;yrwk&gt;    &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 count              [20 × 2] &lt;glm&gt;     1   2014-W15     4.09     3.20     5.23</span>
-<span class="co">#&gt;  2 count              [20 × 2] &lt;glm&gt;     1   2014-W16     4.92     3.91     6.19</span>
-<span class="co">#&gt;  3 count              [20 × 2] &lt;glm&gt;     5   2014-W17     5.92     4.77     7.33</span>
-<span class="co">#&gt;  4 count              [20 × 2] &lt;glm&gt;     4   2014-W18     7.11     5.82     8.68</span>
-<span class="co">#&gt;  5 count              [20 × 2] &lt;glm&gt;    12   2014-W19     8.55     7.11    10.3 </span>
-<span class="co">#&gt;  6 count              [20 × 2] &lt;glm&gt;    17   2014-W20    10.3      8.67    12.2 </span>
-<span class="co">#&gt;  7 count              [20 × 2] &lt;glm&gt;    15   2014-W21    12.3     10.6     14.4 </span>
-<span class="co">#&gt;  8 count              [20 × 2] &lt;glm&gt;    19   2014-W22    14.8     12.9     17.1 </span>
-<span class="co">#&gt;  9 count              [20 × 2] &lt;glm&gt;    23   2014-W23    17.8     15.7     20.3 </span>
-<span class="co">#&gt; 10 count              [20 × 2] &lt;glm&gt;    21   2014-W24    21.4     19.1     24.0 </span>
-<span class="co">#&gt; 11 count              [20 × 2] &lt;glm&gt;    30   2014-W25    25.8     23.3     28.5 </span>
-<span class="co">#&gt; 12 count              [20 × 2] &lt;glm&gt;    22   2014-W26    31.0     28.3     33.9 </span>
-<span class="co">#&gt; 13 count              [20 × 2] &lt;glm&gt;    34   2014-W27    37.2     34.3     40.4 </span>
-<span class="co">#&gt; 14 count              [20 × 2] &lt;glm&gt;    38   2014-W28    44.8     41.5     48.2 </span>
-<span class="co">#&gt; 15 count              [20 × 2] &lt;glm&gt;    61   2014-W29    53.8     50.1     57.7 </span>
-<span class="co">#&gt; 16 count              [20 × 2] &lt;glm&gt;    59   2014-W30    64.7     60.3     69.4 </span>
-<span class="co">#&gt; 17 count              [20 × 2] &lt;glm&gt;    80   2014-W31    77.7     72.2     83.7 </span>
-<span class="co">#&gt; 18 count              [20 × 2] &lt;glm&gt;    86   2014-W32    93.4     86.2    101.  </span>
-<span class="co">#&gt; 19 count              [20 × 2] &lt;glm&gt;   116   2014-W33   112.     103.     123.  </span>
-<span class="co">#&gt; 20 count              [20 × 2] &lt;glm&gt;   139   2014-W34   135.     122.     149.  </span>
-<span class="co">#&gt; # … with 6 more variables: lower_pi &lt;dbl&gt;, upper_pi &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   fitting_warning &lt;list&gt;, fitting_error &lt;list&gt;, prediction_warning &lt;list&gt;,</span>
-<span class="co">#&gt; #   prediction_error &lt;list&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">out</span>, <span class="va">estimates</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 20 × 15</span></span></span>
+<span><span class="co">#&gt;    count_v…¹ gender     data model count date_…² estim…³ lower…⁴ upper…⁵ lower…⁶</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&lt;t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lis&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;isowk&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     1 2014-W…    3.27    1.90    5.61       0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     4 2014-W…    4.30    2.83    6.52       0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     4 2014-W…    4.93    3.44    7.06       0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     9 2014-W…    5.65    4.15    7.68       1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     7 2014-W…    6.47    4.99    8.40       1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     8 2014-W…    7.42    5.92    9.31       2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     9 2014-W…    8.51    6.90   10.5        2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>    13 2014-W…    9.75    7.88   12.1        3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     7 2014-W…   11.2     8.82   14.2        4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>    15 2014-W…   12.8     9.72   16.9        4</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> date_of_… f      <span style="color: #949494;">[11 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>    12 2014-W…   14.7    10.6    20.4        5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> date_of_… m       <span style="color: #949494;">[9 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     1 2014-W…    2.01    1.02    3.95       0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> date_of_… m       <span style="color: #949494;">[9 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     1 2014-W…    2.56    1.43    4.59       0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">14</span> date_of_… m       <span style="color: #949494;">[9 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     3 2014-W…    4.13    2.73    6.24       0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">15</span> date_of_… m       <span style="color: #949494;">[9 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>    10 2014-W…    5.25    3.75    7.36       1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">16</span> date_of_… m       <span style="color: #949494;">[9 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>     7 2014-W…    6.67    5.07    8.79       1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">17</span> date_of_… m       <span style="color: #949494;">[9 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>    10 2014-W…    8.48    6.69   10.8        2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">18</span> date_of_… m       <span style="color: #949494;">[9 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>    10 2014-W…   10.8     8.50   13.7        3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">19</span> date_of_… m       <span style="color: #949494;">[9 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>    14 2014-W…   13.7    10.4    18.0        5</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">20</span> date_of_… m       <span style="color: #949494;">[9 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span>    15 2014-W…   17.4    12.4    24.4        6</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 5 more variables: upper_pi &lt;dbl&gt;, fitting_warning &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   fitting_error &lt;list&gt;, prediction_warning &lt;list&gt;, prediction_error &lt;list&gt;,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   and abbreviated variable names ¹​count_variable, ²​date_index, ³​estimate,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ⁴​lower_ci, ⁵​upper_ci, ⁶​lower_pi</span></span></span></code></pre></div>
 <p><code><a href="../reference/fit_curve.html">fit_curve()</a></code> also works nicely with grouped <code>incidence2</code> objects. In this situation, we return a nested tibble with some additional columns that indicate whether there has been a warning or error during the fitting or prediction stages.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">grouped_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/incidence.html">incidence</a></span><span class="op">(</span>
-    <span class="va">raw_dat</span>, 
-    date_index <span class="op">=</span> <span class="va">date_of_onset</span>,
-    interval <span class="op">=</span> <span class="st">"week"</span>,
-    groups <span class="op">=</span> <span class="va">hospital</span>
-<span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">120</span>, <span class="op">]</span>
-<span class="va">grouped_dat</span>
-<span class="co">#&gt; An incidence object: 120 x 3</span>
-<span class="co">#&gt; date range: [2014-W15] to [2014-W38]</span>
-<span class="co">#&gt; cases: 1621</span>
-<span class="co">#&gt; interval: 1 (Monday) week </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;    date_index hospital                                     count</span>
-<span class="co">#&gt;        &lt;yrwk&gt; &lt;fct&gt;                                        &lt;int&gt;</span>
-<span class="co">#&gt;  1   2014-W15 Military Hospital                                1</span>
-<span class="co">#&gt;  2   2014-W16 Connaught Hospital                               1</span>
-<span class="co">#&gt;  3   2014-W17 &lt;NA&gt;                                             2</span>
-<span class="co">#&gt;  4   2014-W17 other                                            3</span>
-<span class="co">#&gt;  5   2014-W18 &lt;NA&gt;                                             1</span>
-<span class="co">#&gt;  6   2014-W18 Connaught Hospital                               1</span>
-<span class="co">#&gt;  7   2014-W18 Princess Christian Maternity Hospital (PCMH)     1</span>
-<span class="co">#&gt;  8   2014-W18 Rokupa Hospital                                  1</span>
-<span class="co">#&gt;  9   2014-W19 &lt;NA&gt;                                             1</span>
-<span class="co">#&gt; 10   2014-W19 Connaught Hospital                               3</span>
-<span class="co">#&gt; # … with 110 more rows</span>
-
-<span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"poisson"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
-<span class="va">out</span>
-<span class="co">#&gt; # A tibble: 6 × 9</span>
-<span class="co">#&gt;   count_variable hospital     data model estimates fitting_warning fitting_error</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;    &lt;list&lt;t&gt; &lt;lis&gt; &lt;list&gt;    &lt;list&gt;          &lt;list&gt;       </span>
-<span class="co">#&gt; 1 count          Connaug… [22 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; 2 count          Militar… [21 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; 3 count          other    [20 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; 4 count          Princes… [17 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; 5 count          Rokupa … [18 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; 6 count          &lt;NA&gt;     [22 × 2] &lt;glm&gt; &lt;trendin… &lt;NULL&gt;          &lt;NULL&gt;       </span>
-<span class="co">#&gt; # … with 2 more variables: prediction_warning &lt;list&gt;, prediction_error &lt;list&gt;</span>
-
-<span class="co"># plot with a prediction interval but not a confidence interval</span>
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">out</span>, ci <span class="op">=</span> <span class="cn">FALSE</span>, pi<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">grouped_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/incidence.html" class="external-link">incidence</a></span><span class="op">(</span></span>
+<span>    <span class="va">raw_dat</span>, </span>
+<span>    date_index <span class="op">=</span> <span class="st">"date_of_onset"</span>,</span>
+<span>    interval <span class="op">=</span> <span class="st">"week"</span>,</span>
+<span>    groups <span class="op">=</span> <span class="st">"hospital"</span></span>
+<span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">120</span>, <span class="op">]</span></span>
+<span><span class="va">grouped_dat</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># incidence:  120 x 4</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># count vars: date_of_onset</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># groups:     hospital</span></span></span>
+<span><span class="co">#&gt;    date_index hospital                                     count_variable count</span></span>
+<span><span class="co">#&gt;  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;isowk&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>                                        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2014-W15   Military Hospital                            date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2014-W16   Connaught Hospital                           date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2014-W17   <span style="color: #BB0000;">NA</span>                                           date_of_onset      2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2014-W17   other                                        date_of_onset      3</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2014-W18   <span style="color: #BB0000;">NA</span>                                           date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2014-W18   Connaught Hospital                           date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2014-W18   Princess Christian Maternity Hospital (PCMH) date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2014-W18   Rokupa Hospital                              date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2014-W19   <span style="color: #BB0000;">NA</span>                                           date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2014-W19   Connaught Hospital                           date_of_onset      3</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with 110 more rows</span></span></span>
+<span></span>
+<span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"poisson"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="va">out</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span></span>
+<span><span class="co">#&gt;   count_vari…¹ hospi…²     data model estimates  fitti…³ fitti…⁴ predi…⁵ predi…⁶</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&lt;t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lis&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> date_of_ons… Connau… <span style="color: #949494;">[22 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span> &lt;trndng_p&gt; <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> date_of_ons… Milita… <span style="color: #949494;">[21 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span> &lt;trndng_p&gt; <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> date_of_ons… other   <span style="color: #949494;">[20 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span> &lt;trndng_p&gt; <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> date_of_ons… Prince… <span style="color: #949494;">[17 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span> &lt;trndng_p&gt; <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> date_of_ons… Rokupa… <span style="color: #949494;">[18 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span> &lt;trndng_p&gt; <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> date_of_ons… <span style="color: #BB0000;">NA</span>      <span style="color: #949494;">[22 × 2]</span> <span style="color: #949494;">&lt;glm&gt;</span> &lt;trndng_p&gt; <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span>  <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​count_variable, ²​hospital,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ³​fitting_warning, ⁴​fitting_error, ⁵​prediction_warning, ⁶​prediction_error</span></span></span>
+<span></span>
+<span><span class="co"># plot with a prediction interval but not a confidence interval</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">out</span>, ci <span class="op">=</span> <span class="cn">FALSE</span>, pi<span class="op">=</span><span class="cn">TRUE</span>, angle <span class="op">=</span> <span class="fl">45</span>, border_colour <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="fitting_epicurves_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 6 × 10</span>
-<span class="co">#&gt;   count_variable hospital      model     r r_lower r_upper growth_or_decay  time</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;         &lt;lis&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;           &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 count          Connaught Ho… &lt;glm&gt; 0.197   0.177   0.217 doubling         3.53</span>
-<span class="co">#&gt; 2 count          Military Hos… &lt;glm&gt; 0.173   0.147   0.200 doubling         4.00</span>
-<span class="co">#&gt; 3 count          other         &lt;glm&gt; 0.170   0.141   0.200 doubling         4.09</span>
-<span class="co">#&gt; 4 count          Princess Chr… &lt;glm&gt; 0.142   0.101   0.188 doubling         4.87</span>
-<span class="co">#&gt; 5 count          Rokupa Hospi… &lt;glm&gt; 0.178   0.133   0.228 doubling         3.89</span>
-<span class="co">#&gt; 6 count          &lt;NA&gt;          &lt;glm&gt; 0.184   0.164   0.205 doubling         3.77</span>
-<span class="co">#&gt; # … with 2 more variables: time_lower &lt;dbl&gt;, time_upper &lt;dbl&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/growth_rate.html">growth_rate</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 10</span></span></span>
+<span><span class="co">#&gt;   count_vari…¹ hospi…² model     r r_lower r_upper growt…³  time time_…⁴ time_…⁵</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;lis&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> date_of_ons… Connau… <span style="color: #949494;">&lt;glm&gt;</span> 0.197   0.177   0.217 doubli…  3.53    3.20    3.92</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> date_of_ons… Milita… <span style="color: #949494;">&lt;glm&gt;</span> 0.173   0.147   0.200 doubli…  4.00    3.46    4.71</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> date_of_ons… other   <span style="color: #949494;">&lt;glm&gt;</span> 0.170   0.141   0.200 doubli…  4.09    3.46    4.92</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> date_of_ons… Prince… <span style="color: #949494;">&lt;glm&gt;</span> 0.142   0.101   0.188 doubli…  4.87    3.70    6.87</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> date_of_ons… Rokupa… <span style="color: #949494;">&lt;glm&gt;</span> 0.178   0.133   0.228 doubli…  3.89    3.04    5.22</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> date_of_ons… <span style="color: #BB0000;">NA</span>      <span style="color: #949494;">&lt;glm&gt;</span> 0.184   0.164   0.205 doubli…  3.77    3.39    4.24</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​count_variable, ²​hospital,</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   ³​growth_or_decay, ⁴​time_lower, ⁵​time_upper</span></span></span></code></pre></div>
 <p>We provide helper functions, <code><a href="../reference/is_okerr.html">is_ok()</a></code>, <code><a href="../reference/is_okerr.html">is_warning()</a></code> and <code><a href="../reference/is_okerr.html">is_error()</a></code> to help filter the output as necessary.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"negbin"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span>
-<span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 5 × 7</span>
-<span class="co">#&gt;   count_variable hospital               data model estimates     fitting_warning</span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;            &lt;list&lt;tib&gt; &lt;lis&gt; &lt;list&gt;        &lt;list&gt;         </span>
-<span class="co">#&gt; 1 count          Connaught Hospi…   [22 × 2] &lt;neg… &lt;trending_pr… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 2 count          other              [20 × 2] &lt;neg… &lt;trending_pr… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 3 count          Princess Christ…   [17 × 2] &lt;neg… &lt;trending_pr… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 4 count          Rokupa Hospital    [18 × 2] &lt;neg… &lt;trending_pr… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; 5 count          &lt;NA&gt;               [22 × 2] &lt;neg… &lt;trending_pr… &lt;chr [2]&gt;      </span>
-<span class="co">#&gt; # … with 1 more variable: prediction_warning &lt;list&gt;</span>
-<span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>, <span class="va">fitting_warning</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 10 × 7</span>
-<span class="co">#&gt;    count_variable hospital             data model  estimates    fitting_warning </span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;fct&gt;          &lt;list&lt;tib&gt; &lt;list&gt; &lt;list&gt;       &lt;chr&gt;           </span>
-<span class="co">#&gt;  1 count          Connaught Hos…   [22 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
-<span class="co">#&gt;  2 count          Connaught Hos…   [22 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
-<span class="co">#&gt;  3 count          other            [20 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
-<span class="co">#&gt;  4 count          other            [20 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
-<span class="co">#&gt;  5 count          Princess Chri…   [17 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
-<span class="co">#&gt;  6 count          Princess Chri…   [17 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
-<span class="co">#&gt;  7 count          Rokupa Hospit…   [18 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
-<span class="co">#&gt;  8 count          Rokupa Hospit…   [18 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
-<span class="co">#&gt;  9 count          &lt;NA&gt;             [22 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
-<span class="co">#&gt; 10 count          &lt;NA&gt;             [22 × 2] &lt;negb… &lt;trending_p… iteration limit…</span>
-<span class="co">#&gt; # … with 1 more variable: prediction_warning &lt;list&gt;</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">out</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/fit_curve.html">fit_curve</a></span><span class="op">(</span><span class="va">grouped_dat</span>, model <span class="op">=</span> <span class="st">"negbin"</span>, alpha <span class="op">=</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 5 × 7</span></span></span>
+<span><span class="co">#&gt;   count_variable hospital               data model    estimates  fitti…¹ predi…²</span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;list&lt;t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> date_of_onset  Connaught Hospital <span style="color: #949494;">[22 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; &lt;chr&gt;   <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> date_of_onset  other              <span style="color: #949494;">[20 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; &lt;chr&gt;   <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> date_of_onset  Princess Christia… <span style="color: #949494;">[17 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; &lt;chr&gt;   <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> date_of_onset  Rokupa Hospital    <span style="color: #949494;">[18 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; &lt;chr&gt;   <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> date_of_onset  <span style="color: #BB0000;">NA</span>                 <span style="color: #949494;">[22 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; &lt;chr&gt;   <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​fitting_warning, ²​prediction_warning</span></span></span>
+<span><span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="fu"><a href="../reference/is_okerr.html">is_warning</a></span><span class="op">(</span><span class="va">out</span><span class="op">)</span>, <span class="va">fitting_warning</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10 × 7</span></span></span>
+<span><span class="co">#&gt;    count_variable hospital              data model    estimates  fitti…¹ predi…²</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>             <span style="color: #949494; font-style: italic;">&lt;list&lt;t&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;list&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> date_of_onset  Connaught Hospit… <span style="color: #949494;">[22 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; iterat… <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> date_of_onset  Connaught Hospit… <span style="color: #949494;">[22 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; iterat… <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> date_of_onset  other             <span style="color: #949494;">[20 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; iterat… <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> date_of_onset  other             <span style="color: #949494;">[20 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; iterat… <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> date_of_onset  Princess Christi… <span style="color: #949494;">[17 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; iterat… <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> date_of_onset  Princess Christi… <span style="color: #949494;">[17 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; iterat… <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> date_of_onset  Rokupa Hospital   <span style="color: #949494;">[18 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; iterat… <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> date_of_onset  Rokupa Hospital   <span style="color: #949494;">[18 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; iterat… <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> date_of_onset  <span style="color: #BB0000;">NA</span>                <span style="color: #949494;">[22 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; iterat… <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> date_of_onset  <span style="color: #BB0000;">NA</span>                <span style="color: #949494;">[22 × 2]</span> <span style="color: #949494;">&lt;negbin&gt;</span> &lt;trndng_p&gt; iterat… <span style="color: #949494;">&lt;NULL&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​fitting_warning, ²​prediction_warning</span></span></span></code></pre></div>
 </div>
-<div id="rolling-average" class="section level2">
-<h2 class="hasAnchor">
-<a href="#rolling-average" class="anchor"></a>Rolling average</h2>
+<div class="section level3">
+<h3 id="rolling-average">Rolling average<a class="anchor" aria-label="anchor" href="#rolling-average"></a>
+</h3>
 <p>We can add a rolling average, across current and previous intervals, to an <code>incidence2</code> object with the <code><a href="../reference/add_rolling_average.html">add_rolling_average()</a></code> function:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">ra</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_rolling_average.html">add_rolling_average</a></span><span class="op">(</span><span class="va">grouped_dat</span>, before <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="co"># group observations with the 2 prior</span>
-<span class="va">ra</span>
-<span class="co">#&gt; # A tibble: 6 × 3</span>
-<span class="co">#&gt;   count_variable hospital                                     rolling_average  </span>
-<span class="co">#&gt;   &lt;chr&gt;          &lt;fct&gt;                                        &lt;list&gt;           </span>
-<span class="co">#&gt; 1 count          Connaught Hospital                           &lt;tibble [22 × 3]&gt;</span>
-<span class="co">#&gt; 2 count          Military Hospital                            &lt;tibble [21 × 3]&gt;</span>
-<span class="co">#&gt; 3 count          other                                        &lt;tibble [20 × 3]&gt;</span>
-<span class="co">#&gt; 4 count          Princess Christian Maternity Hospital (PCMH) &lt;tibble [17 × 3]&gt;</span>
-<span class="co">#&gt; 5 count          Rokupa Hospital                              &lt;tibble [18 × 3]&gt;</span>
-<span class="co">#&gt; 6 count          &lt;NA&gt;                                         &lt;tibble [22 × 3]&gt;</span>
-<span class="fu"><a href="../reference/unnest.html">unnest</a></span><span class="op">(</span><span class="va">ra</span>, <span class="va">rolling_average</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 120 × 5</span>
-<span class="co">#&gt;    count_variable hospital           date_index count rolling_average</span>
-<span class="co">#&gt;    &lt;chr&gt;          &lt;fct&gt;                  &lt;yrwk&gt; &lt;int&gt;           &lt;dbl&gt;</span>
-<span class="co">#&gt;  1 count          Connaught Hospital   2014-W16     1           NA   </span>
-<span class="co">#&gt;  2 count          Connaught Hospital   2014-W18     1           NA   </span>
-<span class="co">#&gt;  3 count          Connaught Hospital   2014-W19     3            1.67</span>
-<span class="co">#&gt;  4 count          Connaught Hospital   2014-W20     2            2   </span>
-<span class="co">#&gt;  5 count          Connaught Hospital   2014-W21     5            3.33</span>
-<span class="co">#&gt;  6 count          Connaught Hospital   2014-W22     4            3.67</span>
-<span class="co">#&gt;  7 count          Connaught Hospital   2014-W23     6            5   </span>
-<span class="co">#&gt;  8 count          Connaught Hospital   2014-W24     6            5.33</span>
-<span class="co">#&gt;  9 count          Connaught Hospital   2014-W25    12            8   </span>
-<span class="co">#&gt; 10 count          Connaught Hospital   2014-W26     8            8.67</span>
-<span class="co">#&gt; # … with 110 more rows</span>
-
-<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">ra</span>, color <span class="op">=</span> <span class="st">"white"</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Removed 12 rows containing missing values (position_stack).</span>
-
-<span class="co">#&gt; Warning: Removed 12 rows containing missing values (position_stack).</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ra</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_rolling_average.html">add_rolling_average</a></span><span class="op">(</span><span class="va">grouped_dat</span>, n <span class="op">=</span> <span class="fl">2L</span><span class="op">)</span> <span class="co"># group observations with the 2 prior</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">ra</span>, border_colour <span class="op">=</span> <span class="st">"white"</span>, angle <span class="op">=</span> <span class="fl">45</span><span class="op">)</span> <span class="op">+</span></span>
+<span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html" class="external-link">geom_line</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">date_index</span>, y <span class="op">=</span> <span class="va">rolling_average</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning: Removed 1 row containing missing values (`geom_line()`).</span></span></code></pre></div>
 <p><img src="fitting_epicurves_files/figure-html/rolling_average-1.png" width="672" style="display: block; margin: auto;"></p>
 </div>
 </div>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
-
-        <nav id="toc" data-toggle="toc"><h2 data-toc-skip>Contents</h2>
-    </nav>
-</div>
-
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside>
 </div>
 
 
 
-      <footer><div class="copyright">
-  <p>Developed by Tim Taylor, Thibaut Jombart.</p>
+    <footer><div class="pkgdown-footer-left">
+  <p></p>
+<p>Developed by Tim Taylor, Thibaut Jombart.</p>
 </div>
 
-<div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+<div class="pkgdown-footer-right">
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
-      </footer>
+    </footer>
 </div>
 
   
 
+  
 
   </body>
 </html>
