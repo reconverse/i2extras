@@ -1,3 +1,5 @@
+# i2extras (development version)
+
 # i2extras 0.2.1
 
 * Version bump for CRAN resubmission. See 0.2.0 note below for updates.
