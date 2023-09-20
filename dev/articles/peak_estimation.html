@@ -70,7 +70,8 @@
 
 
 
-<script src="peak_estimation_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+
+<div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Peak estimation</h1>
                         <h4 data-toc-skip class="author">Tim Taylor</h4>
@@ -90,7 +91,9 @@
 <div class="section level2">
 <h2 id="bootstrapping-and-finding-peaks">Bootstrapping and finding peaks<a class="anchor" aria-label="anchor" href="#bootstrapping-and-finding-peaks"></a>
 </h2>
-<p>We provide functions to return the peak of the incidence data (grouped or ungrouped), bootstrap from the incidence data, and estimate confidence intervals around a peak.</p>
+<p>We provide functions to return the peak of the incidence data
+(grouped or ungrouped), bootstrap from the incidence data, and estimate
+confidence intervals around a peak.</p>
 <div class="section level3">
 <h3 id="bootstrap">
 <code>bootstrap()</code><a class="anchor" aria-label="anchor" href="#bootstrap"></a>
@@ -104,17 +107,17 @@
 <span><span class="co">#&gt; <span style="color: #949494;"># groups:     gender</span></span></span>
 <span><span class="co">#&gt;    date_index gender count_variable count</span></span>
 <span><span class="co">#&gt;  <span style="color: #BCBCBC;">*</span> <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2013-02-19 m      date_of_onset      3</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2013-02-27 m      date_of_onset      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> 2013-02-19 m      date_of_onset      1</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> 2013-02-27 m      date_of_onset      2</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> 2013-03-07 m      date_of_onset      1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2013-03-08 m      date_of_onset      1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2013-03-09 f      date_of_onset      1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2013-03-13 f      date_of_onset      1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2013-03-17 m      date_of_onset      2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> 2013-03-08 m      date_of_onset      2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> 2013-03-09 f      date_of_onset      0</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> 2013-03-13 f      date_of_onset      2</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> 2013-03-17 m      date_of_onset      1</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 2013-03-19 f      date_of_onset      1</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 2013-03-20 f      date_of_onset      1</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2013-03-20 m      date_of_onset      1</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 57 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 2013-03-20 m      date_of_onset      3</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 57 more rows</span></span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="find_peak">
@@ -146,11 +149,15 @@
 <h3 id="estimate_peak">
 <code>estimate_peak()</code><a class="anchor" aria-label="anchor" href="#estimate_peak"></a>
 </h3>
-<p>Note that the bootstrapping approach used for estimating the peak time makes the following assumptions:</p>
+<p>Note that the bootstrapping approach used for estimating the peak
+time makes the following assumptions:</p>
 <ul>
-<li>the total number of event is known (no uncertainty on total incidence);</li>
-<li>dates with no events (zero incidence) will never be in bootstrapped datasets; and</li>
-<li>the reporting is assumed to be constant over time, i.e. every case is equally likely to be reported.</li>
+<li>the total number of event is known (no uncertainty on total
+incidence);</li>
+<li>dates with no events (zero incidence) will never be in bootstrapped
+datasets; and</li>
+<li>the reporting is assumed to be constant over time, i.e. every case
+is equally likely to be reported.</li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">fluH7N9_china_2013</span></span>
@@ -159,31 +166,30 @@
 <span><span class="co"># regrouping for overall peak (we suspend progress bar for markdown)</span></span>
 <span><span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/incidence2/man/regroup.html" class="external-link">regroup</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A data frame: 1 × 7</span></span></span>
-<span><span class="co">#&gt;   count_variable observed_peak observ…¹ boots…² lower_ci   median     upper_ci  </span></span>
-<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> date_of_onset  2013-04-03           7 &lt;df&gt;    2013-03-29 2013-04-08 2013-04-17</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​observed_count, ²​bootstrap_peaks</span></span></span>
+<span><span class="co">#&gt;   count_variable observed_peak observed_count bootstrap_peaks lower_ci  </span></span>
+<span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> date_of_onset  2013-04-03                 7 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span>  2013-03-29</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2 more variables: median &lt;date&gt;, upper_ci &lt;date&gt;</span></span></span>
 <span></span>
 <span><span class="co"># across provinces</span></span>
 <span><span class="fu"><a href="../reference/estimate_peak.html">estimate_peak</a></span><span class="op">(</span><span class="va">x</span>, progress <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A data frame: 13 × 8</span></span></span>
-<span><span class="co">#&gt;    province  count…¹ observed…² obser…³ boots…⁴ lower_ci   median     upper_ci  </span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>    </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Anhui     date_o… 2013-03-09       1 &lt;df&gt;    2013-02-19 2013-03-28 2013-04-14</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Beijing   date_o… 2013-04-11       1 &lt;df&gt;    2013-02-19 2013-04-11 2013-05-21</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Fujian    date_o… 2013-04-17       1 &lt;df&gt;    2013-04-17 2013-04-18 2013-04-29</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Guangdong date_o… 2013-07-27       1 &lt;df&gt;    2013-02-19 2013-07-27 2013-07-27</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Hebei     date_o… 2013-07-10       1 &lt;df&gt;    2013-02-19 2013-07-10 2013-07-10</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Henan     date_o… 2013-04-06       1 &lt;df&gt;    2013-02-19 2013-04-08 2013-04-17</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Hunan     date_o… 2013-04-14       1 &lt;df&gt;    2013-02-19 2013-04-14 2013-04-23</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Jiangsu   date_o… 2013-03-19       2 &lt;df&gt;    2013-03-08 2013-03-21 2013-04-19</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Jiangxi   date_o… 2013-04-15       1 &lt;df&gt;    2013-04-15 2013-04-17 2013-05-03</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Shandong  date_o… 2013-04-16       1 &lt;df&gt;    2013-02-19 2013-04-16 2013-04-27</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> Shanghai  date_o… 2013-04-01       4 &lt;df&gt;    2013-02-27 2013-04-01 2013-04-04</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> Taiwan    date_o… 2013-04-12       1 &lt;df&gt;    2013-02-19 2013-04-12 2013-04-12</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> Zhejiang  date_o… 2013-04-06       5 &lt;df&gt;    2013-03-29 2013-04-10 2013-04-14</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with abbreviated variable names ¹​count_variable, ²​observed_peak,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   ³​observed_count, ⁴​bootstrap_peaks</span></span></span></code></pre></div>
+<span><span class="co">#&gt;    province  count_variable observed_peak observed_count bootstrap_peaks</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;date&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>         </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span> Anhui     date_of_onset  2013-03-09                 1 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span> Beijing   date_of_onset  2013-04-11                 1 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span> Fujian    date_of_onset  2013-04-17                 1 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span> Guangdong date_of_onset  2013-07-27                 1 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span> Hebei     date_of_onset  2013-07-10                 1 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span> Henan     date_of_onset  2013-04-06                 1 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span> Hunan     date_of_onset  2013-04-14                 1 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> Jiangsu   date_of_onset  2013-03-19                 2 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> Jiangxi   date_of_onset  2013-04-15                 1 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> Shandong  date_of_onset  2013-04-16                 1 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">11</span> Shanghai  date_of_onset  2013-04-01                 4 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">12</span> Taiwan    date_of_onset  2013-04-12                 1 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">13</span> Zhejiang  date_of_onset  2013-04-06                 5 <span style="color: #949494;">&lt;df [100 × 1]&gt;</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 more variables: lower_ci &lt;date&gt;, median &lt;date&gt;, upper_ci &lt;date&gt;</span></span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
