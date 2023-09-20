@@ -11,7 +11,7 @@ Description: Provides functions to work with 'incidence2' objects, including a
   simplified interface for trend fitting and peak estimation. This package is
   part of the RECON (<https://www.repidemicsconsortium.org/>) toolkit for 
   outbreak analysis (<https://www.reconverse.org/).
-URL: https://www.reconverse.org/i2extras/
+URL: https://www.reconverse.org/i2extras/, https://github.com/reconverse/i2extras/
 BugReports: https://github.com/reconverse/i2extras/issues
 Encoding: UTF-8
 License: MIT + file LICENSE
