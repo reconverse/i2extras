@@ -37,5 +37,5 @@ Suggests:
     outbreaks,
     knitr,
     rmarkdown,
+    covr
 VignetteBuilder: knitr
-Config/runiverse/noindex: true
