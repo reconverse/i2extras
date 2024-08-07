@@ -29,9 +29,7 @@ the rolling average.
 
 Defaults to TRUE.}
 
-\item{align}{ character, define if rolling window covers preceding rows
-    (\code{"right"}), following rows (\code{"left"}) or centered
-    (\code{"center"}). Defaults to \code{"right"}. }
+\item{align}{ Character, specifying the "alignment" of the rolling window, defaulting to \code{"right"}. \code{"right"} covers preceding rows (the window \emph{ends} on the current value); \code{"left"} covers following rows (the window \emph{starts} on the current value); \code{"center"} is halfway in between (the window is \emph{centered} on the current value, biased towards \code{"left"} when \code{n} is even). }
 
 \item{colname}{\verb{[character]}
 

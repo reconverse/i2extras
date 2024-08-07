@@ -236,6 +236,7 @@ get_predictors.trending_fit_tbl <- function(x, ...) {
 }
 
 # -------------------------------------------------------------------------
+#' @export
 predict.trending_fit <- function(
     object,
     new_data,
@@ -298,6 +299,7 @@ predict.trending_fit <- function(
 }
 
 # -------------------------------------------------------------------------
+#' @export
 predict.trending_fit_tbl <- function(
     object,
     new_data,

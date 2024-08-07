@@ -7,9 +7,9 @@
 find_peak(x, complete_dates = TRUE, ...)
 }
 \arguments{
-\item{x}{\verb{<incidence2>} object.}
+\item{x}{\link[incidence2:incidence]{incidence2} object.}
 
-\item{complete_dates}{\verb{[bool]}
+\item{complete_dates}{\code{bool}.
 
 Should \code{complete_dates()} be called on the data prior to keeping the first
 entries.
